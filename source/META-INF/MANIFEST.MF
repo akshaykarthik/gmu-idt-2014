@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./
+Class-Path: .
+Main-Class: com.idt.contest.college.winter2014.Main
+

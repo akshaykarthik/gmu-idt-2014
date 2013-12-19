@@ -1,0 +1,8 @@
+-- 12/18/2013 --
+Set up eclipse project
+Started log/documentation process
+
+-- 12/17/2013 --
+Project Started
+Had discussion on architecture.
+Created git repository

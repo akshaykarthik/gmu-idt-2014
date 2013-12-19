@@ -26,7 +26,6 @@ public boolean isGreaterThanTwo(int inputValue) {
 }
 
 
-
 function (inputs...) ->
 	testengine.build(2)
 		.case(equals(input, blah), equals(output, blah)); vcba
