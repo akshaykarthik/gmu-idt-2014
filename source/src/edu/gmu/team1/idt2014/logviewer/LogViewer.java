@@ -56,7 +56,7 @@ public class LogViewer {
 		loadLog.setText("Load Log");
 		loadLog.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt){
-				model.addData("d", "t", "p", "c", "m", "i", "o", "eo");
+				model.addData("d", "t", "p", "c", "m", "b/nb", "i", "o", "eo");
 				/* TODO:
 				 * Load File Picker
 				 * Load Report Data

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 public class ReportTableModel extends AbstractTableModel {
-	final String[] columnNames = { "Date", "Time", "Passed", "Class", "Method",
+	final String[] columnNames = { "Date", "Time", "Passed", "Class", "Method", "Branches",
 			"Input", "Output", "Expected Output" };
 
 	private ArrayList<String[]> rowData = new ArrayList<String[]>();
@@ -14,8 +14,8 @@ public class ReportTableModel extends AbstractTableModel {
 		
 	}
 	
-	public void addData(String date, String time, String passed, String iclass, String method, String input, String output, String expectedOutput){
-		rowData.add(new String[]{date, time, passed, iclass, method, input, output, expectedOutput});
+	public void addData(String date, String time, String passed, String iclass, String method, String branches, String input, String output, String expectedOutput){
+		rowData.add(new String[]{date, time, passed, iclass, method, branches, input, output, expectedOutput});
 		this.fireTableRowsInserted(0, rowData.size());
 	}
 	
