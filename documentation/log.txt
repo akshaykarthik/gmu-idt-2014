@@ -1,3 +1,8 @@
+-- 12/19/2013 --
+Setup basic log file viewer.
+Created Singleton for GMUT (GMU Tester)
+Need to setup table filtering (http://docs.oracle.com/javase/tutorial/uiswing/components/table.html#sorting)
+
 -- 12/18/2013 --
 Set up eclipse project
 Started log/documentation process
