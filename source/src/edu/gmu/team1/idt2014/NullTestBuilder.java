@@ -22,4 +22,10 @@ public class NullTestBuilder implements ITestBuilder {
 		
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

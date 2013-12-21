@@ -27,8 +27,8 @@ public class GMUT extends Thread {
 	}
 
 	public ITestBuilder addTest() {
-		String tclass = TestUtils.getClassName();
-		String tmethod = TestUtils.getMethodName();
+		String tclass = TestUtils.getClassName(2);
+		String tmethod = TestUtils.getMethodName(2);
 		String testName = tclass + "." + tmethod;
 		if (test.containsKey(testName)) {
 			return new NullTestBuilder();
@@ -38,19 +38,19 @@ public class GMUT extends Thread {
 	}
 
 	public void test(Object output, int branch, Object... inputs) {
-		String tclass = TestUtils.getClassName();
-		String tmethod = TestUtils.getMethodName();
+		String tclass = TestUtils.getClassName(2);
+		String tmethod = TestUtils.getMethodName(2);
 		String testName = tclass + "." + tmethod;
 		if (test.containsKey(testName)) {
 			TestStructure tests = test.get(testName);
 			for (Predicate p : tests.testMap.keySet()) {
 				if (p.evaluate(inputs)) {
 					boolean passed = tests.testMap.get(p).evaluate(output);
-					System.out.println("test: " + inputs.toString() + " "
-							+ (passed ? "pass" : "fail"));
+					System.out.println(tests.name + " " + (passed?"pass":"fail"));
 
 					/*
 					 * TODO: Report whether test passed or failed
+					 * reportwriter.logTest(tclass, tmethod, passed, output, inputs...)
 					 */
 				}
 			}

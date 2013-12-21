@@ -1,13 +1,15 @@
 package edu.gmu.team1.idt2014;
 
 public class TestUtils {
-	public static String getMethodName() {
-		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-		return stackTraceElements[3].getMethodName();
+	public static String getMethodName(int depth) {
+		StackTraceElement[] stackTraceElements = Thread.currentThread()
+				.getStackTrace();
+		return stackTraceElements[depth + 1].getMethodName();
 	}
-	
-	public static String getClassName() {
-		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-		return stackTraceElements[3].getClassName();
+
+	public static String getClassName(int depth) {
+		StackTraceElement[] stackTraceElements = Thread.currentThread()
+				.getStackTrace();
+		return stackTraceElements[depth + 1].getClassName();
 	}
 }

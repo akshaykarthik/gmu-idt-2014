@@ -5,12 +5,12 @@ import edu.gmu.team1.idt2014.predicates.Predicate;
 public class TestBuilder implements ITestBuilder {
 	private String tName;
 	
-	private TestStructure tStructure = new TestStructure();
+	private TestStructure tStructure;// = new TestStructure();
 	
 	
 	public TestBuilder(String tName) {
 		this.tName = tName;
-		tStructure = new TestStructure();
+		tStructure = new TestStructure(tName);
 	}
 
 	
@@ -38,6 +38,13 @@ public class TestBuilder implements ITestBuilder {
 	@Override
 	public void build(){
 		GMUT.tester().buildTest(tName, tStructure);
+	}
+
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.tName;
 	}
 
 }

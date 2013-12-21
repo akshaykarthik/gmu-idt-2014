@@ -8,7 +8,7 @@ public class ReportTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	final String[] columnNames = { "Date", "Time", "Passed", "Class", "Method",
-			"Branches", "Input", "Output", "Expected Output" };
+			"Branches", "Input", "Output"};
 
 	private ArrayList<String[]> rowData = new ArrayList<String[]>();
 
@@ -17,10 +17,9 @@ public class ReportTableModel extends AbstractTableModel {
 	}
 
 	public void addData(String date, String time, String passed, String iclass,
-			String method, String branches, String input, String output,
-			String expectedOutput) {
+			String method, String branches, String input, String output) {
 		rowData.add(new String[] { date, time, passed, iclass, method,
-				branches, input, output, expectedOutput });
+				branches, input, output });
 		this.fireTableRowsInserted(0, rowData.size() - 1);
 	}
 

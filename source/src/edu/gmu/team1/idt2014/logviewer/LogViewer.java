@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
 
 public class LogViewer {
@@ -70,7 +68,7 @@ public class LogViewer {
 			public void actionPerformed(ActionEvent evt) {
 				model.addData("d " + increment++, "t " + increment * 2,
 						(Math.random() < 0.5 ? "passed" : "failed"), "c", "m",
-						"b/nb", "i", "o", "eo");
+						"b/nb", "i", "o");
 				/*
 				 * TODO: Load File Picker Load Report Data Add Data to Model
 				 * model.addData(Date, Time, Passed, Class, Method,
