@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
+import javax.swing.JFileChooser;
 
 public class LogViewer {
 
@@ -24,6 +26,8 @@ public class LogViewer {
 	private JButton runFilter;
 	private JTextField filterText;
 	private JTable table;
+	
+	private File file;
 
 	private TableRowSorter<ReportTableModel> sorter;
 	private ReportTableModel model;
@@ -66,9 +70,25 @@ public class LogViewer {
 		loadLog.setText("Load Log");
 		loadLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				model.addData("d " + increment++, "t " + increment * 2,
-						(Math.random() < 0.5 ? "passed" : "failed"), "c", "m",
-						"b/nb", "i", "o");
+//				model.addData("d " + increment++, "t " + increment * 2,
+//						(Math.random() < 0.5 ? "passed" : "failed"), "c", "m",
+//						"b/nb", "i", "o");
+				
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(chooser.FILES_ONLY);
+				int returnVal = chooser.showOpenDialog(null);
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					file = chooser.getSelectedFile();
+					System.out.println("File: " + file.getName());
+				}
+				else{
+					System.out.println("Cancelled");
+				}
+				
+				
+				
+							
+				
 				/*
 				 * TODO: Load File Picker Load Report Data Add Data to Model
 				 * model.addData(Date, Time, Passed, Class, Method,
