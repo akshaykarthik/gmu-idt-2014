@@ -3,14 +3,16 @@ package edu.gmu.team1.idt2014;
 import java.util.concurrent.ConcurrentHashMap;
 
 import edu.gmu.team1.idt2014.predicates.Predicate;
+import edu.gmu.team1.idt2014.reportwriters.IReportWriter;
+import edu.gmu.team1.idt2014.reportwriters.ReportWriter;
 
 public class GMUT extends Thread {
-	private ReportWriter _report;
+	private IReportWriter _report;
 	private ConcurrentHashMap<String, TestStructure> test;
 
 	private GMUT() {
-		setReport(new ReportWriter());
-		test = new ConcurrentHashMap<String, TestStructure>();
+		this._report = new ReportWriter();
+		this.test = new ConcurrentHashMap<String, TestStructure>();
 		this.start();
 	}
 
@@ -26,23 +28,23 @@ public class GMUT extends Thread {
 		return GMUTHolder.INSTANCE;
 	}
 
-	public ITestBuilder addTest() {
+	public static ITestBuilder addTest() {
 		String tclass = TestUtils.getClassName(2);
 		String tmethod = TestUtils.getMethodName(2);
 		String testName = tclass + "." + tmethod;
-		if (test.containsKey(testName)) {
+		if (getInstance().test.containsKey(testName)) {
 			return new NullTestBuilder();
 		}
 
 		return new TestBuilder(testName);
 	}
 
-	public void test(Object output, int branch, Object... inputs) {
+	public static void test(Object output, int branch, Object... inputs) {
 		String tclass = TestUtils.getClassName(2);
 		String tmethod = TestUtils.getMethodName(2);
 		String testName = tclass + "." + tmethod;
-		if (test.containsKey(testName)) {
-			TestStructure tests = test.get(testName);
+		if (getInstance().test.containsKey(testName)) {
+			TestStructure tests = getInstance().test.get(testName);
 			for (Predicate p : tests.testMap.keySet()) {
 				if (p.evaluate(inputs)) {
 					boolean passed = tests.testMap.get(p).evaluate(output);
@@ -57,16 +59,16 @@ public class GMUT extends Thread {
 		}
 	}
 
-	public void buildTest(String tName, TestStructure tStructure) {
-		test.put(tName, tStructure);
+	public static void buildTest(String tName, TestStructure tStructure) {
+		getInstance().test.put(tName, tStructure);
 	}
 
-	public ReportWriter getReport() {
-		return _report;
+	public static IReportWriter getReportWriter() {
+		return getInstance()._report;
 	}
 
-	public void setReport(ReportWriter _report) {
-		this._report = _report;
+	public static void setReportWriter(IReportWriter _report) {
+		getInstance()._report = _report;
 	}
 
 }

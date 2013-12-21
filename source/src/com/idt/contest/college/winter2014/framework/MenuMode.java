@@ -162,6 +162,7 @@ public class MenuMode extends Mode{
 		} catch (InvocationTargetException e) {
 			System.out.println(FrameworkConstants.MENU_OPTION_FAILED + " - " + FrameworkConstants.INVOCATION_TARGET_EXCEPTION);
 			System.out.println(e.getMessage()+"\n");
+			e.printStackTrace(System.out);
 		} catch (NullPointerException e) {}
 		
 	}

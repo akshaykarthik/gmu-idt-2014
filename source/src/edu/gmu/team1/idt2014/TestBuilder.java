@@ -37,7 +37,7 @@ public class TestBuilder implements ITestBuilder {
 	 */
 	@Override
 	public void build(){
-		GMUT.tester().buildTest(tName, tStructure);
+		GMUT.buildTest(tName, tStructure);
 	}
 
 

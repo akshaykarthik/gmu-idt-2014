@@ -77,7 +77,6 @@ public class LogViewer {
 				 * If we can, we should make passed/fail have a greed/red
 				 * background.
 				 */
-
 			}
 		});
 

@@ -20,17 +20,17 @@ public class MathUtility {
 	 * @return boolean - true if the number is even, false if the number is odd
 	 */
 	public boolean isEven(int numToCheck) {
-		GMUT.tester().addTest()
+		GMUT.addTest()
 			.branches(2)
 			.test(new Equals(10), new Equals(true))
 			.test(new Equals(11), new Equals(false))
 			.build();
 		// divide the number by 2 and no remainder exists, the number is even
 		if (numToCheck % 2 == 0) {
-			GMUT.tester().test(true, 1, numToCheck);
+			GMUT.test(true, 1, numToCheck);
 			return true;
 		} else {
-			GMUT.tester().test(false, 2,  numToCheck);
+			GMUT.test(false, 2,  numToCheck);
 			return false;
 		}
 	}
