@@ -1,7 +1,5 @@
 package edu.gmu.team1.idt2014;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 import edu.gmu.team1.idt2014.predicates.Predicate;
@@ -11,7 +9,7 @@ public class GMUT extends Thread {
 	private ConcurrentHashMap<String, TestStructure> test;
 
 	private GMUT() {
-		_report = new ReportWriter();
+		setReport(new ReportWriter());
 		test = new ConcurrentHashMap<String, TestStructure>();
 		this.start();
 	}
@@ -28,16 +26,16 @@ public class GMUT extends Thread {
 		return GMUTHolder.INSTANCE;
 	}
 
-	public TestBuilder addTest() {
+	public ITestBuilder addTest() {
 		String tclass = TestUtils.getClassName();
 		String tmethod = TestUtils.getMethodName();
 		String testName = tclass + "." + tmethod;
 		if (test.containsKey(testName)) {
-			// test exists
+			return new NullTestBuilder();
 		}
+
 		return new TestBuilder(testName);
 	}
-
 
 	public void test(Object output, int branch, Object... inputs) {
 		String tclass = TestUtils.getClassName();
@@ -45,14 +43,14 @@ public class GMUT extends Thread {
 		String testName = tclass + "." + tmethod;
 		if (test.containsKey(testName)) {
 			TestStructure tests = test.get(testName);
-			for(Predicate p : tests.testMap.keySet()){
-				if(p.evaluate(inputs)){
+			for (Predicate p : tests.testMap.keySet()) {
+				if (p.evaluate(inputs)) {
 					boolean passed = tests.testMap.get(p).evaluate(output);
-					System.out.println("test: " + inputs.toString() + " " + (passed?"pass":"fail"));
-				
-					/* TODO:
-					 * Report whether test passed or failed
-					 * 
+					System.out.println("test: " + inputs.toString() + " "
+							+ (passed ? "pass" : "fail"));
+
+					/*
+					 * TODO: Report whether test passed or failed
 					 */
 				}
 			}
@@ -61,6 +59,14 @@ public class GMUT extends Thread {
 
 	public void buildTest(String tName, TestStructure tStructure) {
 		test.put(tName, tStructure);
+	}
+
+	public ReportWriter getReport() {
+		return _report;
+	}
+
+	public void setReport(ReportWriter _report) {
+		this._report = _report;
 	}
 
 }
