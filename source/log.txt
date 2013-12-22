@@ -1,0 +1,7 @@
+[12/22/2013][10:41:04][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
+
+[12/22/2013][10:41:07][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:2/2][i:11][o:false]
+
+[12/22/2013][10:42:24][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
+[12/22/2013][10:42:26][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
+[12/22/2013][10:42:27][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]

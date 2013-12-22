@@ -51,7 +51,7 @@ public class GMUT extends Thread {
 				for (Predicate p : tests.testMap.keySet()) { // for individual test in tests
 					if (p.evaluate(inputs)) { // if input is valid input
 						boolean passed = tests.testMap.get(p).evaluate(output); // did the output evaluate true?
-						//System.out.println(tests.name + " "	+ (passed ? "pass" : "fail"));
+						System.out.println(tests.name + " "	+ (passed ? "pass" : "fail"));
 	
 						getReportWriter().logTest(tclass, tmethod, passed, branch,
 								tests.branches, output, inputs);

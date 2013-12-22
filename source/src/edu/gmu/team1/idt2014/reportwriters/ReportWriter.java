@@ -38,12 +38,12 @@ public class ReportWriter implements IReportWriter{
 			}
 			if (oFile.canWrite()) {
 				String content= getDateTag()+
-						"["+passed+"]"
+						"["+(passed?"pass":"fail")+"]"
 						+"[c:"+tclass+"]"
 						+"[m:"+tmethod+"]"
 						+"[b:"+currentBranch+"/"+allBranches+"]"
 						+getInputTag(inputs)
-						+"[o:"+output+"]";
+						+"[o:"+output+"]\r1\n";
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(FILENAME, true));
 				oWriter.write (content);
