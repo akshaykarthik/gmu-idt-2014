@@ -84,11 +84,7 @@ public class LogViewer {
 				else{
 					System.out.println("Cancelled");
 				}
-				
-				
-				
-							
-				
+								
 				/*
 				 * TODO: Load File Picker Load Report Data Add Data to Model
 				 * model.addData(Date, Time, Passed, Class, Method,

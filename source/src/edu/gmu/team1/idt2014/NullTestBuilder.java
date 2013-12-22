@@ -12,19 +12,16 @@ public class NullTestBuilder implements ITestBuilder {
 
 	@Override
 	public ITestBuilder test(Predicate b, Predicate c) {
-
 		return this;
 	}
 
 	@Override
 	public void build() {
 
-		
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
