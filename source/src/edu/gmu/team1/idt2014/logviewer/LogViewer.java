@@ -90,11 +90,17 @@ public class LogViewer {
 					file = chooser.getSelectedFile();
 				}
 				else{
+<<<<<<< HEAD
 //					System.out.println("Cancelled");
 				}		
 				
 				addRecords(file);
 				
+=======
+					System.out.println("Cancelled");
+				}
+								
+>>>>>>> 272e54cd053d62605cf005f5c758cf8a60c91789
 				/*
 				 * Previous todo noted above addRecords method
 				 */

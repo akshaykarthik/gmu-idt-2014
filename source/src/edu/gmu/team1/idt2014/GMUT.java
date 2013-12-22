@@ -51,9 +51,9 @@ public class GMUT extends Thread {
 					System.out.println(tests.name + " " + (passed?"pass":"fail"));
 
 					/*
-					 * TODO: Report whether test passed or failed
-					 * reportwriter.logTest(tclass, tmethod, passed, output, inputs...)
-					 */
+					 * TODO: Report whether test passed or failed*/
+					 getReportWriter().logTest(tclass, tmethod, passed, output, inputs);
+					 /**/
 				}
 			}
 		}

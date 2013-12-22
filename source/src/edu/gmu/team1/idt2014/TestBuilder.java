@@ -43,7 +43,7 @@ public class TestBuilder implements ITestBuilder {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
+		
 		return this.tName;
 	}
 
