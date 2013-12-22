@@ -1,0 +1,21 @@
+~ Report File Format
+~ Lines starting with tilde should be ignored
+~ [date] - expect mm/dd/yyyy
+~ [time] - expect hh:mm or hh:mm AM/PM
+~ [passed/failed] - expect passed/pass/fail/failed
+~ [c:<CLASS NAME>] - expect a c: followed by the class name
+~ [m:<METHOD NAME>] - expect a m: followed by the method name
+~ [b:<BRANCH>/<BRANCHES>] - expect two integers, branch tested, number of branches
+~ [i:<INPUTS>] - expect null or inputs, delimited by vertical bar ("|")
+~ [o:<OUTPUT>] - expect null or output
+
+[12/19/2013][12:19][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+[12/20/2013][12:20][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+[12/21/2013][12:21][Failed][c:edu.gmu.TestUtils][m:getClassName][b:2/2][i:null][o:null]
+[12/22/2013][12:22][Passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+
+[12/23/2013][12:23][pass][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+[12/24/2013][12:24][fail][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+[12/25/2013][12:25][Pass][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+[12/26/2013][12:26][Fail][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+
