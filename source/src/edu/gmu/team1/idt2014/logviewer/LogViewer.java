@@ -56,8 +56,6 @@ public class LogViewer {
 		initialize();
 	}
 
-	private int increment = 0;
-
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -91,18 +89,11 @@ public class LogViewer {
 				}
 				else{
 
-//					System.out.println("Cancelled");
 				}		
 				
 				addRecords(file);
 				
-				}
-								
-
-				/*
-				 * Previous todo noted above addRecords method
-				 */
-			
+				}			
 		});
 		
 		
@@ -163,6 +154,17 @@ public class LogViewer {
 		final String TIME_PATTERN = "\\d{2}:\\d{2}";
 		final String PASS_PATTERN = "(passed|Passed)|(failed|Failed)|(pass|Pass)|(fail|Fail)";
 		
+		
+		//"(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])"
+		// (?:\\[[cC]\\:) - matches [c:, ignores group ( (?: )
+		// ([a-zA-Z0-9_\\.]*) - matches repeated a-zA-Z0-9_. group
+		// (?:\\]) - matches ], ignores group ( (?: )
+		final String CLASS_PATTERN = "(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+		final String METHOD_PATTERN = "(?:\\[[mM]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+		final String BRANCH_PATTERN = "(?:\\[[bB]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+		final String INPUT_PATTERN = "(?:\\[[iI]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+		final String OUTPUT_PATTERN = "(?:\\[[oO]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+		
 		String date, time, pass, cls, method, branches, input, output, line;
 		date = time = pass = cls = method = branches = input = output = line = "";
 		boolean flag = false;
@@ -205,6 +207,36 @@ public class LogViewer {
 				while(m.find()){
 					pass = m.group(0);
 //					System.out.println("Status: " + pass + "\n");
+				}
+				
+				p = Pattern.compile(CLASS_PATTERN);
+				m = p.matcher(line);
+				while(m.find()){
+					cls = m.group(1);
+				}
+				
+				p = Pattern.compile(METHOD_PATTERN);
+				m = p.matcher(line);
+				while(m.find()){
+					method = m.group(1);
+				}
+				
+				p = Pattern.compile(BRANCH_PATTERN);
+				m = p.matcher(line);
+				while(m.find()){
+					branches = m.group(1);
+				}
+				
+				p = Pattern.compile(INPUT_PATTERN);
+				m = p.matcher(line);
+				while(m.find()){
+					input = m.group(1);
+				}
+				
+				p = Pattern.compile(OUTPUT_PATTERN);
+				m = p.matcher(line);
+				while(m.find()){
+					output = m.group(1);
 				}
 				
 				if((date + time + pass + cls + method + branches + input + output).equals(""))

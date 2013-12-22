@@ -10,6 +10,8 @@ public class GMUT extends Thread {
 	private IReportWriter _report;
 	private ConcurrentHashMap<String, TestStructure> test;
 
+	public static boolean enabled = true;
+	
 	private GMUT() {
 		this._report = new ReportWriter();
 		this.test = new ConcurrentHashMap<String, TestStructure>();
@@ -40,20 +42,20 @@ public class GMUT extends Thread {
 	}
 
 	public static void test(Object output, int branch, Object... inputs) {
-		String tclass = TestUtils.getClassName(2);
-		String tmethod = TestUtils.getMethodName(2);
-		String testName = tclass + "." + tmethod;
-		if (getInstance().test.containsKey(testName)) {
-			TestStructure tests = getInstance().test.get(testName);
-			for (Predicate p : tests.testMap.keySet()) {
-				if (p.evaluate(inputs)) {
-					boolean passed = tests.testMap.get(p).evaluate(output);
-					System.out.println(tests.name + " " + (passed?"pass":"fail"));
-
-					/*
-					 * TODO: Report whether test passed or failed*/
-					 getReportWriter().logTest(tclass, tmethod, passed, output, inputs);
-					 /**/
+		if(enabled){
+			String tclass = TestUtils.getClassName(2);
+			String tmethod = TestUtils.getMethodName(2);
+			String testName = tclass + "." + tmethod;
+			if (getInstance().test.containsKey(testName)) { // if tests exist for given class/method
+				TestStructure tests = getInstance().test.get(testName); 
+				for (Predicate p : tests.testMap.keySet()) { // for individual test in tests
+					if (p.evaluate(inputs)) { // if input is valid input
+						boolean passed = tests.testMap.get(p).evaluate(output); // did the output evaluate true?
+						//System.out.println(tests.name + " "	+ (passed ? "pass" : "fail"));
+	
+						getReportWriter().logTest(tclass, tmethod, passed, branch,
+								tests.branches, output, inputs);
+					}
 				}
 			}
 		}
