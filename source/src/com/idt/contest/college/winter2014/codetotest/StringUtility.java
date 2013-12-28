@@ -2,11 +2,13 @@ package com.idt.contest.college.winter2014.codetotest;
 
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
+import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.predicates.Equals;
+
 /**
  * Class containing String related utility methods
  */
 public class StringUtility {
-
 	
 	/**
 	 * Method that counts the number of vowels in a String
@@ -14,6 +16,12 @@ public class StringUtility {
 	 * @return - int number of vowels in supplied String
 	 */
 	public int countVowels(String stringToCheck) {
+
+		GMUT.addTest()
+			.branches(2)
+			.test(new Equals("aeiou"), new Equals(5))
+			.test(new Equals("bcdfg"), new Equals(0))
+			.build();
 		
 		int vowelCount = 0;
 		char currentChar;
@@ -35,6 +43,7 @@ public class StringUtility {
 		
 		// must check string for null before processing 
 		if (stringToCheck == null) {
+			GMUT.test(vowelCount, 1, stringToCheck);
 			return vowelCount;
 		}
 		
@@ -50,6 +59,7 @@ public class StringUtility {
 			}
 		}
 		
+		GMUT.test(vowelCount, 2, stringToCheck);
 		return vowelCount;
 	}
 	
