@@ -13,6 +13,7 @@ public class Equals extends Predicate {
 	
 	@Override
 	public boolean evaluate(Object ... inputs) {
+	//	System.out.println("initial: " + initial + " inputs" + inputs[0] + " equals " + initial.equals(inputs[0]));
 		return initial.equals(inputs[0]);
 	}
 

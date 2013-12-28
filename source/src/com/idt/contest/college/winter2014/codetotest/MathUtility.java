@@ -70,9 +70,11 @@ public class MathUtility {
 			.branches(1)
 			.test(new Equals(2), new ArrayEquals(2))
 			.test(new Equals(4), new ArrayEquals(2, 2))
-			.test(new Equals(5), new ArrayEquals(13.0))
+			.test(new Equals(5), new ArrayEquals(5))
 			.test(new Equals(12), new ArrayEquals(2, 2, 3))
 			.build();
+		int initialNumber = number;
+		
 		List<Integer> factors = new ArrayList<Integer>();
 		int divider = 2;
 		
@@ -97,6 +99,7 @@ public class MathUtility {
 		}
 		
 		// return int array of prime factors
+		GMUT.test(returnArray, 1, initialNumber);
 		return returnArray;
 	}
 	
