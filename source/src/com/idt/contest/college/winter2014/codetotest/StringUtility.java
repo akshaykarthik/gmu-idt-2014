@@ -21,6 +21,12 @@ public class StringUtility {
 			.branches(2)
 			.test(new Equals("aeiou"), new Equals(5))
 			.test(new Equals("bcdfg"), new Equals(0))
+			.test(new Equals("bcd fgh jkl mnp qrs tvw xyz"), new Equals(0))
+			.test(new Equals("programming"), new Equals(3))
+			.test(new Equals("This is a test of the emergency broadcast system"), new Equals(13))
+			.test(new Equals("1234567890"), new Equals(0))
+			.test(new Equals(""), new Equals(0))
+			.test(new Equals(null), new Equals(0))
 			.build();
 		
 		int vowelCount = 0;
