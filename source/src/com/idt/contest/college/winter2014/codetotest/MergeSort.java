@@ -176,6 +176,7 @@ public class MergeSort {
 	
 	
 	// Swaps the values at the two given indexes in the given array.
+	@SuppressWarnings("unused")
 	private final void swap(int[] a, int i, int j) {
 		if (i != j) {
 			int temp = a[i];

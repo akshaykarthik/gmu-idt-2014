@@ -1,5 +1,8 @@
 package edu.gmu.team1.idt2014.predicates;
 
+/**
+ * This Predicate evaluates whether the first object of the array equals the constructor value.
+ */
 public class Equals extends Predicate {
 
 	private Object initial;

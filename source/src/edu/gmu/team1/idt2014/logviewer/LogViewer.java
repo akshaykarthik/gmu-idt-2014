@@ -142,7 +142,8 @@ public class LogViewer {
 	 * filtering fix on logviewer. 4. Add clear button for the log 5. Clean up.
 	 */
 	private void addRecords(File file) {
-
+		
+		
 		final String IGNORE_LINE_PATTERN = "\\~";
 		final String DATE_PATTERN = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}";
 		final String TIME_PATTERN = "\\d{2}:\\d{2}";
