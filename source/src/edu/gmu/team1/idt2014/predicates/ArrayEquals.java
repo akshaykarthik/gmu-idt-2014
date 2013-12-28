@@ -9,13 +9,16 @@ public class ArrayEquals extends Predicate {
 
 	private Object[] initial;
 	
-	public ArrayEquals(Object[] input){
+	public ArrayEquals(Object... input){
 		initial = input;
 	}
 	
 	@Override
 	public boolean evaluate(Object ... inputs) {
-		return Arrays.deepEquals(initial, inputs);
+		if(initial.length != inputs.length)
+			return false;
+		
+		return Arrays.equals(initial, inputs);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.Equals;
 
 /**
@@ -43,10 +44,19 @@ public class MathUtility {
 	 * @return - integer value of the hypotenus of the triangle
 	 */
 	public double hypotenus(double a, double b) {
-		
+		GMUT.addTest()
+			.branches(1)
+			.test(new ArrayEquals(3.0, 4.0), new Equals(5.0))
+			.test(new ArrayEquals(4.0, 3.0), new Equals(5.0))
+			.test(new ArrayEquals(5.0, 12.0), new Equals(13.0))
+			.test(new ArrayEquals(12.0, 5.0), new Equals(13.0))
+			.build();
 		double aSquared = a * a;
 		double bSquared = b * b;
-		return Math.sqrt(aSquared + bSquared);
+		double c = Math.sqrt(aSquared + bSquared);
+		GMUT.test(c, 1, a, b);
+		return c;
+		
 	}
 	
 	
@@ -56,7 +66,13 @@ public class MathUtility {
 	 * @return - array of ints that represent the prime factors
 	 */
 	public int[] primeFactor(int number) {
-
+		GMUT.addTest()
+			.branches(1)
+			.test(new Equals(2), new ArrayEquals(2))
+			.test(new Equals(4), new ArrayEquals(2, 2))
+			.test(new Equals(5), new ArrayEquals(13.0))
+			.test(new Equals(12), new ArrayEquals(2, 2, 3))
+			.build();
 		List<Integer> factors = new ArrayList<Integer>();
 		int divider = 2;
 		

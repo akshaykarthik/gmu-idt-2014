@@ -5,3 +5,4 @@
 [12/22/2013][10:42:24][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
 [12/22/2013][10:42:26][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
 [12/22/2013][10:42:27][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
+[12/28/2013][14:50:28][fail][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:hypotenus][b:1/2][i:3.0;4.0][o:5.0]1
