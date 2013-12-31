@@ -3,6 +3,7 @@ package edu.gmu.team1.idt2014.reportwriters;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -62,16 +63,59 @@ public class ReportWriter implements IReportWriter{
 		String dateString = dateFormat.format(date);
 		return "["+dateString.substring(0,10)+"]["+dateString.substring(11)+"]";
 	}
+	
 
 	private String getInputTag(Object [] inputs){
 		if(inputs==null) return "[i:"+null+"]";
 		String inputTag ="[i:";
-		for(int x= 0; x<inputs.length-1;x++){
-			inputTag+=inputs[x]+";";
+		for(int x= 0; x<inputs.length;x++){
+
+			if(inputs[x] instanceof String[]){
+				String arrayList = Arrays.toString((String[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof int[]){
+				String arrayList = Arrays.toString((int[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof double[]){
+				String arrayList = Arrays.toString((double[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof float[]){
+				String arrayList = Arrays.toString((float[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof byte[]){
+				String arrayList = Arrays.toString((byte[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof short[]){
+				String arrayList = Arrays.toString((short[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof boolean[]){
+				String arrayList = Arrays.toString((boolean[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else if(inputs[x] instanceof Object[]){
+				String arrayList = Arrays.toString((Object[]) inputs[x]);
+				inputTag+=formatArrayString(arrayList);
+			}
+			else{
+				inputTag+=(inputs[x]+";");
+			}
 		}
-		inputTag+=inputs[inputs.length-1];
 		inputTag+="]";
 		return inputTag;
 	}
+	
+	private static String formatArrayString(String array){
+		return array.replace("]", "")
+				.replace(",", ";")
+				.replace("[", "");
+	}
+
+
 
 }
