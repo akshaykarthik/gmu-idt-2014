@@ -27,6 +27,7 @@ public class StringUtility {
 			.test(new Equals("1234567890"), new Equals(0))
 			.test(new Equals(""), new Equals(0))
 			.test(new Equals(null), new Equals(0))
+			.test(new Equals("hi"), new Equals(1))
 			.build();
 		
 		int vowelCount = 0;
@@ -70,6 +71,10 @@ public class StringUtility {
 	}
 	
 	
+	/* 
+	 * TODO:
+	 * Should be done, but if someone could look over this one for me, I'd appreciate it.
+	 */
 	/**
 	 * Method to return the 2's compliment of a binary String
 	 * @param binaryString - binary string to convert to 2's compliment
@@ -77,6 +82,16 @@ public class StringUtility {
 	 * @return - String representation 2's compliment of binary string
 	 */
 	public String binaryByteTwosCompliment(String binaryByteString) {
+		
+		GMUT.addTest()
+		.branches(3)
+		.test(new Equals("0000"), new Equals("00000000"))
+		.test(new Equals("1111"), new Equals("11110001"))
+		.test(new Equals("0200"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+		.test(new Equals("0101 anything else 010101"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+		.test(new Equals("0101"), new Equals("11111011"))
+		.test(new Equals("000000000000000101"), new Equals("111111111111111011"))
+		.test(new Equals("1"), new Equals("11111111"));
 	
 		String binaryRepresentation = "";
 		char currentChar;
@@ -85,6 +100,8 @@ public class StringUtility {
 		
 		// if the binary byte string is null or empty, return an error string
 		if (binaryByteString == null || binaryByteString.isEmpty()) {
+			
+			GMUT.test(FrameworkConstants.BINARY_REPRESENTATION_ERROR, 1, binaryByteString);
 			return FrameworkConstants.BINARY_REPRESENTATION_ERROR;
 		}
 		
@@ -123,10 +140,12 @@ public class StringUtility {
 				
 			} else {
 				// binary byte string contained a non 1 or 0 character, return an error string
+				GMUT.test(FrameworkConstants.BINARY_REPRESENTATION_ERROR, 2, binaryByteString);
 				return FrameworkConstants.BINARY_REPRESENTATION_ERROR;
 			}
 		}
 		
+		GMUT.test(formatBinaryByteString(binaryRepresentation), 3, binaryByteString);
 		return formatBinaryByteString(binaryRepresentation);
 	}
 	
