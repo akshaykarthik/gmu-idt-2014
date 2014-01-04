@@ -10,6 +10,7 @@ import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.Equals;
 import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
+
 /**
  * Class containing math related utility methods 
  */
