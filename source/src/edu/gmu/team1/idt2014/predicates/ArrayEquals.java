@@ -19,22 +19,19 @@ public class ArrayEquals extends Predicate {
 	@Override
 	public boolean evaluate(Object... inputs) {
 
-		Object[] objectArray = null;
-
-		if (inputs[0].getClass() == int[].class)
-			objectArray = TestUtils.toIntegerArray((int[]) inputs[0]);
-		else if (inputs[0].getClass() == float[].class)
-			objectArray = TestUtils.toFloatArray((float[]) inputs[0]);
-		else if (inputs[0].getClass() == double[].class)
-			objectArray = TestUtils.toDoubleArray((double[]) inputs[0]);
-		else {
-			try {
-				objectArray = (Object[]) inputs[0];
-			} catch (Exception ex) {
-				return false;
-			}
-		}
-
+		Object[] objectArray = TestUtils.toObjectArray(inputs[0]);
+//		= null;
+//		System.out.println("initial");
+//		for(Object o : initial){
+//			System.out.println(o);
+//		}
+//		
+//		System.out.println("inputs");
+//		for(Object o : inputs){
+//			System.out.println(o);
+//		}
+//		
+//		objectArray 
 		return Arrays.equals(initial, objectArray);
 
 	}

@@ -82,16 +82,17 @@ public class StringUtility {
 	 * @return - String representation 2's compliment of binary string
 	 */
 	public String binaryByteTwosCompliment(String binaryByteString) {
-		
 		GMUT.addTest()
-		.branches(3)
-		.test(new Equals("0000"), new Equals("00000000"))
-		.test(new Equals("1111"), new Equals("11110001"))
-		.test(new Equals("0200"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
-		.test(new Equals("0101 anything else 010101"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
-		.test(new Equals("0101"), new Equals("11111011"))
-		.test(new Equals("000000000000000101"), new Equals("111111111111111011"))
-		.test(new Equals("1"), new Equals("11111111"));
+			.branches(3)
+			.test(new Equals("0000"), new Equals("00000000"))
+			.test(new Equals("1111"), new Equals("11110001"))
+			.test(new Equals("0200"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+			.test(new Equals("0101 anything else 010101"), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+			.test(new Equals("0101"), new Equals("11111011"))
+			.test(new Equals("000000000000000101"), new Equals("111111111111111011"))
+			.test(new Equals("1"), new Equals("11111111"))
+			.build();
+		String orig = binaryByteString;
 	
 		String binaryRepresentation = "";
 		char currentChar;
@@ -145,7 +146,7 @@ public class StringUtility {
 			}
 		}
 		
-		GMUT.test(formatBinaryByteString(binaryRepresentation), 3, binaryByteString);
+		GMUT.test(formatBinaryByteString(binaryRepresentation), 3, orig);
 		return formatBinaryByteString(binaryRepresentation);
 	}
 	
