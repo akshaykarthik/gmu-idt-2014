@@ -8,6 +8,7 @@ import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
 /**
  * Class containing math related utility methods 
@@ -114,7 +115,14 @@ public class MathUtility {
 	 * @return - String representation of binomial product
 	 */
 	public String multiplySimpleBinomials(short x1, short ones1, short x2, short ones2) {
-		
+		GMUT.addTest()
+			.branches(1)
+			.test(new MultiEquals(1, 3, 1, 2), new Equals("x^2 + 5x + 6"))
+			.test(new MultiEquals(1, -4, 1, -3), new Equals("x^2 - 7x + 12"))
+			.test(new MultiEquals(2, 2, -2, 2), new Equals("-4x^2 + 4"))
+			.test(new MultiEquals(-4, 1, 3, -1), new Equals("-12x^2 + 7x - 1"))
+			.test(new MultiEquals(-11, -2, -8, -3), new Equals("88x^2 + 49x + 6"))
+			.build();
 		boolean notTheFirst = false;
 		String binomialResult = "";
 		
@@ -173,6 +181,7 @@ public class MathUtility {
 			binomialResult += Math.abs(last);
 		}
 		
+		GMUT.test(binomialResult, 1, x1, ones1, x2, ones2);
 		return binomialResult;
 	}
 	

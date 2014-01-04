@@ -72,8 +72,7 @@ public class StringUtility {
 	
 	
 	/* 
-	 * TODO:
-	 * Should be done, but if someone could look over this one for me, I'd appreciate it.
+	 * TODO: Should be done, but if someone could look over this one for me, I'd appreciate it.
 	 */
 	/**
 	 * Method to return the 2's compliment of a binary String

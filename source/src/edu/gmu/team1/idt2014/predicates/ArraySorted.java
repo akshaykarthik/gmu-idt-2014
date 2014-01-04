@@ -4,7 +4,7 @@ package edu.gmu.team1.idt2014.predicates;
 /**
  */
 public class ArraySorted<T extends Comparable<T>> extends Predicate {
-
+	//XXX: Broken
 	@Override
 	public boolean evaluate(Object... inputs) {
 		try {
