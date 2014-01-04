@@ -16,3 +16,8 @@
 [01/03/2014][20:17:22][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
 [01/03/2014][21:05:11][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
 [01/03/2014][21:06:10][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
+[01/03/2014][21:27:46][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:00110011;][o:11001101]1
+[01/03/2014][21:28:41][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:2/3][i:0101 anything else 010101;][o:binary string passed in contained characters other than 1s and 0s]1
+[01/03/2014][22:00:40][fail][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:formatBinaryByteString][b:2/2][i:;][o:00000000]1
+[01/03/2014][22:00:59][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:formatBinaryByteString][b:2/2][i:1;][o:00000001]1
+[01/03/2014][22:01:12][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:formatBinaryByteString][b:2/2][i:0101;][o:00000101]1

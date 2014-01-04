@@ -70,10 +70,7 @@ public class StringUtility {
 		return vowelCount;
 	}
 	
-	
-	/* 
-	 * TODO: Should be done, but if someone could look over this one for me, I'd appreciate it.
-	 */
+
 	/**
 	 * Method to return the 2's compliment of a binary String
 	 * @param binaryString - binary string to convert to 2's compliment
@@ -152,7 +149,15 @@ public class StringUtility {
 		return formatBinaryByteString(binaryRepresentation);
 	}
 	
-	
+	/*
+	 * XXX:
+	 * formatBinaryString() allows you to input an empty string and return 00000000.
+	 * The method binaryByteTwosComplement() above returns by default BINARY_REPRESENTATION_ERROR
+	 * when given an empty string or null. formatBinaryString() only does this for null.
+	 * 
+	 * Also, it allows you to take in any character in a String, not only 1's and 0's.
+	 * I'm not sure if that's really a bug, so I didn't test for it.
+	 */
 	/**
 	 * Method to format a binary byte string to 8 characters
 	 * @param binaryByteString - binary byte string to format
@@ -160,8 +165,19 @@ public class StringUtility {
 	 */
 	public String formatBinaryByteString(String binaryByteString) {
 		
+		GMUT.addTest()
+			.branches(2)
+			.test(new Equals(""), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+			.test(new Equals(null), new Equals(FrameworkConstants.BINARY_REPRESENTATION_ERROR))
+			.test(new Equals("0101"), new Equals("00000101"))
+			.test(new Equals("000000000000000101"), new Equals("00000101"))
+			.test(new Equals("1"), new Equals("00000001"))
+			.build();
+		String orig = binaryByteString;
+			
 		//  handle null pointers by returning an error string
 		if (binaryByteString == null) {
+			GMUT.test(FrameworkConstants.BINARY_REPRESENTATION_ERROR, 1, orig);
 			return FrameworkConstants.BINARY_REPRESENTATION_ERROR;
 		}
 		
@@ -175,6 +191,7 @@ public class StringUtility {
 			binaryByteString = binaryByteString.substring(binaryByteString.length() - FrameworkConstants.BITS_IN_BYTE);
 		}
 		
+		GMUT.test(binaryByteString, 2, orig);
 		return binaryByteString;
 	}
 	
