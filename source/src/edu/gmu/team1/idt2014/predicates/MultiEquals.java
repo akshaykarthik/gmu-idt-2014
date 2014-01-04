@@ -8,17 +8,18 @@ import edu.gmu.team1.idt2014.TestUtils;
  * This Predicate evaluates whether the first object of the array equals the
  * constructor array.
  */
-public class ArrayEquals extends Predicate {
+public class MultiEquals extends Predicate {
 
 	private Object[] initial;
 
-	public ArrayEquals(Object... input) {
+	public MultiEquals(Object... input) {
 		initial = input;
 	}
-	
+
 	@Override
+	
 	public boolean evaluate(Object... inputs) {
-		Object[] objectArray = TestUtils.toObjectArray(inputs[0]);
-		return Arrays.deepEquals(initial, objectArray);
+		Object[] objectArray = TestUtils.toObjectArray(inputs);
+		return Arrays.deepToString(initial).equals(Arrays.deepToString(objectArray));
 	}
 }
