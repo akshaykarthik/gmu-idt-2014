@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -157,7 +156,6 @@ public class LogViewer {
 	private void addRecords(File file) {
 
 		String line = "";
-		boolean flag = false;
 		Scanner scan = null;
 		try {
 			Pattern regex = Pattern.compile(
@@ -173,7 +171,7 @@ public class LogViewer {
 					Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.COMMENTS);
 			
 			scan = new Scanner(file);
-			while ((line = scan.nextLine()) != null) {
+			while ((line = scan.nextLine()) != null && !line.isEmpty()) {
 				Matcher regexMatcher = regex.matcher(line);
 				boolean matched = regexMatcher.find();
 				String date = regexMatcher.group("date");

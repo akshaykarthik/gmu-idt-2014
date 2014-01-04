@@ -151,7 +151,7 @@ public class StringUtility {
 	}
 	
 	/*
-	 * XXX:
+	 * XXX: formatBinaryByteString
 	 * formatBinaryString() allows you to input an empty string and return 00000000.
 	 * The method binaryByteTwosComplement() above returns by default BINARY_REPRESENTATION_ERROR
 	 * when given an empty string or null. formatBinaryString() only does this for null.

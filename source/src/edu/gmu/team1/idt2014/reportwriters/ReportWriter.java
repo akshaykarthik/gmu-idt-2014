@@ -44,12 +44,16 @@ public class ReportWriter implements IReportWriter {
 				oFile.createNewFile();
 			}
 			if (oFile.canWrite()) {
-				String content = getDateTag() + "["
-						+ (passed ? "pass" : "fail") + "]" + "[c:" + tclass
-						+ "]" + "[m:" + tmethod + "]" + "[b:" + currentBranch
-						+ "/" + allBranches + "]" + getInputTag(inputs) + "[o:"
-						+ output + "]" + "[n:" + (notes == null ? "" : notes)
-						+ "]\r1\n";
+				String format = "[%s][%s][%s][c:%s][m:%s][b:%s][i:%s][o:%s][n:%s]";
+				String content = String.format(format,
+						getDateTag(),
+						(passed ? "pass" : "fail"),
+						tclass,
+						tmethod,
+						currentBranch + "/" + allBranches,
+						getInputTag(inputs),
+						output,
+						notes == null ? "" : notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
 						FILENAME, true));
