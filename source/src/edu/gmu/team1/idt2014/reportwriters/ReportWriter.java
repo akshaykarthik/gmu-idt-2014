@@ -44,7 +44,7 @@ public class ReportWriter implements IReportWriter {
 				oFile.createNewFile();
 			}
 			if (oFile.canWrite()) {
-				String format = "[%s][%s][%s][c:%s][m:%s][b:%s][i:%s][o:%s][n:%s]";
+				String format = "%s[%s][c:%s][m:%s][b:%s][i:%s][o:%s][n:%s]";
 				String content = String.format(format,
 						getDateTag(),
 						(passed ? "pass" : "fail"),

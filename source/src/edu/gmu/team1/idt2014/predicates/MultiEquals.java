@@ -20,7 +20,6 @@ public class MultiEquals extends Predicate {
 	
 	public boolean evaluate(Object... inputs) {
 		Object[] objectArray = TestUtils.toObjectArray(inputs);
-		return Arrays.deepEquals(initial, objectArray);
-		//Arrays.deepToString(initial).equals(Arrays.deepToString(objectArray));
+		return Arrays.deepToString(initial).equals(Arrays.deepToString(objectArray));
 	}
 }
