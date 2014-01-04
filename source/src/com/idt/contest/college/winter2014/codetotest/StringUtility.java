@@ -4,6 +4,7 @@ import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
 /**
  * Class containing String related utility methods
@@ -195,7 +196,6 @@ public class StringUtility {
 		return binaryByteString;
 	}
 	
-	
 	/**
 	 * Method to find the index of the first location a specific character appears in a String
 	 * @param stringToCheck - String to check for specific character
@@ -204,16 +204,28 @@ public class StringUtility {
 	 */
 	public int indexOfFirstSpecificChar(String stringToCheck, char charToLookFor) {
 		
+		GMUT.addTest()
+			.branches(3)
+			.test(new MultiEquals("12345", 5), new Equals(4))
+			.test(new MultiEquals("lllll", 'l'), new Equals(0))
+			.test(new MultiEquals("hello", 'l'), new Equals(2))
+			.test(new MultiEquals("hello", 'h'), new Equals(0))
+			.test(new MultiEquals("hello", 'z'), new Equals(FrameworkConstants.INVALID_VALUE))
+			.build();
+		
 		if (stringToCheck == null) {
+			GMUT.test(FrameworkConstants.INVALID_VALUE, 1, stringToCheck, charToLookFor);
 			return FrameworkConstants.INVALID_VALUE;
 		}
 		
 		for (int i = 0; i < stringToCheck.length(); i++) {
 			if (stringToCheck.charAt(i) == charToLookFor) {
+				GMUT.test(i, 2, stringToCheck, charToLookFor);
 				return i;
 			}
 		}
 		
+		GMUT.test(FrameworkConstants.INVALID_VALUE, 3, stringToCheck, charToLookFor);
 		return FrameworkConstants.INVALID_VALUE;
 	}
 	
@@ -226,16 +238,28 @@ public class StringUtility {
 	 */
 	public int indexOfLastSpecificChar(String stringToCheck, char charToLookFor) {
 		
+		GMUT.addTest()
+			.branches(3)
+			.test(new MultiEquals("12345", 5), new Equals(4))
+			.test(new MultiEquals("lll", 'l'), new Equals(2))
+			.test(new MultiEquals("hello", 'l'), new Equals(3))
+			.test(new MultiEquals("hello", 'h'), new Equals(0))
+			.test(new MultiEquals("hello", 'z'), new Equals(FrameworkConstants.INVALID_VALUE))
+			.build();
+		
 		if (stringToCheck == null) {
+			GMUT.test(FrameworkConstants.INVALID_VALUE, 1, stringToCheck, charToLookFor);
 			return FrameworkConstants.INVALID_VALUE;
 		}
 		
 		for (int i = stringToCheck.length() - 1; i >= 0; i--) {
 			if (stringToCheck.charAt(i) == charToLookFor) {
+				GMUT.test(i, 2, stringToCheck, charToLookFor);
 				return i;
 			}
 		}
 		
+		GMUT.test(FrameworkConstants.INVALID_VALUE, 3, stringToCheck, charToLookFor);
 		return FrameworkConstants.INVALID_VALUE;
 	}
 }
