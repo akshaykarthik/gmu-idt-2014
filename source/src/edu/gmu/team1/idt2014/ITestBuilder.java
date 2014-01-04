@@ -7,6 +7,8 @@ public interface ITestBuilder {
 	public abstract ITestBuilder branches(int br);
 
 	public abstract ITestBuilder test(Predicate b, Predicate c);
+	
+	public abstract ITestBuilder testNote(String note, Predicate b, Predicate c);
 
 	public abstract void build();
 	

@@ -1,7 +1,5 @@
 [12/22/2013][10:41:04][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
-
 [12/22/2013][10:41:07][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:2/2][i:11][o:false]
-
 [12/22/2013][10:42:24][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
 [12/22/2013][10:42:26][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
 [12/22/2013][10:42:27][true][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true]
@@ -31,3 +29,4 @@
 [01/04/2014][13:13:07][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfLastSpecificChar][b:2/3][i:12345;5;][o:4]1
 [01/04/2014][13:13:15][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfFirstSpecificChar][b:2/3][i:hello;h;][o:0]1
 [01/04/2014][13:13:23][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfFirstSpecificChar][b:3/3][i:hello;z;][o:-1]1
+[01/04/2014][11:39:43][pass][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true][n:test evens]

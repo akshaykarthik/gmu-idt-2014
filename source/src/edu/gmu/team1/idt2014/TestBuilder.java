@@ -14,37 +14,35 @@ public class TestBuilder implements ITestBuilder {
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see edu.gmu.team1.idt2014.ITestBuilder#branches(int)
-	 */
+	@Override
+	public String getName() {
+		
+		return this.tName;
+	}
+
+
 	@Override
 	public ITestBuilder branches(int br){
 		tStructure.branches = br;
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.gmu.team1.idt2014.ITestBuilder#test(edu.gmu.team1.idt2014.predicates.Predicate, edu.gmu.team1.idt2014.predicates.Predicate)
-	 */
 	@Override
 	public ITestBuilder test(Predicate b, Predicate c) {
 		tStructure.testMap.put(b,  c);
 		return this;
 	}
 	
-	/* (non-Javadoc)
-	 * @see edu.gmu.team1.idt2014.ITestBuilder#build()
-	 */
+	@Override
+	public ITestBuilder testNote(String note, Predicate b, Predicate c) {
+		tStructure.notesMap.put(b, note);
+		test(b, c);
+		return this;
+	}
+
 	@Override
 	public void build(){
 		GMUT.buildTest(tName, tStructure);
-	}
-
-
-	@Override
-	public String getName() {
-		
-		return this.tName;
 	}
 
 }

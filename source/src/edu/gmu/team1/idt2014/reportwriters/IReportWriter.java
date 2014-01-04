@@ -12,6 +12,6 @@ package edu.gmu.team1.idt2014.reportwriters;
 public interface IReportWriter {
 
 	void logTest(String tclass, String tmethod, boolean passed,int currentBranch, int allBranches, Object output,
-			Object[] inputs);
+			Object[] inputs, String string);
 
 }

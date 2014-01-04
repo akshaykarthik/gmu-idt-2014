@@ -24,8 +24,8 @@ public class MathUtility {
 	public boolean isEven(int numToCheck) {
 		GMUT.addTest()
 			.branches(2)
-			.test(new Equals(10), new Equals(true))
-			.test(new Equals(11), new Equals(false))
+			.testNote("test evens", new Equals(10), new Equals(true))
+			.testNote("test odds", new Equals(11), new Equals(false))
 			.build();
 		// divide the number by 2 and no remainder exists, the number is even
 		if (numToCheck % 2 == 0) {
@@ -117,11 +117,16 @@ public class MathUtility {
 	public String multiplySimpleBinomials(short x1, short ones1, short x2, short ones2) {
 		GMUT.addTest()
 			.branches(1)
-			.test(new MultiEquals(1, 3, 1, 2), new Equals("x^2 + 5x + 6"))
-			.test(new MultiEquals(1, -4, 1, -3), new Equals("x^2 - 7x + 12"))
-			.test(new MultiEquals(2, 2, -2, 2), new Equals("-4x^2 + 4"))
-			.test(new MultiEquals(-4, 1, 3, -1), new Equals("-12x^2 + 7x - 1"))
-			.test(new MultiEquals(-11, -2, -8, -3), new Equals("88x^2 + 49x + 6"))
+				.test(new MultiEquals((short) 1, (short) 3, (short) 1,
+						(short) 2), new Equals("x^2 + 5x + 6"))
+				.test(new MultiEquals((short) 1, (short) -4, (short) 1,
+						(short) -3), new Equals("x^2 - 7x + 12"))
+				.test(new MultiEquals((short) 2, (short) 2, (short) -2,
+						(short) 2), new Equals("-4x^2 + 4"))
+				.test(new MultiEquals((short) -4, (short) 1, (short) 3,
+						(short) -1), new Equals("-12x^2 + 7x - 1"))
+				.test(new MultiEquals((short) -11, (short) -2, (short) -8,
+						(short) -3), new Equals("88x^2 + 49x + 6"))
 			.build();
 		boolean notTheFirst = false;
 		String binomialResult = "";

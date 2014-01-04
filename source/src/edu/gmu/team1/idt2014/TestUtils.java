@@ -1,7 +1,5 @@
 package edu.gmu.team1.idt2014;
 
-import java.util.Arrays;
-
 public class TestUtils {
 	/**
 	 * @param depth
@@ -21,19 +19,19 @@ public class TestUtils {
 
 	public static Object[] toObjectArray(Object input) {
 		if (input instanceof int[]) {
-			return toIntegerArray((int[])input);
+			return toIntegerArray((int[]) input);
 		} else if (input instanceof double[]) {
-			return toDoubleArray((double[])input);
+			return toDoubleArray((double[]) input);
 		} else if (input instanceof float[]) {
-			return toFloatArray((float[])input);
+			return toFloatArray((float[]) input);
 		} else if (input instanceof byte[]) {
-			return toByteArray((byte[])input);
+			return toByteArray((byte[]) input);
 		} else if (input instanceof short[]) {
-			return toShortArray((short[])input);
+			return toShortArray((short[]) input);
 		} else if (input instanceof boolean[]) {
-			return toBoolArray((boolean[])input);
+			return toBoolArray((boolean[]) input);
 		} else {
-			return (Object[])input;
+			return (Object[]) input;
 		}
 	}
 
@@ -78,6 +76,4 @@ public class TestUtils {
 			returnVal[i] = new Boolean(input[i]);
 		return returnVal;
 	}
-	
-	
 }
