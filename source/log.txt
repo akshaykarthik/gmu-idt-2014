@@ -13,3 +13,6 @@
 [01/03/2014][19:23:53][fail][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:countVowels][b:2/2][i:1234567890;][o:1]1
 [01/03/2014][19:43:09][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:0000;][o:00000000]1
 [01/03/2014][19:43:54][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:0000;][o:00000000]1
+[01/03/2014][20:17:22][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
+[01/03/2014][21:05:11][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
+[01/03/2014][21:06:10][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:binaryByteTwosCompliment][b:3/3][i:1111;][o:11110001]1
