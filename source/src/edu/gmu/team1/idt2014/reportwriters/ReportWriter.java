@@ -69,7 +69,6 @@ public class ReportWriter implements IReportWriter{
 		if(inputs==null) return "[i:"+null+"]";
 		String inputTag ="[i:";
 		for(int x= 0; x<inputs.length;x++){
-
 			if(inputs[x] instanceof String[]){
 				String arrayList = Arrays.toString((String[]) inputs[x]);
 				inputTag+=formatArrayString(arrayList);
