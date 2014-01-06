@@ -21,6 +21,7 @@ public class StringUtility {
 		GMUT.addTest()
 			.branches(2)
 			.test(new Equals("aeiou"), new Equals(5))
+			.test(new Equals("AEIOU"), new Equals(5))
 			.test(new Equals("bcdfg"), new Equals(0))
 			.test(new Equals("bcd fgh jkl mnp qrs tvw xyz"), new Equals(0))
 			.test(new Equals("programming"), new Equals(3))
@@ -206,7 +207,7 @@ public class StringUtility {
 		
 		GMUT.addTest()
 			.branches(3)
-			.test(new MultiEquals("12345", 5), new Equals(4))
+			.test(new MultiEquals("12345", '5'), new Equals(4))
 			.test(new MultiEquals("lllll", 'l'), new Equals(0))
 			.test(new MultiEquals("hello", 'l'), new Equals(2))
 			.test(new MultiEquals("hello", 'h'), new Equals(0))
@@ -240,7 +241,7 @@ public class StringUtility {
 		
 		GMUT.addTest()
 			.branches(3)
-			.test(new MultiEquals("12345", 5), new Equals(4))
+			.test(new MultiEquals("12345", '5'), new Equals(4))
 			.test(new MultiEquals("lll", 'l'), new Equals(2))
 			.test(new MultiEquals("hello", 'l'), new Equals(3))
 			.test(new MultiEquals("hello", 'h'), new Equals(0))

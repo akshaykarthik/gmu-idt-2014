@@ -2,6 +2,9 @@ package com.idt.contest.college.winter2014.codetotest;
 
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
+import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.predicates.Equals;
+
 /**
  * Class containing byte related utility methods
  */
@@ -14,6 +17,16 @@ public class ByteUtility {
 	 * @return - String binary representation of byte, 2's compliment if the byte is negative
 	 */
 	public String byteToBinytaryString(byte b) {
+		
+		GMUT.addTest()
+			.branches(2)
+			.test(new Equals((byte)127), new Equals("1111111"))
+			.test(new Equals((byte)-128), new Equals("10000000"))
+			.test(new Equals((byte)57), new Equals("111001"))
+			.test(new Equals((byte)0), new Equals(FrameworkConstants.ZERO_STRING))
+			.test(new Equals((byte)-57), new Equals("11000111"))
+			.build();
+		byte orig = b;
 		
 		byte remainder = 0;
 		byte number = b;
@@ -36,6 +49,8 @@ public class ByteUtility {
 			//
 			//
 			//
+			
+			GMUT.test(FrameworkConstants.ONE_STRING, 1, b);
 			return FrameworkConstants.ONE_STRING;
 		}
 		
@@ -60,6 +75,7 @@ public class ByteUtility {
 			binaryRepresentation = su.binaryByteTwosCompliment(binaryRepresentation);
 		}
 		
+		GMUT.test(binaryRepresentation, 2, orig);
 		return binaryRepresentation;
 	}
 	
