@@ -50,7 +50,7 @@ public class GMUT extends Thread {
 				TestStructure tests = getInstance().test.get(testName); 
 				for (Predicate p : tests.testMap.keySet()) { // for individual test in tests
 					if (p.evaluate(inputs)) { // if input is valid input
-						System.out.println(tests.notesMap.get(p));
+						// System.out.println(tests.notesMap.get(p));
 						
 						boolean passed = tests.testMap.get(p).evaluate(output); // did the output evaluate true?
 						System.out.println(tests.name + " "	+ (passed ? "pass" : "fail"));
