@@ -10,6 +10,7 @@ import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.Equals;
 import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
+
 /**
  * Class containing math related utility methods 
  */
@@ -47,10 +48,10 @@ public class MathUtility {
 	public double hypotenus(double a, double b) {
 		GMUT.addTest()
 			.branches(1)
-			.test(new ArrayEquals(3.0, 4.0), new Equals(5.0))
-			.test(new ArrayEquals(4.0, 3.0), new Equals(5.0))
-			.test(new ArrayEquals(5.0, 12.0), new Equals(13.0))
-			.test(new ArrayEquals(12.0, 5.0), new Equals(13.0))
+			.test(new MultiEquals(3.0, 4.0), new Equals(5.0))
+			.test(new MultiEquals(4.0, 3.0), new Equals(5.0))
+			.test(new MultiEquals(5.0, 12.0), new Equals(13.0))
+			.test(new MultiEquals(12.0, 5.0), new Equals(13.0))
 			.build();
 		double aSquared = a * a;
 		double bSquared = b * b;
@@ -198,16 +199,23 @@ public class MathUtility {
 	 * @return - float amount of currency you finish with
 	 */
 	public float convertCurrency(float amount, float rate) {
-		
+		GMUT.addTest()
+			.branches(3)
+			.test(new MultiEquals(1.0f, 0.61f), new Equals(0.61f))
+			.test(new MultiEquals(100.0f, 0.73f), new Equals(73f))
+			.build();
 		// if the amount is zero, the result will be zero
 		// if the rate is zero, the result will be zero
 		if (amount == 0 || rate == 0) {
+			GMUT.test(0, 1, amount, rate);
 			return 0;
 		// if the rate is one, the amount will not be transformed
 		} else if (rate == 1) {
+			GMUT.test(amount, 2, amount, rate);
 			return amount;
 		// otherwise we multiply the amount by the exchange rate
 		} else {
+			GMUT.test(amount * rate, 3, amount, rate);
 			return amount * rate;
 		}
 	}

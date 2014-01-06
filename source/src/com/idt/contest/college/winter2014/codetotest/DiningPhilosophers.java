@@ -3,12 +3,17 @@ package com.idt.contest.college.winter2014.codetotest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
+import edu.gmu.team1.idt2014.*;
 
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
-import edu.gmu.team1.idt2014.predicates.ArrayEquals;
-import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.*;
 
 /**
  * This problem is based on the description at: 
@@ -26,7 +31,7 @@ import edu.gmu.team1.idt2014.predicates.Equals;
  * 
  */
 public class DiningPhilosophers {
-
+	Lock lock = new ReentrantLock();
 	enum State { THINKING, 
 		EATING, 
 		WAITING_FOR_LOWER_FORK,
@@ -68,6 +73,7 @@ public class DiningPhilosophers {
 			Philosopher[] philosophers = new Philosopher[_numberOfPhilosophers];
 			for (int i = 0; i < _numberOfPhilosophers; i++) {
 				philosophers[i] = new Philosopher(i, _numberOfTimesToEat);
+			
 			}
 
 			// tell the philosophers that they can start thinking and eating
@@ -224,13 +230,14 @@ public class DiningPhilosophers {
 			 * @return - smaller number of the two parameters
 			 */
 			private int determineLowestValue(int _left, int _right) {
+
 				GMUT.addTest()
 				.branches(3)
-				.test(new ArrayEquals(10,12), new Equals(10))
-				.test(new ArrayEquals(12,12), new Equals(12))
-				.test(new ArrayEquals(40,0), new Equals(0))
+				.test(new MultiEquals(10,12), new Equals(10))
+				.test(new MultiEquals(12,12), new Equals(12))
+				.test(new MultiEquals(40,0), new Equals(0))
 				.build();
-				
+
 				int lowestValue;
 				if (_left < _right) {
 					GMUT.test(_left, 1, _left,_right);
@@ -257,9 +264,9 @@ public class DiningPhilosophers {
 
 				GMUT.addTest()
 				.branches(3)
-				.test(new ArrayEquals(16,12), new Equals(16))
-				.test(new ArrayEquals(12,12), new Equals(12))
-				.test(new ArrayEquals(10,12), new Equals(12))
+				.test(new MultiEquals(16,12), new Equals(16))
+				.test(new MultiEquals(12,12), new Equals(12))
+				.test(new MultiEquals(10,12), new Equals(12))
 				.build();
 
 				int highestValue;
@@ -285,11 +292,12 @@ public class DiningPhilosophers {
 			 * @return - index for the left fork for the philosopher
 			 */
 			private int determineLeftForkValue(int _id, int _numOfForks) {
+
 				int left;
 				GMUT.addTest()
 				.branches(2)
-				.test(new ArrayEquals(0,13), new Equals(1))
-				.test(new ArrayEquals(11,12), new Equals(10))
+				.test(new MultiEquals(0), new Equals(3))
+				.test(new MultiEquals(11,12), new Equals(10))
 				.build();
 
 				if (_id == 0) {
@@ -334,7 +342,7 @@ public class DiningPhilosophers {
 			int getNumberOfTimesEaten() {
 				return this.numberOfTimesEaten;
 			}
-	
+
 
 			/**
 			 * Method to check if a fork is available
@@ -343,10 +351,12 @@ public class DiningPhilosophers {
 			 * @return - true if fork is available, false if fork is unavailable
 			 */
 			private boolean isForkAvailable(int _forkIndex, int[] _forks) {
+
 				GMUT.addTest()
 				.branches(2)
-				.test(new ArrayEquals(0, new int[]{0,2,3}), new Equals(false))
-				.test(new ArrayEquals(1, new int[]{0,-1,3}), new Equals(true))
+				.test(new MultiEquals(0, new int[]{-1,-1,-1,-1}), new Equals(true))
+				.test(new MultiEquals(1, new int[]{-1,-1,-1,-1}), new Equals(true))
+				.test(new MultiEquals(0, new int[]{0,-1,-1,-1}), new Equals(false))
 				.build();
 
 				if (_forks[_forkIndex] == FrameworkConstants.INVALID_VALUE) {
@@ -358,7 +368,7 @@ public class DiningPhilosophers {
 				}
 			}
 
-			
+
 			/**
 			 * Method to pick up a fork
 			 * @param _identity - identity of philosopher
@@ -368,22 +378,37 @@ public class DiningPhilosophers {
 			 */
 			private boolean pickUpFork(int _identity, int _forkIndex, int[] _forks) {
 				
-				GMUT.addTest()
-				.branches(2)
-				.test(new ArrayEquals(1,2, new int[]{0}), new Equals(false))
-				.test(new ArrayEquals(0,1, new int[]{0,2,3,3}), new Equals(true))
-				.build();
 				
+				boolean x =ThreadTester.getTrap();
+				try {
+					ThreadTester.setTrap(!x);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 				if (_forks.length >= _forkIndex + 1) {
 					GMUT.test(true, 1,  _identity,  _forkIndex, _forks);
 					_forks[_forkIndex] = _identity;
+
+					/*lock.lock();
+					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
+					lock.unlock();*/
+					System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 					return true;
+
 				} else {
 					GMUT.test(false, 2,  _identity,  _forkIndex, _forks);
+
+					/*lock.lock();
+					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
+					lock.unlock();*/
+					System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 					return false;
+
 				}
 			}
-			
+
 
 
 			/**
@@ -394,20 +419,29 @@ public class DiningPhilosophers {
 			 * @return - true if releasing forks was successful, false if unsuccessful
 			 */
 			private boolean releaseForks(int _primaryForkIndex, int _secondaryForkIndex, int[] _forks) {
+				//ThreadTester.checkStatus();
+				boolean x =ThreadTester.getTrap();
+				try {
+					ThreadTester.setTrap(!x);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				GMUT.addTest()
 				.branches(2)
-				.test(new ArrayEquals(4,2, new int[]{0}), new Equals(false))
-				.test(new ArrayEquals(0,1, new int[]{0,2,3,3}), new Equals(true))
-				.test(new ArrayEquals(0,5, new int[]{0,2,3,3}), new Equals(false))
+				.test(new MultiEquals(4,2, new int[]{0}), new Equals(false))
+				.test(new MultiEquals(0,1, new int[]{0,2,3,3}), new Equals(true))
+				.test(new MultiEquals(0,5, new int[]{0,2,3,3}), new Equals(false))
 				.build();
 				if (_forks.length >= _primaryForkIndex + 1 && _forks.length >= _secondaryForkIndex + 1) {
+
 					GMUT.test(true, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
 					_forks[_primaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					_forks[_secondaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					return true;
 				}
-				//TODO: why is this true and not false?
-				GMUT.test(true, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
+
+				//XXX: Returns true no matter what.
+				GMUT.test(false, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
 				return true;
 			}
 		}
