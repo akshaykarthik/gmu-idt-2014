@@ -1,9 +1,13 @@
 package com.idt.contest.college.winter2014.codetotest;
 
-import java.util.LinkedList;
 import java.util.HashMap;
-import java.lang.System;
+import java.util.LinkedList;
 import java.util.Random;
+
+import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
+import edu.gmu.team1.idt2014.predicates.ValidMaze;
 
 /**
  * The Class MazeGenerator. This class generates a textual representation of a maze using depth-first search.
@@ -261,6 +265,14 @@ public class MazeGenerator {
 			final int yDimension, 
 			final long randomSeed) 
 	{
+		//1,1,20,20,1
+		GMUT.addTest()
+			.branches(4)
+			.testNote("invalid x, y", new MultiEquals(3, 3, 2, 2, 1), new Equals("Invalid X and Y dimensions"))
+			.testNote("invalid x", new MultiEquals(3, 1, 2, 2, 1), new Equals("Invalid X dimension"))
+			.testNote("invalid y", new MultiEquals(1,3,2,2,1), new Equals("Invalid Y dimension"))
+			.testNote("is valid maze", new MultiEquals(1, 1, 20, 20, 1), new ValidMaze())
+			.build();
 		// simple error checking
 		if (initialX > xDimension && initialY > yDimension) {
 			return "Invalid X and Y dimensions";
@@ -405,6 +417,7 @@ public class MazeGenerator {
 			}
 		}
 
+		GMUT.test(mazeString, 4, initialX, initialY, xDimension, yDimension, randomSeed);
 		return mazeString;
 	}
 

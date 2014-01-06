@@ -52,7 +52,7 @@ public class ReportWriter implements IReportWriter {
 						tmethod,
 						currentBranch + "/" + allBranches,
 						getInputTag(inputs),
-						output,
+						(output.toString().replaceAll("\n", "\\n").replaceAll("\r", "\\r")),
 						notes == null ? "" : notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(

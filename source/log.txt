@@ -29,6 +29,3 @@
 [01/04/2014][13:13:07][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfLastSpecificChar][b:2/3][i:12345;5;][o:4]
 [01/04/2014][13:13:15][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfFirstSpecificChar][b:2/3][i:hello;h;][o:0]
 [01/04/2014][13:13:23][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfFirstSpecificChar][b:3/3][i:hello;z;][o:-1]
-[01/04/2014][11:39:43][pass][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true][n:test evens]
-[01/04/2014][15:15:51][pass][c:com.idt.contest.college.winter2014.codetotest.StringUtility][m:indexOfFirstSpecificChar][b:2/3][i:[i:12345; 5]][o:4][n:][01/05/2014][15:22:01][pass][c:com.idt.contest.college.winter2014.codetotest.DiningPhilosophers$Philosopher][m:isForkAvailable][b:1/2][i:[i:0; -1; -1; -1; -1]][o:true][n:][01/05/2014][15:22:01][pass][c:com.idt.contest.college.winter2014.codetotest.DiningPhilosophers$Philosopher][m:isForkAvailable][b:1/2][i:[i:1; -1; -1; -1; -1]][o:true][n:][01/05/2014][15:22:01][pass][c:com.idt.contest.college.winter2014.codetotest.DiningPhilosophers$Philosopher][m:isForkAvailable][b:1/2][i:[i:0; -1; -1; -1; -1]][o:true][n:]
-

@@ -380,11 +380,7 @@ public class DiningPhilosophers {
 				
 				
 				boolean x =ThreadTester.getTrap();
-				try {
-					ThreadTester.setTrap(!x);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				
 				
 				System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 				if (_forks.length >= _forkIndex + 1) {
@@ -394,7 +390,9 @@ public class DiningPhilosophers {
 					/*lock.lock();
 					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
 					lock.unlock();*/
-					System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
+					//System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
+
+					ThreadTester.setTrap(!x);
 					return true;
 
 				} else {
@@ -403,7 +401,9 @@ public class DiningPhilosophers {
 					/*lock.lock();
 					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
 					lock.unlock();*/
-					System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
+					//System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
+
+					ThreadTester.setTrap(!x);
 					return false;
 
 				}
@@ -420,12 +420,8 @@ public class DiningPhilosophers {
 			 */
 			private boolean releaseForks(int _primaryForkIndex, int _secondaryForkIndex, int[] _forks) {
 				//ThreadTester.checkStatus();
-				boolean x =ThreadTester.getTrap();
-				try {
-					ThreadTester.setTrap(!x);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				
+				boolean x = ThreadTester.getTrap();
 				GMUT.addTest()
 				.branches(2)
 				.test(new MultiEquals(4,2, new int[]{0}), new Equals(false))
@@ -439,7 +435,8 @@ public class DiningPhilosophers {
 					_forks[_secondaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					return true;
 				}
-
+				
+				ThreadTester.setTrap(!x);
 				//XXX: Returns true no matter what.
 				GMUT.test(false, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
 				return true;
