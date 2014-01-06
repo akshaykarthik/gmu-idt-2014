@@ -4,6 +4,7 @@ import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
 /**
  * Class containing byte related utility methods
@@ -91,6 +92,18 @@ public class ByteUtility {
 	 */
 	public byte shiftByte(byte b, int placesToShift, boolean left) {
 		
+		GMUT.addTest()
+			.branches(1)
+			.test(new MultiEquals((byte)113,1,false), new Equals((byte)56))
+			.test(new MultiEquals((byte)113,1,true), new Equals((byte)-30))
+			.test(new MultiEquals((byte)0,1,false), new Equals((byte)0))
+			.test(new MultiEquals((byte)0,1,true), new Equals((byte)0))
+			.test(new MultiEquals((byte)86,2,false), new Equals((byte)21))
+			.test(new MultiEquals((byte)86,2,true), new Equals((byte)88))
+			.test(new MultiEquals((byte)86,3,true), new Equals((byte)-80))
+			.test(new MultiEquals((byte)5,1,true), new Equals((byte)10))
+			.build();
+		
 		byte shiftedByte;
 		
 		if (placesToShift > FrameworkConstants.BITS_IN_BYTE || placesToShift < 0) {
@@ -101,6 +114,7 @@ public class ByteUtility {
 			shiftedByte = (byte) (b >> placesToShift);
 		}
 		
+		GMUT.test(shiftedByte, 1, b, placesToShift, left);
 		return shiftedByte;
 	}
 	
