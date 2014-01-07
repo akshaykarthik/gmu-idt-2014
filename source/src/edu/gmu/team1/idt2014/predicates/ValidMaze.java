@@ -27,6 +27,8 @@ public class ValidMaze extends Predicate {
 
 		int[][] valueGrid = extractValueGrid(lenx, leny, mazeArray);
 
+		// Dijkstras
+		
 		for (int[] p : valueGrid) {
 			for (int q : p) {
 				System.out.print(valueToBox(q));
@@ -35,6 +37,15 @@ public class ValidMaze extends Predicate {
 		}
 		
 		return false;
+	}
+	
+	private class Pair<T, U> {
+		public Pair(T il, U ir){
+			this.l = il;
+			this.r = ir;
+		}
+		public T l;
+		public U r;
 	}
 	
 	private int[][] extractValueGrid(int lenx, int leny, String[] mazeArray){
