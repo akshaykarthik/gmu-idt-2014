@@ -1,33 +1,30 @@
 package edu.gmu.team1.idt2014;
+import java.util.HashMap;
+
+//Sriram-TODO: make this work for more than two threads
+//Sriram-TODO: remember to make sure that
 
 public class ThreadTester {
-
-	static boolean sync = false;
-	static int count = 0;
-
-	// Sriram-TODO: make this work for more than two threads
-	// Sriram-TODO: remember to make sure that
-	public static boolean getTrap() {
-		return sync;
-	}
-
-	public static void setTrap(boolean x) {
-		try {
-			// Thread.sleep(10000);
-			count++;
-			if (count % 2 == 0) {
-				if (x == true) {
-					count = 0;
-					sync = false;
-					System.out
-							.println("THIS METHOD IS NOT SYNCH AND A RACING CONDITION HAS OCCURED");
-				} else {
-					System.out.println("~RACING CONDITION DOES NOT OCCUR");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	static HashMap<String,Integer> states = new HashMap<String,Integer>();
+	
+	public static synchronized void incrementState(String objectName){
+		Integer currentState = states.get(objectName);
+		if(currentState==null){
+			states.put(objectName, (1));
 		}
+		else{
+			states.put(objectName, (++currentState));
+		}
+		
 	}
+	public static synchronized int getState(String objectName){
+		return states.get(objectName);
+	}
+	
+	public static synchronized void createStateTracker(String objectName){
+		if(states.containsKey(objectName)) return;
+		states.put(objectName, 1);
+	}
+
 
 }

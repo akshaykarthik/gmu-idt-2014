@@ -6,13 +6,10 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
-import edu.gmu.team1.idt2014.*;
-
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.ThreadTester;
 import edu.gmu.team1.idt2014.predicates.*;
 
 /**
@@ -68,7 +65,15 @@ public class DiningPhilosophers {
 			// put the forks on the table
 			forkStates = new int[_numberOfPhilosophers];
 			Arrays.fill(forkStates, FrameworkConstants.INVALID_VALUE);
-
+			
+			
+			ThreadTester.createStateTracker("forks");
+			System.out.println("Trying to create Tracker with Object forks");
+			
+			
+			
+			
+			
 			// invite the philosophers to dinner
 			Philosopher[] philosophers = new Philosopher[_numberOfPhilosophers];
 			for (int i = 0; i < _numberOfPhilosophers; i++) {
@@ -377,33 +382,29 @@ public class DiningPhilosophers {
 			 * @return - true if fork pick up was successful, false if unsuccessful
 			 */
 			private boolean pickUpFork(int _identity, int _forkIndex, int[] _forks) {
+
+				int currentThreadState = ThreadTester.getState("forks");
+				System.out.println("Line 388 Thread "+Thread.currentThread().getName()+" Current thread state "+currentThreadState);
+
 				
-				
-				boolean x =ThreadTester.getTrap();
-				
-				
-				System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 				if (_forks.length >= _forkIndex + 1) {
 					GMUT.test(true, 1,  _identity,  _forkIndex, _forks);
+					System.out.println("  Thread "+Thread.currentThread().getName()+" Current thread state "+currentThreadState
+							+"Global state" +ThreadTester.getState("forks"));
+					if(!(currentThreadState==ThreadTester.getState("forks"))){
+						System.out.println("RACE CONDITION ******************");
+
+					}
+					
 					_forks[_forkIndex] = _identity;
+					ThreadTester.incrementState("forks");;
 
-					/*lock.lock();
-					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
-					lock.unlock();*/
-					//System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
 
-					ThreadTester.setTrap(!x);
 					return true;
 
 				} else {
 					GMUT.test(false, 2,  _identity,  _forkIndex, _forks);
 
-					/*lock.lock();
-					ThreadTester.addChangedInput(Thread.currentThread().getName(),_forks);
-					lock.unlock();*/
-					//System.out.println("Thread Name "+Thread.currentThread().getName()+" Time is "+System.currentTimeMillis());
-
-					ThreadTester.setTrap(!x);
 					return false;
 
 				}
@@ -419,24 +420,22 @@ public class DiningPhilosophers {
 			 * @return - true if releasing forks was successful, false if unsuccessful
 			 */
 			private boolean releaseForks(int _primaryForkIndex, int _secondaryForkIndex, int[] _forks) {
-				//ThreadTester.checkStatus();
-				
-				boolean x = ThreadTester.getTrap();
-				GMUT.addTest()
-				.branches(2)
-				.test(new MultiEquals(4,2, new int[]{0}), new Equals(false))
-				.test(new MultiEquals(0,1, new int[]{0,2,3,3}), new Equals(true))
-				.test(new MultiEquals(0,5, new int[]{0,2,3,3}), new Equals(false))
-				.build();
-				if (_forks.length >= _primaryForkIndex + 1 && _forks.length >= _secondaryForkIndex + 1) {
 
+				int currentThreadState = ThreadTester.getState("forks");
+
+				if (_forks.length >= _primaryForkIndex + 1 && _forks.length >= _secondaryForkIndex + 1) {
+					if(!(currentThreadState==ThreadTester.getState("forks"))){
+						System.out.println("RACE CONDITION ******************");
+
+					}
+					
 					GMUT.test(true, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
 					_forks[_primaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					_forks[_secondaryForkIndex] = FrameworkConstants.INVALID_VALUE;
+					ThreadTester.incrementState("forks");
 					return true;
 				}
 				
-				ThreadTester.setTrap(!x);
 				//XXX: Returns true no matter what.
 				GMUT.test(false, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
 				return true;
