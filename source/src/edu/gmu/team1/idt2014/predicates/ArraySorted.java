@@ -1,26 +1,24 @@
 package edu.gmu.team1.idt2014.predicates;
 
+import java.util.Arrays;
+
+import edu.gmu.team1.idt2014.TestUtils;
+
 
 /**
  */
-public class ArraySorted<T extends Comparable<T>> extends Predicate {
+public class ArraySorted extends Predicate {
 	//FIXME: Broken
 	@Override
 	public boolean evaluate(Object... inputs) {
-		try {
-			@SuppressWarnings("unchecked")
-			T[] arrayVal = (T[]) inputs[0];
-			int n = arrayVal.length;
-
-			for (int i = 0; i < n - 1; ++i)
-				if (arrayVal[i].compareTo(arrayVal[i + 1]) > 0)
-					return false;
-
-		} catch (Exception ex) {
-			return false;
+		Object o = inputs[0];
+		if(o.getClass().isArray()){
+			Object[] ar = TestUtils.toObjectArray(o);
+			Object[] ar2 = ar.clone();
+			Arrays.sort(ar2);
+			return Arrays.equals(ar,ar2);					
 		}
-		return true;
-
+		return false;
 	}
 
 }
