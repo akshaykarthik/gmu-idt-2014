@@ -2,6 +2,9 @@ package com.idt.contest.college.winter2014.codetotest;
 
 import java.util.Arrays;
 
+import edu.gmu.team1.idt2014.GMUT;
+import edu.gmu.team1.idt2014.predicates.IntArrayEquals;
+
 /*
 Adapted from:
 	http://courses.cs.washington.edu/courses/cse373/13wi/lectures/03-13/MergeSort.java
@@ -75,6 +78,20 @@ public class MergeSort {
 	// recursively sorts the halves, then merges the sorted halves.
 	// It is O(N log N) for all inputs.
 	public int[] mergeSort(int[] a) {
+		
+		int count = 0;
+		int[] ary1 = {1,2,4,3,5};
+		int[] ary2 = {1,2,3,4,5};
+		
+		if(count < 1){
+			GMUT.addTest()
+				.branches(1)
+				.test(new IntArrayEquals(ary1), new IntArrayEquals(ary2))
+				.build();
+		}
+		
+		count++;
+		
 		if (a.length >= 2) {
 			// split array in half
 			int[] left  = Arrays.copyOfRange(a, 0, a.length / 2);
@@ -88,6 +105,8 @@ public class MergeSort {
 			merge(left, right, a);
 		}
 		
+//		if(count < 1)
+			GMUT.test(a, 1, ary1);
 		return a;
 	}
 	
