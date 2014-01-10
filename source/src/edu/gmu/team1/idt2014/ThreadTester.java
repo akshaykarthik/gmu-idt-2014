@@ -25,6 +25,4 @@ public class ThreadTester {
 		if(states.containsKey(objectName)) return;
 		states.put(objectName, 1);
 	}
-
-
 }

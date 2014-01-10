@@ -397,7 +397,7 @@ public class DiningPhilosophers {
 					}
 					
 					_forks[_forkIndex] = _identity;
-					ThreadTester.incrementState("forks");;
+					ThreadTester.incrementState("forks");
 
 
 					return true;

@@ -2,6 +2,12 @@ package edu.gmu.team1.idt2014.predicates;
 
 import java.util.Arrays;
 
+/**
+ * Valid Maze is a multi-pronged approach to validating a given maze.<br>
+ * First it attempts to parse the string for a maze. <br>
+ * Then it attempts to find a valid solution for the maze <br>
+ * If the maze is both valid and solvable, then the maze is returned as valid.
+ */
 public class ValidMaze extends Predicate {
 
 	public static final int CLOSED = 0;
@@ -39,6 +45,8 @@ public class ValidMaze extends Predicate {
 		return false;
 	}
 	
+
+	@SuppressWarnings("unused")
 	private class Pair<T, U> {
 		public Pair(T il, U ir){
 			this.l = il;

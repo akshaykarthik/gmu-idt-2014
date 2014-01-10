@@ -8,7 +8,6 @@ import edu.gmu.team1.idt2014.TestUtils;
 /**
  */
 public class ArraySorted extends Predicate {
-	//FIXME: Broken
 	@Override
 	public boolean evaluate(Object... inputs) {
 		Object o = inputs[0];
