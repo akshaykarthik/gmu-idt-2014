@@ -14,6 +14,8 @@ public class Equals extends Predicate {
 
 	@Override
 	public boolean evaluate(Object... inputs) {
+		if(inputs == null && initial == null)
+			return true;
 		return (initial != null) ? initial.equals(inputs[0]) : inputs[0] == null;
 	}
 

@@ -3,8 +3,8 @@ package edu.gmu.team1.idt2014;
 import java.util.concurrent.ConcurrentHashMap;
 
 import edu.gmu.team1.idt2014.predicates.Predicate;
-import edu.gmu.team1.idt2014.reportwriters.IReportWriter;
-import edu.gmu.team1.idt2014.reportwriters.ReportWriter;
+import edu.gmu.team1.idt2014.reportwriters.AbstractReportWriter;
+import edu.gmu.team1.idt2014.reportwriters.FileReportWriter;
 
 /**
  * GMUT is the primary access point to the testing API. <br>
@@ -16,7 +16,7 @@ import edu.gmu.team1.idt2014.reportwriters.ReportWriter;
 public class GMUT extends Thread {
 	// Private Constructor Prevents Initialization
 	private GMUT() {
-		this._report = new ReportWriter();
+		this._report = new FileReportWriter();
 		this._test = new ConcurrentHashMap<String, TestStructure>();
 		this.start();
 	}
@@ -36,7 +36,7 @@ public class GMUT extends Thread {
 	}
 	
 	
-	private IReportWriter _report;
+	private AbstractReportWriter _report;
 	private ConcurrentHashMap<String, TestStructure> _test;
 
 	private static boolean enabled = true;	
@@ -127,7 +127,7 @@ public class GMUT extends Thread {
 	 * This returns the current IReportWriter that GMUT is using.
 	 * @return
 	 */
-	public static IReportWriter getReportWriter() {
+	public static AbstractReportWriter getReportWriter() {
 		return getInstance()._report;
 	}
 
@@ -135,7 +135,7 @@ public class GMUT extends Thread {
 	 * This sets the current IReportWriter that GMUT is using.
 	 * @param _report
 	 */
-	public static void setReportWriter(IReportWriter _report) {
+	public static void setReportWriter(AbstractReportWriter _report) {
 		getInstance()._report = _report;
 	}
 

@@ -2,6 +2,16 @@ package edu.gmu.team1.idt2014;
 
 import edu.gmu.team1.idt2014.predicates.Predicate;
 
+/**
+ * This is the actual implementation of {@link ITestBuilder}.<br>
+ * It is simply a string name ( {@link #getName()} and a {@link TestStructure} ).
+ * <br><br>
+ * {@link #test(Predicate, Predicate)} maps a {@link Predicate} to another.
+ * <br>
+ * A test is a mapping between one predicate and another.
+ * <br>
+ * test = (a(input) 
+ */
 public class MainTestBuilder implements ITestBuilder {
 	private String tName;
 	private TestStructure tStructure;// = new TestStructure();
