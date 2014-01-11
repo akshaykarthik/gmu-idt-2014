@@ -8,10 +8,8 @@
 ~ [b:<BRANCH>/<BRANCHES>] - expect two integers, branch tested, number of branches
 ~ [i:<INPUTS>] - expect null or inputs, delimited by vertical bar ("|")
 ~ [o:<OUTPUT>] - expect null or output
-[12/19/2013][12:31][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
-[12/19/2013][12:32][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
-[12/19/2013][12:33][failed][c:edu.gmu.TestUtils][m:getClassName][b:2/2][i:null][o:null]
-[12/19/2013][12:34][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null]
+~ [n:<NOTES>] - expect null or notes
+[12/19/2013][12:31][passed][c:edu.gmu.TestUtils][m:getClassName][b:1/2][i:null][o:null][n:Some notes here]
 
 
 

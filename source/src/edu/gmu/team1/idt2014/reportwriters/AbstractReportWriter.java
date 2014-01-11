@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import edu.gmu.team1.idt2014.TestUtils;
+
 
 /**
  * This Interface documents all that is necessary to create your own
@@ -27,13 +29,24 @@ public abstract class AbstractReportWriter {
 				+ dateString.substring(11) + "]";
 	}
 
+	protected String getOutputTag(Object output){
+		if(output == null)
+			return "null";
+		
+		if(output.getClass().isArray()){
+			return formatArrayString(Arrays.deepToString(TestUtils.toObjectArray(output)));
+		}
+		else
+			return output.toString();
+	}
+	
 	protected String getInputTag(Object[] inputs) {
 		if (inputs == null)
 			return "[i:" + null + "]";
 		String inputTag = "[i:";
 		
 		String arrayString = null;
-		if (inputs.length > 1)
+		if (inputs.length >= 1)
 			arrayString = Arrays.deepToString(inputs);
 		else if (inputs.length > 0)
 			arrayString = inputs[0].toString();
@@ -48,5 +61,9 @@ public abstract class AbstractReportWriter {
 
 	protected static String formatArrayString(String array) {
 		return array.replace("]", "").replace(",", ";").replace("[", "");
+	}
+
+	public void reset() {
+		
 	}
 }

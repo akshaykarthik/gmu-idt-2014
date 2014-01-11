@@ -6,6 +6,10 @@ public abstract class InternalTest {
 	public void log(boolean passed, String name){
 		System.out.println("\t" + (passed?"pass":"fail") + " |\t" + name);
 	}
+	
+	public void note(String inote){
+		System.out.println("\t~ " + inote);
+	}
 
 	public void run() {
 		announce();

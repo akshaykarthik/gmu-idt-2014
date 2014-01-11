@@ -6,6 +6,7 @@ import java.util.List;
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.reportwriters.StringReportWriter;
 import edu.gmu.team1.idt2014.test.tests.APITest_Integration;
+import edu.gmu.team1.idt2014.test.tests.TypeTest_All;
 import edu.gmu.team1.idt2014.test.tests.TypeTest_Boolean;
 import edu.gmu.team1.idt2014.test.tests.TypeTest_Byte;
 import edu.gmu.team1.idt2014.test.tests.TypeTest_Char;
@@ -24,6 +25,7 @@ public class InternalTestRunner {
 		
 		InternalTest[] tests = new InternalTest[]{
 			new APITest_Integration(),
+			new TypeTest_All(),
 			new TypeTest_Byte(),
 			new TypeTest_Short(),
 			new TypeTest_Int(),

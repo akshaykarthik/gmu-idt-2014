@@ -1,10 +1,7 @@
 package edu.gmu.team1.idt2014.reportwriters;
 
-public class StringReportWriter extends AbstractReportWriter {
+public class ConsoleReportWriter extends AbstractReportWriter {
 
-	public String report = "";
-	
-	
 	@Override
 	public void logTest(String tclass, String tmethod, boolean passed,
 			int currentBranch, int allBranches, Object output, Object[] inputs,
@@ -19,12 +16,8 @@ public class StringReportWriter extends AbstractReportWriter {
 				getInputTag(inputs),
 				getOutputTag(output).replaceAll("\n", "\\n").replaceAll("\r", "\\r"),
 				(notes == null) ? "" : notes);
-		report += content + "\r\n";
-	}
-	
-	@Override
-	public void reset(){
-		report = "";
+		System.out.println(content);
+
 	}
 
 }

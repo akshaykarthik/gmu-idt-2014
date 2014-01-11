@@ -48,7 +48,7 @@ public class FileReportWriter extends AbstractReportWriter {
 				oFile.createNewFile();
 			}
 			if (oFile.canWrite()) {
-				String format = "%s[%s][c:%s][m:%s][b:%s][i:%s][o:%s][n:%s]";
+				String format = "%s[%s][c:%s][m:%s][b:%s]%s[o:%s][n:%s]";
 				String content = String.format(format,
 						getDateTag(),
 						(passed ? "pass" : "fail"),
@@ -56,12 +56,12 @@ public class FileReportWriter extends AbstractReportWriter {
 						tmethod,
 						currentBranch + "/" + allBranches,
 						getInputTag(inputs),
-						(output.toString().replaceAll("\n", "\\n").replaceAll("\r", "\\r")),
-						notes == null ? "" : notes);
+						getOutputTag(output).replaceAll("\n", "\\n").replaceAll("\r", "\\r"),
+						(notes == null) ? "" : notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
 						FILENAME, true));
-				oWriter.write(content);
+				oWriter.write(content+"\r\n");
 				oWriter.close();
 			}
 

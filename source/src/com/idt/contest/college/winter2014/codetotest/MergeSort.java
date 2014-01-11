@@ -86,6 +86,7 @@ public class MergeSort {
 			.branches(1)
 			.test(new IntArrayEquals(ary1), new IntArrayEquals(ary2))
 			.build();
+		int[] originalA = Arrays.copyOf(a, a.length);
 		
 		if (a.length >= 2) {
 			// split array in half
@@ -100,7 +101,7 @@ public class MergeSort {
 			merge(left, right, a);
 		}
 		
-		GMUT.test(a, 1, ary1);
+		GMUT.test(a, 1, originalA);
 		return a;
 	}
 	
