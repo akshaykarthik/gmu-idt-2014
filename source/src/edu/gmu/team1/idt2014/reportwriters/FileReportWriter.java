@@ -5,15 +5,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This implementation of AbstractReportWriter writes the log to a file. By
+ * default, it writes to a "log.txt" file in the directory of the application
+ * however by changing the variables FILENAME, one can easily change the
+ * location of the log file.
+ */
 public class FileReportWriter extends AbstractReportWriter {
 	private static final String DEFAULT_FILENAME = "log.txt";
 	private static String FILENAME = DEFAULT_FILENAME;
 
 	public FileReportWriter() {
-		
+
 	}
-	
-	public FileReportWriter(String fileName){
+
+	public FileReportWriter(String fileName) {
 		FILENAME = fileName;
 	}
 
@@ -49,19 +55,16 @@ public class FileReportWriter extends AbstractReportWriter {
 			}
 			if (oFile.canWrite()) {
 				String format = "%s[%s][c:%s][m:%s][b:%s]%s[o:%s][n:%s]";
-				String content = String.format(format,
-						getDateTag(),
-						(passed ? "pass" : "fail"),
-						tclass,
-						tmethod,
-						currentBranch + "/" + allBranches,
-						getInputTag(inputs),
-						getOutputTag(output).replaceAll("\n", "\\n").replaceAll("\r", "\\r"),
-						(notes == null) ? "" : notes);
+				String content = String.format(format, getDateTag(),
+						(passed ? "pass" : "fail"), tclass, tmethod,
+						currentBranch + "/" + allBranches, getInputTag(inputs),
+						getOutputTag(output).replaceAll("\n", "\\n")
+								.replaceAll("\r", "\\r"), (notes == null) ? ""
+								: notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
 						FILENAME, true));
-				oWriter.write(content+"\r\n");
+				oWriter.write(content + "\r\n");
 				oWriter.close();
 			}
 

@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,7 +23,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
-import javax.swing.JFileChooser;
 
 public class LogViewer {
 //	final String IGNORE_LINE_PATTERN = "\\~";

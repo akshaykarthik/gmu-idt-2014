@@ -9,8 +9,8 @@ public class TypeTest_Boolean extends TypeTest {
 	public void execute() {
 		Equals expectTrue = new Equals(true);
 		Equals expectFalse = new Equals(false);
-		Equals expectNull = new Equals(null);
-		log(expectNull.evaluate(null), "boolean [null == null]");
+		//Equals expectNull = new Equals(null);
+		//log(expectNull.evaluate(null), "boolean [null == null]");
 		log(expectTrue.evaluate(true), "boolean [true == true]");
 		log(expectTrue.evaluate(false), "boolean [true != false]");
 		log(expectFalse.evaluate(true), "boolean [false == false]");

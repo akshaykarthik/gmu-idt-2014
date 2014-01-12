@@ -10,7 +10,8 @@ import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.ThreadTester;
-import edu.gmu.team1.idt2014.predicates.*;
+import edu.gmu.team1.idt2014.predicates.Equals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
 /**
  * This problem is based on the description at: 

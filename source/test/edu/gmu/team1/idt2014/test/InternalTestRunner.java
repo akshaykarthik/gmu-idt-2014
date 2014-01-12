@@ -1,8 +1,5 @@
 package edu.gmu.team1.idt2014.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.reportwriters.StringReportWriter;
 import edu.gmu.team1.idt2014.test.tests.APITest_Integration;

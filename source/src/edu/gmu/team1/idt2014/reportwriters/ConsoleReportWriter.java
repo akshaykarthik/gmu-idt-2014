@@ -1,5 +1,9 @@
 package edu.gmu.team1.idt2014.reportwriters;
 
+/**
+ * This implementation of AbstractReportWriter writes the log to the console.
+ * It utilizes the exact same formatting as FileReportWriter and StringReportWriter; 
+ */
 public class ConsoleReportWriter extends AbstractReportWriter {
 
 	@Override

@@ -1,8 +1,8 @@
 package edu.gmu.team1.idt2014.predicates;
 
 /**
- * This Predicate evaluates whether the first object of the array equals the
- * constructor value.
+ * This Predicate evaluates whether the the first of the evaluation arguments is
+ * equivalent to the initial object.
  */
 public class Equals extends Predicate {
 
@@ -14,9 +14,10 @@ public class Equals extends Predicate {
 
 	@Override
 	public boolean evaluate(Object... inputs) {
-		if(inputs == null && initial == null)
+		if (inputs == null && initial == null)
 			return true;
-		return (initial != null) ? initial.equals(inputs[0]) : inputs[0] == null;
+		return (initial != null) ? initial.equals(inputs[0])
+				: inputs[0] == null;
 	}
 
 }

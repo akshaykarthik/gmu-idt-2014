@@ -1,11 +1,14 @@
 package edu.gmu.team1.idt2014;
 
 public class TestUtils {
-	private TestUtils(){
-		
+	private TestUtils() {
+
 	}
-	
+
 	/**
+	 * This function returns the method name at a given depth of the stack
+	 * trace.
+	 * 
 	 * @param depth
 	 * @return
 	 */
@@ -15,6 +18,12 @@ public class TestUtils {
 		return stackTraceElements[depth + 1].getMethodName();
 	}
 
+	/**
+	 * This function returns the class name at a given depth of the stack trace.
+	 * 
+	 * @param depth
+	 * @return
+	 */
 	public static String getClassName(int depth) {
 		StackTraceElement[] stackTraceElements = Thread.currentThread()
 				.getStackTrace();
@@ -41,9 +50,9 @@ public class TestUtils {
 		} else if (input instanceof boolean[]) {
 			return toBoolArray((boolean[]) input);
 		} else {
-			try{
+			try {
 				return (Object[]) input;
-			} catch(Exception ex){
+			} catch (Exception ex) {
 				return null;
 			}
 		}
@@ -51,7 +60,9 @@ public class TestUtils {
 
 	/**
 	 * Converts and array of Primitive {@link int} to Object {@link Integer}
-	 * @param an int array.
+	 * 
+	 * @param an
+	 *            int array.
 	 * @return An Object Array of Integer
 	 */
 	public static Integer[] toIntegerArray(int[] input) {
@@ -63,7 +74,9 @@ public class TestUtils {
 
 	/**
 	 * Converts and array of Primitive {@link double} to Object {@link Double}
-	 * @param a double array.
+	 * 
+	 * @param a
+	 *            double array.
 	 * @return An Object Array of Doubles
 	 */
 	public static Double[] toDoubleArray(double[] inputs) {
@@ -75,7 +88,9 @@ public class TestUtils {
 
 	/**
 	 * Converts and array of Primitive {@link float} to Object {@link Float}
-	 * @param a float array.
+	 * 
+	 * @param a
+	 *            float array.
 	 * @return An Object Array of Float
 	 */
 	public static Float[] toFloatArray(float[] fs) {
@@ -87,7 +102,9 @@ public class TestUtils {
 
 	/**
 	 * Converts and array of Primitive {@link byte} to Object {@link Byte}
-	 * @param a byte array.
+	 * 
+	 * @param a
+	 *            byte array.
 	 * @return An Object Array of Byte
 	 */
 	public static Byte[] toByteArray(byte[] input) {
@@ -97,10 +114,11 @@ public class TestUtils {
 		return returnVal;
 	}
 
-
 	/**
 	 * Converts and array of Primitive {@link short} to Object {@link Short}
-	 * @param a short array.
+	 * 
+	 * @param a
+	 *            short array.
 	 * @return An Object Array of Short
 	 */
 	public static Short[] toShortArray(short[] input) {
@@ -112,7 +130,9 @@ public class TestUtils {
 
 	/**
 	 * Converts and array of Primitive {@link boolean} to Object {@link Boolean}
-	 * @param a boolean array.
+	 * 
+	 * @param a
+	 *            boolean array.
 	 * @return An Object Array of Boolean
 	 */
 	public static Boolean[] toBoolArray(boolean[] input) {

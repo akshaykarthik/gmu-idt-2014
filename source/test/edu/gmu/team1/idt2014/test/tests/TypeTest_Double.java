@@ -7,14 +7,14 @@ public class TypeTest_Double extends TypeTest {
 
 	@Override
 	public void execute() {
-		Equals nullTest = new Equals(null);
+		//Equals nullTest = new Equals(null);
 		Equals minTest = new Equals(Double.MIN_VALUE);
 		Equals zeroTest = new Equals((double)0);
 		Equals maxTest = new Equals(Double.MAX_VALUE);
 		Equals doubleInt = new Equals((int)5);
 		Equals doubleFloat = new Equals((float)5);
 		
-		log(nullTest.evaluate(null), "double [null == null]");
+		//log(nullTest.evaluate(null), "double [null == null]");
 		log(minTest.evaluate(Double.MIN_VALUE), "double [min == min]");
 		log(zeroTest.evaluate((double)0), "double [0.0 == 0.0]");
 		log(maxTest.evaluate(Double.MAX_VALUE), "double [max == max]");

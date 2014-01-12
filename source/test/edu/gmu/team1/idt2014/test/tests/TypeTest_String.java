@@ -6,14 +6,15 @@ public class TypeTest_String extends TypeTest {
 
 	@Override
 	public void execute() {
-		Equals nullTest = new Equals(null);
+		//Equals nullTest = new Equals(null);
 		Equals emptyTest = new Equals("");
 		Equals caseTest = new Equals("abcdefg");
 		Equals correctEquality = new Equals(
 				"the quick brown fox jumps over the lazy dog");
 
-		log(nullTest.evaluate(null), "string [null == null]");
-		log(!caseTest.evaluate(""), "string [\"\" == \"\"]");
+		//log(nullTest.evaluate(null), "string [null == null]");
+		log(emptyTest.evaluate(""), "string [\"\" == \"\"]");
+		log(caseTest.evaluate("ABCDEFG"), "string [abdcefg != ABCDEFG]");
 		log(correctEquality.evaluate("the quick brown fox jumps over the lazy dog"),
 				"String [\"the quick brown fox jumps over the lazy dog\" == \"the quick brown fox jumps over the lazy dog\"]");
 	}

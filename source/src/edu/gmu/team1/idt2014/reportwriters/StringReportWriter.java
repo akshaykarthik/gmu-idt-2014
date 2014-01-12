@@ -1,5 +1,10 @@
 package edu.gmu.team1.idt2014.reportwriters;
 
+/**
+ * This implementation of AbstractReportWriter writes the log to a String object report.
+ * It utilizes the exact same formatting as FileReportWriter and StringReportWriter; 
+ *
+ */
 public class StringReportWriter extends AbstractReportWriter {
 
 	public String report = "";
