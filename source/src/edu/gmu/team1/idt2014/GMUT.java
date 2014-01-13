@@ -50,6 +50,20 @@ public class GMUT extends Thread {
 	}
 
 	/**
+	 * enables the testing system
+	 */
+	public static void enable(){
+		enabled = true;
+	}
+	
+	/**
+	 * disables the testing system
+	 */
+	public static void disable(){
+		enabled = false;
+	}
+	
+	/**
 	 * Enables or disables the testing system.
 	 * @param enabled
 	 */
