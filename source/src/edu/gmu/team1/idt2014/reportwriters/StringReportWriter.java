@@ -32,4 +32,9 @@ public class StringReportWriter extends AbstractReportWriter {
 		report = "";
 	}
 
+	@Override
+	public void log(String message) {
+		report+=message +"\r\n";	
+	}
+
 }

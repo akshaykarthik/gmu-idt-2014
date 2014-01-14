@@ -23,5 +23,9 @@ public class ConsoleReportWriter extends AbstractReportWriter {
 		System.out.println(content);
 
 	}
+	
+	public void log(String message){
+		System.out.println(message);
+	}
 
 }

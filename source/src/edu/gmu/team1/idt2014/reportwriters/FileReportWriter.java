@@ -59,7 +59,7 @@ public class FileReportWriter extends AbstractReportWriter {
 						(passed ? "pass" : "fail"), tclass, tmethod,
 						currentBranch + "/" + allBranches, getInputTag(inputs),
 						getOutputTag(output).replaceAll("\n", "\\n")
-								.replaceAll("\r", "\\r"), (notes == null) ? ""
+						.replaceAll("\r", "\\r"), (notes == null) ? ""
 								: notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
@@ -74,4 +74,27 @@ public class FileReportWriter extends AbstractReportWriter {
 		}
 	}
 
+	@Override
+	public void log(String message) {
+		try {
+
+			File oFile = new File(FILENAME);
+			if (!oFile.exists()) {
+				oFile.createNewFile();
+			}
+			if (oFile.canWrite()) {
+				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
+						FILENAME, true));
+				oWriter.write(message + "\r\n");
+				oWriter.close();
+			}
+		}catch (IOException oException) {
+			throw new IllegalArgumentException(
+					"Error appending/File cannot be written: \n" + FILENAME);
+		}
+
+	}
+
 }
+
+

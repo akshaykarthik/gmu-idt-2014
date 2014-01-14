@@ -29,7 +29,6 @@ import edu.gmu.team1.idt2014.predicates.MultiEquals;
  * 
  */
 public class DiningPhilosophers {
-	Lock lock = new ReentrantLock();
 	enum State { THINKING, 
 		EATING, 
 		WAITING_FOR_LOWER_FORK,
@@ -41,18 +40,20 @@ public class DiningPhilosophers {
 		 */
 		private  static int[] forkStates;
 
-
+		
 		/**
 		 * map to digest result and keep track of number of times eaten (key) and number of philosophers (value)
 		 */
 		private  Map <Integer, Integer> numOfTimesEatenMap;
-
+		private ThreadTester threadTester;
 
 		/**
 		 * public constructor for DiningPhilosphers class
 		 */
 		public DiningPhilosophers(){
 			numOfTimesEatenMap = new HashMap<Integer, Integer>();
+			 threadTester = new ThreadTester();
+			threadTester.createStateTracker("forks");
 		}
 
 
@@ -66,17 +67,15 @@ public class DiningPhilosophers {
 			// put the forks on the table
 			forkStates = new int[_numberOfPhilosophers];
 			Arrays.fill(forkStates, FrameworkConstants.INVALID_VALUE);
-			
-			
-			ThreadTester.createStateTracker("forks");
-			//ThreadTester.createStateTracker("forks@release");
-			
-			
+
+
+
+
 			// invite the philosophers to dinner
 			Philosopher[] philosophers = new Philosopher[_numberOfPhilosophers];
 			for (int i = 0; i < _numberOfPhilosophers; i++) {
 				philosophers[i] = new Philosopher(i, _numberOfTimesToEat);
-			
+
 			}
 
 			// tell the philosophers that they can start thinking and eating
@@ -130,6 +129,7 @@ public class DiningPhilosophers {
 			int attempts;
 			boolean holdingForks;
 			DiningPhilosophers.State state;
+
 
 			/**
 			 * Constructor of Philosopher
@@ -354,29 +354,18 @@ public class DiningPhilosophers {
 			 * @return - true if fork is available, false if fork is unavailable
 			 */
 			private  boolean isForkAvailable(int _forkIndex, int[] _forks) {
-			//	int currentThreadState = ThreadTester.getState("forks");
-				Lock lock = new ReentrantLock();
-				lock.lock();
-				System.out.println("Thread name "+Thread.currentThread().getName()+ " Entering");
-				GMUT.addTest()
-				.branches(2)
-				.test(new MultiEquals(0, new int[]{-1,-1,-1,-1}), new Equals(true))
-				.test(new MultiEquals(1, new int[]{-1,-1,-1,-1}), new Equals(true))
-				.test(new MultiEquals(0, new int[]{0,-1,-1,-1}), new Equals(false))
-				.build();
-				
-				
+				int currentThreadState = threadTester.getState("forks");
+
+
+
 				if (_forks[_forkIndex] == FrameworkConstants.INVALID_VALUE) {
-					//ThreadTester.compareWithGlobalState("forks", currentThreadState, "IsForkAvailable");
-					GMUT.test(true, 1, _forkIndex,_forks);
-					System.out.println("Thread name "+Thread.currentThread().getName()+ " Exit");
-					lock.unlock();
+					threadTester.compareWithGlobalState("forks", currentThreadState, "IsForkAvailable");
+					
 					return true;
 				} else {
-					//ThreadTester.compareWithGlobalState("forks", currentThreadState, "IsForkAvailable");
+					threadTester.compareWithGlobalState("forks", currentThreadState, "IsForkAvailable");
 					GMUT.test(false, 2, _forkIndex,_forks);
-					System.out.println("Thread name "+Thread.currentThread().getName()+ " Exit");
-					lock.unlock();
+					
 					return false;
 				}
 			}
@@ -391,21 +380,21 @@ public class DiningPhilosophers {
 			 */
 			private   boolean pickUpFork(int _identity, int _forkIndex, int[] _forks) {
 				int currentThreadState;
-				synchronized(forkStates){
-				 currentThreadState = ThreadTester.getState("forks");
-				}
+
 				
+				currentThreadState = threadTester.getState("forks");
+				
+
 				if (_forks.length >= _forkIndex + 1) {
 					GMUT.test(true, 1,  _identity,  _forkIndex, _forks);
-				
+
 					System.out.println("  Thread "+Thread.currentThread().getName()+" Current thread state "+currentThreadState
-							+" Global state" +ThreadTester.getState("forks"));
-					
-					
-					ThreadTester.compareWithGlobalState("forks", currentThreadState, "pickUpFork");
-					
-					ThreadTester.incrementState("forks");
-					
+							+" Global state" +threadTester.getState("forks"));
+
+
+					threadTester.compareWithGlobalState("forks", currentThreadState, "pickUpFork");
+					threadTester.incrementState("forks");
+
 					_forks[_forkIndex] = _identity;
 
 					currentThreadState++;
@@ -415,7 +404,7 @@ public class DiningPhilosophers {
 					return true;
 
 				} else {
-					GMUT.test(false, 2,  _identity,  _forkIndex, _forks);
+
 					return false;
 
 				}
@@ -432,32 +421,29 @@ public class DiningPhilosophers {
 			 */
 			private  boolean releaseForks(int _primaryForkIndex, int _secondaryForkIndex, int[] _forks) {
 				int currentThreadState;
-				synchronized(forkStates){
-				 currentThreadState = ThreadTester.getState("forks");
-				}
-				
+				//synchronized(forkStates){
+				currentThreadState = threadTester.getState("forks");
+				//}
+
 				if (_forks.length >= _primaryForkIndex + 1 && _forks.length >= _secondaryForkIndex + 1) {
-					
-					
-					
-					GMUT.test(true, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
-					
-					ThreadTester.compareWithGlobalState("forks", currentThreadState, "releaseForks");
-					ThreadTester.incrementState("forks@release");
+
+
+					threadTester.compareWithGlobalState("forks", currentThreadState, "releaseForks");
+					threadTester.incrementState("forks");
 					_forks[_primaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					currentThreadState++;
-					
-					ThreadTester.compareWithGlobalState("forks", currentThreadState, "releaseForks-2");	
-					ThreadTester.incrementState("forks@release");
+
+					threadTester.compareWithGlobalState("forks", currentThreadState, "releaseForks-2");	
+					threadTester.incrementState("forks");
 					_forks[_secondaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 					currentThreadState++;
 
 					return true;
 				}
-				
+
 				//XXX: Returns true no matter what.
-				GMUT.test(false, 1,  _primaryForkIndex,  _secondaryForkIndex, _forks);
-				return false;
+
+				return true;
 			}
 		}
 }

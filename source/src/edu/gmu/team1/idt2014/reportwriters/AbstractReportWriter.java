@@ -28,6 +28,8 @@ public abstract class AbstractReportWriter {
 		return "[" + dateString.substring(0, 10) + "]["
 				+ dateString.substring(11) + "]";
 	}
+	
+	public abstract void log(String message);
 
 	protected String getOutputTag(Object output){
 		if(output == null)
