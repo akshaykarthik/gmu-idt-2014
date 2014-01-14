@@ -12,7 +12,7 @@ import edu.gmu.team1.idt2014.TestUtils;
  * i.e, 5(int) == 5(byte), etc... <br>
  * This also works on a set of objects, each a different type.
  */
-public class MultiEquals extends Predicate {
+public class MultiEquals implements Predicate {
 
 	private Object[] initial;
 
@@ -20,7 +20,6 @@ public class MultiEquals extends Predicate {
 		initial = input;
 	}
 
-	@Override
 	public boolean evaluate(Object... inputs) {
 		Object[] objectArray = TestUtils.toObjectArray(inputs);
 		return Arrays.deepToString(initial).equals(

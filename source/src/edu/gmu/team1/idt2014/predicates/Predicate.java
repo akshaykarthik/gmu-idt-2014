@@ -8,7 +8,8 @@ package edu.gmu.team1.idt2014.predicates;
  * Extend this abstract class in order to create your own predicate functions.
  *
  */
-public abstract class Predicate {
+//@FunctionalInterface
+public interface Predicate {
 	
 	/**
 	 * The evaluation takes a set of inputs and returns a boolean evaluation.

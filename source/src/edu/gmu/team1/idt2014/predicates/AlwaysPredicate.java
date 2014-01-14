@@ -7,11 +7,10 @@ package edu.gmu.team1.idt2014.predicates;
  * If possible, you should use AlwaysPredicate.INSTANCE so that only one class
  * is ever instantiated.
  */
-public class AlwaysPredicate extends Predicate {
+public class AlwaysPredicate implements Predicate {
 
 	public static AlwaysPredicate INSTANCE = new AlwaysPredicate();
 
-	@Override
 	public boolean evaluate(Object... inputs) {
 		return true;
 	}

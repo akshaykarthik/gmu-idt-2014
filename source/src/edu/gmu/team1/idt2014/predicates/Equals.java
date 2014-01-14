@@ -4,7 +4,7 @@ package edu.gmu.team1.idt2014.predicates;
  * This Predicate evaluates whether the the first of the evaluation arguments is
  * equivalent to the initial object.
  */
-public class Equals extends Predicate {
+public class Equals implements Predicate {
 
 	private Object initial;
 

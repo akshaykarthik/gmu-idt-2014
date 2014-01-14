@@ -4,7 +4,7 @@ package edu.gmu.team1.idt2014.predicates;
  * This predicate evaluates fuzzy equality (i.e, two numbers equal within a
  * given number of decimals (5.60322 == 5.62 at 1 decimal precision)
  */
-public class EstimateEquals extends Predicate {
+public class EstimateEquals implements Predicate {
 	private double initial;
 	private int rounding;
 

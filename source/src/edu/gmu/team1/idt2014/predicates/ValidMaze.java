@@ -1,6 +1,10 @@
 package edu.gmu.team1.idt2014.predicates;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Valid Maze is a multi-pronged approach to validating a given maze.<br>
@@ -8,7 +12,7 @@ import java.util.Arrays;
  * Then it attempts to find a valid solution for the maze <br>
  * If the maze is both valid and solvable, then the maze is returned as valid.
  */
-public class ValidMaze extends Predicate {
+public class ValidMaze implements Predicate {
 
 	public static final int CLOSED = 0;
 	public static final int TOP_OPEN = 1 << 0;
@@ -18,131 +22,169 @@ public class ValidMaze extends Predicate {
 	public static final int STARTING_CELL = 1 << 4;
 	public static final int ENDING_CELL = 1 << 5;
 	public static final int ERROR_CELL = 1 << 6;
-		
-	@Override
+
 	public boolean evaluate(Object... inputs) {
-		try{
+		System.out.println("valid maze running");
+		try {
 			String strMaze = (String) inputs[0];
-			String[] mazeArray = strMaze.split(System.getProperty("line.separator"));
+			String[] mazeArray = strMaze.split(System
+					.getProperty("line.separator"));
 			// x, y dimensions of the maze
 			int lenx = (mazeArray.length) / 3;
 			int leny = mazeArray[1].length() / 3;
-			
-			if(mazeArray[0].length() == 0){
+
+			if (mazeArray[0].length() == 0) {
 				mazeArray = Arrays.copyOfRange(mazeArray, 1, mazeArray.length);
 			}
-	
+
 			int[][] valueGrid = extractValueGrid(lenx, leny, mazeArray);
-	
+
 			String solution = dijkstra(valueGrid);
-			
+
 			for (int[] p : valueGrid) {
 				for (int q : p) {
 					System.out.print(valueToBox(q));
 				}
 				System.out.println();
 			}
-			
-			return (solution != null) && (solution.length() >= (lenx + leny));
-			
-		} catch (Exception ex){
-			return false;
-		}
-	}
-	
 
-	@SuppressWarnings("unused")
-	private class Pair<T, U> {
-		public Pair(T il, U ir){
-			this.l = il;
-			this.r = ir;
+			return (solution != null) && (solution.length() >= (lenx + leny));
+
+		} catch (Exception ex) {
+			throw ex;
+			// return false;
 		}
-		public T l;
-		public U r;
-		
 	}
-	
-	public String dijkstra(int[][] valueGrid){
-		
+
+	class Coordinates {
+		public int x;
+		public int y;
+
+		public Coordinates(int ix, int iy) {
+			x = ix;
+			y = iy;
+		}
+
+		public String toString() {
+			return "[ " + x + " | " + y + " ]";
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			return ((Coordinates) obj).x == x && ((Coordinates) obj).y == y;
+		}
+
+		@Override
+		public int hashCode() {
+			return y * 10000000 + x;
+		}
+
+	}
+
+	public String dijkstra(int[][] valueGrid) {
+		Map<Coordinates, Integer> distances = new HashMap<Coordinates, Integer>();
+		Map<Coordinates, Coordinates> backtrack = new HashMap<Coordinates, Coordinates>();
+		Set<Coordinates> allCoords = new HashSet<Coordinates>();
+		for (int i = 0; i < valueGrid.length; i++) {
+			for (int j = 0; j < valueGrid[i].length; j++) {
+				distances.put(new Coordinates(i, j), Integer.MAX_VALUE);
+				backtrack.put(new Coordinates(i, j), null);
+				allCoords.add(new Coordinates(i, j));
+			}
+		}
+
+		distances.put(new Coordinates(0, 0), 0);
+		while (allCoords.size() > 0) {
+			int minDist = Integer.MAX_VALUE;
+			Coordinates u = null;
+			for (Coordinates coordinates : allCoords) {
+				if (distances.get(coordinates) < minDist) {
+					u = coordinates;
+					minDist = distances.get(coordinates);
+				}
+			}
+			allCoords.remove(u);
+			if (u == null
+					|| (distances.containsKey(u) && distances.get(u) == Integer.MAX_VALUE)) {
+				break;
+			}
+
+			int alt = distances.get(u) + 1;
+			if ((valueGrid[u.x][u.y] & LEFT_OPEN) == LEFT_OPEN) {
+				Coordinates v = new Coordinates(u.x - 1, u.y);
+				if (distances.containsKey(v) && alt < distances.get(v)) {
+					distances.put(v, alt);
+					backtrack.put(v, u);
+				}
+			}
+			if ((valueGrid[u.x][u.y] & RIGHT_OPEN) == RIGHT_OPEN) {
+				Coordinates v = new Coordinates(u.x + 1, u.y);
+				if (distances.containsKey(v) && alt < distances.get(v)) {
+					distances.put(v, alt);
+					// System.out.println(v + " () " + distances.get(v));
+					backtrack.put(v, u);
+//					System.out.println(v + " < " + u);
+				}
+			}
+
+			if ((valueGrid[u.x][u.y] & TOP_OPEN) == TOP_OPEN) {
+				Coordinates v = new Coordinates(u.x, u.y - 1);
+				if (distances.containsKey(v) && alt < distances.get(v)) {
+					distances.put(v, alt);
+					backtrack.put(v, u);
+				}
+			}
+
+			if ((valueGrid[u.x][u.y] & BOT_OPEN) == BOT_OPEN) {
+				Coordinates v = new Coordinates(u.x, u.y + 1);
+				if (distances.containsKey(v) && alt < distances.get(v)) {
+					distances.put(v, alt);
+					backtrack.put(v, u);
+				}
+			}
+
+		}
+		for (Coordinates stack : distances.keySet()) {
+			System.out.println(stack + " " + distances.get(stack));
+		}
+		for (Coordinates stack : backtrack.keySet())
+			System.out.println(backtrack.get(stack) + " " + (stack));
 		return null;
 	}
-		
-//	public String dijkstra(int[][] valueGrid){
-//		int[][] distance = new int[valueGrid.length][valueGrid[0].length];
-//		List<int[]> settled = new ArrayList<int[]>();
-//		List<int[]> unsettled = new ArrayList<int[]>();
-//		for(int i = 0; i < valueGrid.length; i++){
-//			for(int j = 0; j < valueGrid[0].length; j++){
-//				distance[i][j] = Integer.MAX_VALUE;
-//				if((valueGrid[i][j] & this.STARTING_CELL) == STARTING_CELL){
-//					unsettled.add(new int[]{i, j});
-//					distance[i][j] = 0;
-//				}
-//			}
-//		}
-//		
-//		while(unsettled.size() > 0){
-//			int[] nextNode = lowestDistance(unsettled, distance);
-//			settled.remove(o)
-//		}
-//		return null;
-//	}
-//	
-//	public int[] lowestDistance(List<int[]> test, int[][] distances){
-//		int nx = -1;
-//		int ny = -1;
-//		int lowest = Integer.MAX_VALUE;
-//		for (int[] is : test) {
-//			int i = is[0];
-//			int j = is[1];
-//			if(distances[i][j] < lowest){
-//				lowest = distances[i][j];
-//				nx = i;
-//				ny = j;
-//			}
-//		}
-//		return new int[]{nx, ny};
-//	}
 
-	
-	public int[][] extractValueGrid(int lenx, int leny, String[] mazeArray){
+	public int[][] extractValueGrid(int lenx, int leny, String[] mazeArray) {
 		int[][] valueGrid = new int[lenx][leny];
-		for(int i = 0; i < lenx; i++){
-			for(int j = 0; j < leny; j++){
+		for (int i = 0; i < lenx; i++) {
+			for (int j = 0; j < leny; j++) {
 				valueGrid[i][j] = 0;
 				int bx = i * 3;
-				int by = j * 3;			
+				int by = j * 3;
 				String top = mazeArray[bx].substring(by, by + 3);
 				String mid = mazeArray[bx + 1].substring(by, by + 3);
 				String bot = mazeArray[bx + 2].substring(by, by + 3);
-				
-				valueGrid[i][j] |= top.equals("###")? CLOSED :
-								   top.equals("# #")? TOP_OPEN:
-													ERROR_CELL;
+
+				valueGrid[i][j] |= top.equals("###") ? CLOSED : top
+						.equals("# #") ? TOP_OPEN : ERROR_CELL;
 				char[] midA = mid.toCharArray();
 				valueGrid[i][j] |= (midA[0] == '#') ? CLOSED : LEFT_OPEN;
-				valueGrid[i][j] |= (midA[1] == 'S') ? STARTING_CELL :
-								   (midA[1] == 'F') ? ENDING_CELL:
-									   				CLOSED;
+				valueGrid[i][j] |= (midA[1] == 'S') ? STARTING_CELL
+						: (midA[1] == 'F') ? ENDING_CELL : CLOSED;
 				valueGrid[i][j] |= (midA[2] == '#') ? CLOSED : RIGHT_OPEN;
-				
-				
-				valueGrid[i][j] |= bot.equals("###")? CLOSED :
-					   			   bot.equals("# #")? BOT_OPEN:
-					   				   				  ERROR_CELL;
 
-				
+				valueGrid[i][j] |= bot.equals("###") ? CLOSED : bot
+						.equals("# #") ? BOT_OPEN : ERROR_CELL;
+
 			}
 		}
 		return valueGrid;
 	}
-	
-	public String valueToBox(int q){
+
+	public String valueToBox(int q) {
 		boolean top = (q & TOP_OPEN) == TOP_OPEN;
 		boolean bot = (q & BOT_OPEN) == BOT_OPEN;
 		boolean left = (q & LEFT_OPEN) == LEFT_OPEN;
 		boolean right = (q & RIGHT_OPEN) == RIGHT_OPEN;
-		
+
 		String ret = " ";
 
 		if (top) {

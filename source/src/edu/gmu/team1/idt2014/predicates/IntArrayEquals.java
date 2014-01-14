@@ -7,7 +7,7 @@ import java.util.Arrays;
  * the integer array evaluated. This specifies int array vs ArrayEquals because
  * ArrayEquals works for objects but not primitives.
  */
-public class IntArrayEquals extends Predicate {
+public class IntArrayEquals implements Predicate {
 
 	private Object initial;
 

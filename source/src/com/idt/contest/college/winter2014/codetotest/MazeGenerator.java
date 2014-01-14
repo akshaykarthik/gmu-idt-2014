@@ -272,6 +272,7 @@ public class MazeGenerator {
 			.testNote("invalid x", new MultiEquals(3, 1, 2, 2, 1), new Equals("Invalid X dimension"))
 			.testNote("invalid y", new MultiEquals(1,3,2,2,1), new Equals("Invalid Y dimension"))
 			.testNote("is valid maze", new MultiEquals(1, 1, 20, 20, 1), new ValidMaze())
+			.test(new MultiEquals(1, 1, 5, 5, 1), new ValidMaze())
 			.build();
 		// simple error checking
 		if (initialX > xDimension && initialY > yDimension) {

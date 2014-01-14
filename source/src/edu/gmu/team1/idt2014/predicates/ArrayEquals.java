@@ -8,7 +8,7 @@ import edu.gmu.team1.idt2014.TestUtils;
  * This Predicate evaluates if Arrays.DeepEquals evaluates true for a given
  * array.
  */
-public class ArrayEquals extends Predicate {
+public class ArrayEquals implements Predicate {
 
 	private Object[] initial;
 

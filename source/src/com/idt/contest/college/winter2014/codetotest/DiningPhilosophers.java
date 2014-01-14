@@ -3,8 +3,6 @@ package com.idt.contest.college.winter2014.codetotest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import com.idt.contest.college.winter2014.framework.FrameworkConstants;
 
