@@ -77,7 +77,6 @@ public class FileReportWriter extends AbstractReportWriter {
 	@Override
 	public void log(String message) {
 		try {
-
 			File oFile = new File(FILENAME);
 			if (!oFile.exists()) {
 				oFile.createNewFile();

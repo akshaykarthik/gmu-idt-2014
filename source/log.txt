@@ -1,3 +1,11 @@
-[01/11/2014][15:19:58][pass][c:com.idt.contest.college.winter2014.codetotest.MathUtility][m:isEven][b:1/2][i:10][o:true][n:test evens]
-[01/11/2014][15:23:37][pass][c:com.idt.contest.college.winter2014.codetotest.MergeSort][m:mergeSort][b:1/1][i:1; 2; 3; 4; 5][o:1; 2; 3; 4; 5][n:]
-[01/11/2014][15:24:07][pass][c:com.idt.contest.college.winter2014.codetotest.MergeSort][m:mergeSort][b:1/1][i:1; 2; 4; 3; 5][o:1; 2; 3; 4; 5][n:]
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
+com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks Race Condition Has Occurred
