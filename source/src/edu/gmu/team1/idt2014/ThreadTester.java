@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Used to track the state of an object.
  * */
 public class ThreadTester {
-	private static ConcurrentHashMap<String, Integer> states;
+	private ConcurrentHashMap<String, Integer> states;
 	private static ThreadTester tester;
 
 
@@ -13,7 +13,7 @@ public class ThreadTester {
 		this.states = new ConcurrentHashMap<String, Integer>();
 	}
 
-	public static ThreadTester getInstance(){
+	private static ThreadTester getInstance(){
 		if(tester==null) tester = new ThreadTester();
 		return tester;
 	}
@@ -22,13 +22,13 @@ public class ThreadTester {
 	 * Gets the object name and increases the state. If name is not in the
 	 * HashMap, then entry is created.
 	 * 
-	 * @param objectName
-	 *            - the tracking id/name of the object.
+	 * @param objectName - the tracking id/name of the object.
 	 * */
-	private synchronized void incrementState(String objectName) {
-		Integer currentState = states.get(objectName);
+	private static synchronized void incrementState(String objectName) {
+		ThreadTester test = getInstance();
+		Integer currentState = test.states.get(objectName);
 		++currentState;
-		states.put(objectName, (currentState));
+		test.states.put(objectName, (currentState));
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class ThreadTester {
 	 * 
 	 * @return the state the object is in.
 	 * */
-	public synchronized int getState(String objectName) {
-		return states.get(objectName);
+	public static synchronized int getState(String objectName) {
+		return getInstance().states.get(objectName);
 	}
 
 	/**
@@ -46,10 +46,11 @@ public class ThreadTester {
 	 * @param objectName
 	 *            - the tracking id/name of the object.
 	 * */
-	public synchronized void createStateTracker(String objectName) {
-		if (states.containsKey(objectName))
+	public static synchronized void createStateTracker(String objectName) {
+		ThreadTester test = getInstance();
+		if (test.states.containsKey(objectName))
 			return;
-		states.put(objectName, 1);
+		test.states.put(objectName, 1);
 	}
 	/**
 	 * Creates object to track with given state. It overrides the previous entry
@@ -57,8 +58,9 @@ public class ThreadTester {
 	 * @param objectName- the tracking id/name of the object.
 	 * @param state - the state the object should start with
 	 * */
-	public synchronized void createStateTrackerOverride(String objectName, int state) {
-		states.put(objectName, state);
+	public static synchronized void createStateTrackerOverride(String objectName, int state) {
+		ThreadTester test = getInstance();
+		test.states.put(objectName, state);
 	}
 
 	/**
@@ -68,7 +70,7 @@ public class ThreadTester {
 	 * @param state- the state the thread thinks the object is in
 	 * @param note- note
 	 * */
-	public synchronized void compareWithGlobalState(String objectName, int state, String note) {
+	public static synchronized void compareWithGlobalState(String objectName, int state, String note) {
 		int globalState = getState(objectName);
 		if (globalState != state) {
 			log(note+" Race Condition Has Occurred");
@@ -83,13 +85,13 @@ public class ThreadTester {
 	 * @param state2- a state
 	 * @param note- note
 	 * */
-	public synchronized void compareStates(int state, int state2, String note){
+	public static synchronized void compareStates(int state, int state2, String note){
 		if(state!=state2){
 			log(note+" Race Condition Has Occurred");
 		}
 	}
 	
-	private synchronized void log(String message){
+	private static synchronized void log(String message){
 		GMUT.getReportWriter().log(message);
 	}
 

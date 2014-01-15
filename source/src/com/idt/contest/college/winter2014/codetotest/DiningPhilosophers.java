@@ -45,8 +45,7 @@ public class DiningPhilosophers {
 	 */
 	public DiningPhilosophers() {
 		numOfTimesEatenMap = new HashMap<Integer, Integer>();
-
-		ThreadTester.getInstance().createStateTracker("forks");
+		ThreadTester.createStateTracker("forks");
 	}
 
 	/**
@@ -384,10 +383,10 @@ public class DiningPhilosophers {
 		 * @return - true if fork is available, false if fork is unavailable
 		 */
 		private boolean isForkAvailable(int _forkIndex, int[] _forks) {
-			ThreadTester tester = ThreadTester.getInstance();
-			tester.createStateTrackerOverride(
+			
+			ThreadTester.createStateTrackerOverride(
 					Thread.currentThread().getName(),
-					tester.getState("forks"));
+					ThreadTester.getState("forks"));
 
 			if (_forks[_forkIndex] == FrameworkConstants.INVALID_VALUE) {
 				return true;
@@ -408,17 +407,14 @@ public class DiningPhilosophers {
 		 * @return - true if fork pick up was successful, false if unsuccessful
 		 */
 		private boolean pickUpFork(int _identity, int _forkIndex, int[] _forks) {
-			ThreadTester tester = ThreadTester.getInstance();
-			int currentThreadState = tester.getState(
-					"forks");
-			tester.compareStates(
-					currentThreadState,
-					tester.getState(Thread.currentThread().getName()),
+		
+			int currentThreadState = ThreadTester.getState("forks");
+			ThreadTester.compareStates(currentThreadState,
+					ThreadTester.getState(Thread.currentThread().getName()),
 					"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks");
 
 			if (_forks.length >= _forkIndex + 1) {
-
-				tester.compareWithGlobalState("forks", currentThreadState,
+				ThreadTester.compareWithGlobalState("forks", currentThreadState,
 						"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers pickUpForks");
 
 				_forks[_forkIndex] = _identity;
@@ -443,23 +439,22 @@ public class DiningPhilosophers {
 		 *         unsuccessful
 		 */
 		private boolean releaseForks(int _primaryForkIndex,int _secondaryForkIndex, int[] _forks) {
+			int currentThreadState = ThreadTester.getState("forks");
 			
-			ThreadTester tester = ThreadTester.getInstance();
-			int currentThreadState = tester.getState("forks");
-			
-			tester.compareStates(currentThreadState,tester.getState(Thread.currentThread().getName()),
+			ThreadTester.compareStates(currentThreadState,ThreadTester.getState(
+					Thread.currentThread().getName()),
 					"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks");
 
 			if (_forks.length >= _primaryForkIndex + 1
 					&& _forks.length >= _secondaryForkIndex + 1) {
 
-				tester.compareWithGlobalState("forks",currentThreadState,
-						"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks");
+				ThreadTester.compareWithGlobalState("forks",currentThreadState,
+				"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks");
 				_forks[_primaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 				currentThreadState++;
 
-				tester.compareWithGlobalState("forks",currentThreadState,
-						"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks");
+				ThreadTester.compareWithGlobalState("forks",currentThreadState,
+					"com.idt.contest.college.winter2014.codetotest.DiningPhilosophers Release Forks");
 				_forks[_secondaryForkIndex] = FrameworkConstants.INVALID_VALUE;
 				return true;
 			}
