@@ -79,11 +79,19 @@ public class ThreadTester {
 		incrementState(objectName);
 	}
 
+	/**
+	 * Compares the two states.
+	 * 
+	 * @param state- a state
+	 * @param state2- a state
+	 * @param note- note
+	 * */
 	public synchronized void compareStates(int state, int state2, String note){
 		if(state!=state2){
 			log(note+" Race Condition Has Occurred");
 		}
 	}
+	
 	private synchronized void log(String method){
 		writer.log(method);
 	}
