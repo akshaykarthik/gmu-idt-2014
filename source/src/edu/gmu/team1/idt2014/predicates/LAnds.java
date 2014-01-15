@@ -5,7 +5,7 @@ package edu.gmu.team1.idt2014.predicates;
  * i.e : <br>
  * <code> (Pa(i)->boolean) && (Pb(i)->boolean && Pn(i)) -> boolean </code>
  */
-public class LAnds extends Predicate {
+public class LAnds implements Predicate {
 
 	Predicate[] list;
 

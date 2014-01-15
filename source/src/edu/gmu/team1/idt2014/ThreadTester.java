@@ -1,8 +1,5 @@
 package edu.gmu.team1.idt2014;
-
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import edu.gmu.team1.idt2014.reportwriters.FileReportWriter;
 
 /**
