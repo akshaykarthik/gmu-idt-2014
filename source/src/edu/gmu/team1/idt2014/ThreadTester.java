@@ -8,12 +8,10 @@ import edu.gmu.team1.idt2014.reportwriters.FileReportWriter;
 public class ThreadTester {
 	private static ConcurrentHashMap<String, Integer> states;
 	private static ThreadTester tester;
-	private static FileReportWriter writer;
 
 
 	private ThreadTester(){
 		this.states = new ConcurrentHashMap<String, Integer>();
-		this.writer = new FileReportWriter();
 	}
 
 	public static ThreadTester getInstance(){
@@ -92,8 +90,8 @@ public class ThreadTester {
 		}
 	}
 	
-	private synchronized void log(String method){
-		writer.log(method);
+	private synchronized void log(String message){
+		GMUT.getReportWriter().log(message);
 	}
 
 }
