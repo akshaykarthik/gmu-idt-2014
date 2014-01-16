@@ -322,7 +322,6 @@ public class DiningPhilosophers {
 		 * @return - index for the left fork for the philosopher
 		 */
 		private int determineLeftForkValue(int _id, int _numOfForks) {
-
 			int left;
 			if (_id == 0) {
 				left = _numOfForks - 1;
