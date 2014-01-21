@@ -55,12 +55,13 @@ public class FileReportWriter extends AbstractReportWriter {
 			}
 			if (oFile.canWrite()) {
 				String format = "%s[%s][c:%s][m:%s][b:%s]%s[o:%s][n:%s]";
+				String ioutput = getOutputTag(output);
+				ioutput = ioutput.replace("\r","{R}");
+				ioutput = ioutput.replace("\n","{N}");
 				String content = String.format(format, getDateTag(),
 						(passed ? "pass" : "fail"), tclass, tmethod,
 						currentBranch + "/" + allBranches, getInputTag(inputs),
-						getOutputTag(output).replaceAll("\n", "\\n")
-						.replaceAll("\r", "\\r"), (notes == null) ? ""
-								: notes);
+						ioutput, (notes == null) ? "" : notes);
 
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
 						FILENAME, true));

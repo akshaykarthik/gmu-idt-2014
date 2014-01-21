@@ -2,10 +2,6 @@ package edu.gmu.team1.idt2014.predicates;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Valid Maze is a multi-pronged approach to validating a given maze.<br>

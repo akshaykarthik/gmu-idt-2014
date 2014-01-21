@@ -1,6 +1,8 @@
 package edu.gmu.team1.idt2014.logviewer;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,36 +15,44 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 public class LogViewer {
-//	final String IGNORE_LINE_PATTERN = "\\~";
-//	final String DATE_PATTERN = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}";
-//	final String TIME_PATTERN = "\\d{2}:\\d{2}";
-//	final String PASS_PATTERN = "(passed|Passed)|(failed|Failed)|(pass|Pass)|(fail|Fail)";
-//
-//	// "(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])"
-//	// (?:\\[[cC]\\:) - matches [c:, ignores group ( (?: )
-//	// ([a-zA-Z0-9_\\.]*) - matches repeated a-zA-Z0-9_. group
-//	// (?:\\]) - matches ], ignores group ( (?: )
-//	final String CLASS_PATTERN = "(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	final String METHOD_PATTERN = "(?:\\[[mM]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	final String BRANCH_PATTERN = "(?:\\[[bB]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	final String INPUT_PATTERN = "(?:\\[[iI]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	final String OUTPUT_PATTERN = "(?:\\[[oO]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	final String NOTES_PATTERN = "(?:\\[[nN]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
-//	
+	// final String IGNORE_LINE_PATTERN = "\\~";
+	// final String DATE_PATTERN = "\\d{1,2}\\/\\d{1,2}\\/\\d{4}";
+	// final String TIME_PATTERN = "\\d{2}:\\d{2}";
+	// final String PASS_PATTERN =
+	// "(passed|Passed)|(failed|Failed)|(pass|Pass)|(fail|Fail)";
+	//
+	// // "(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])"
+	// // (?:\\[[cC]\\:) - matches [c:, ignores group ( (?: )
+	// // ([a-zA-Z0-9_\\.]*) - matches repeated a-zA-Z0-9_. group
+	// // (?:\\]) - matches ], ignores group ( (?: )
+	// final String CLASS_PATTERN = "(?:\\[[cC]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	// final String METHOD_PATTERN = "(?:\\[[mM]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	// final String BRANCH_PATTERN = "(?:\\[[bB]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	// final String INPUT_PATTERN = "(?:\\[[iI]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	// final String OUTPUT_PATTERN = "(?:\\[[oO]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	// final String NOTES_PATTERN = "(?:\\[[nN]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
+	//
 	private JFrame frame;
-	private JButton loadLog;
+
 	private JButton runFilter;
 	private JTextField filterText;
 	private JTable table;
@@ -51,6 +61,7 @@ public class LogViewer {
 
 	private TableRowSorter<ReportTableModel> sorter;
 	private ReportTableModel model;
+	private DefaultListModel<String> notesModel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,20 +84,85 @@ public class LogViewer {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(10, 10));
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		model = new ReportTableModel();
+		initMidPanel();
 
-		table = new JTable();
-		table.setColumnSelectionAllowed(true);
-		sorter = new TableRowSorter<ReportTableModel>(model);
-		table.setModel(model);
-		table.setRowSorter(sorter);
-		frame.getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);
+		JToolBar toolBar = new JToolBar();
+		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
 
-		loadLog = new JButton();
-		loadLog.setText("Load Log");
-		loadLog.addActionListener(new ActionListener() {
+		toolBar.add(createLoadLog());
+
+		toolBar.add(createShowFilter());
+
+		filterText = new JTextField();
+
+		toolBar.add(filterText);
+		runFilter = createRunFilter();
+
+		toolBar.add(runFilter);
+		toolBar.add(createResetFilter());
+
+	}
+
+	private void initMidPanel() {
+		JPanel midPanel = new JPanel();
+		midPanel.setMinimumSize(new Dimension(100, 100));
+		{// midPanel
+			model = new ReportTableModel();
+
+			table = new JTable() {
+				public Component prepareRenderer(TableCellRenderer renderer,
+						int row, int column) {
+					Component c = super.prepareRenderer(renderer, row, column);
+					if (c instanceof JComponent) {
+
+						JComponent jc = (JComponent) c;
+						String toolTip = "<html><font face=\"monospace\"> "
+								+ getValueAt(row, column).toString()
+								+ "</font></html>";
+
+						toolTip = toolTip.replace("{R}{N}", "<br>");
+						toolTip = toolTip.replace(";", "<br>");
+						toolTip = toolTip.replace(" ", "&nbsp;");
+						// toolTip = toolTip.replace("{N}", "\n");
+						jc.setToolTipText(toolTip);
+
+					}
+					return c;
+				}
+			};
+
+			table.setColumnSelectionAllowed(true);
+			sorter = new TableRowSorter<ReportTableModel>(model);
+			midPanel.setLayout(new BorderLayout(0, 0));
+			table.setModel(model);
+			table.setRowSorter(sorter);
+			midPanel.add(new JScrollPane(table));
+
+			JPanel rightPanel = new JPanel();
+			rightPanel.setLayout(new BorderLayout(0, 0));
+			{
+				notesModel = new DefaultListModel<String>();
+				JList<String> notesList = new JList<String>(notesModel);
+				notesList
+						.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+				notesList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+				notesList.setVisibleRowCount(-1);
+				rightPanel.add(notesList);
+			}
+
+			JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+					midPanel, rightPanel);
+			splitPane.setResizeWeight(0.75);
+			frame.getContentPane().add(splitPane);
+		}
+	}
+
+	private JButton createLoadLog() {
+		JButton clog = new JButton();
+		clog.setText("Load Log");
+		clog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				// Random Record Generator
 				// model.addData("d " + increment++, "t " + increment * 2,
@@ -105,25 +181,111 @@ public class LogViewer {
 				addRecords(file);
 			}
 		});
+		return clog;
+	}
 
-		frame.getContentPane().add(loadLog, BorderLayout.PAGE_START);
+	private void addRecords(File file) {
 
-		JPanel bottomPanel = new JPanel();
-		frame.getContentPane().add(bottomPanel, BorderLayout.PAGE_END);
-		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+		String line = "";
+		Scanner scan = null;
+		try {
+			Pattern regex = Pattern
+					.compile(
+							"(?:\\[(?<date>\\d{0,2}/\\d{0,2}/\\d{2,4})\\])?\n"
+									+ // date (##/##/####)
+									"(?:\\[(?<time>\\d{0,2}:\\d{0,2}:\\d{0,2})\\])?\n"
+									+ // time (##:##:##)
+									"(?:\\[(?<pass>true|false|t|f|passed|Passed|failed|Failed|pass|Pass|fail|Fail)\\])?\n"
+									+ "(?:\\[[cC]:(?<class>[\\w.\\ \\\\/]*)\\])?\n"
+									+ "(?:\\[[mM]:(?<method>[\\w.\\ \\\\/]*)\\])?\n"
+									+ "(?:\\[[bB]:(?<branch>[\\w.\\ \\\\/]*)\\])?\n"
+									+ "(?:\\[[iI]:(?<input>.*?)])?"
+									+ "(?:\\[[oO]:(?<output>.*?)])?"
+									+ "(?:\\[[nN]:(?<notes>.*?)])?",
+							Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+									| Pattern.COMMENTS);
 
-		filterText = new JTextField();
-		filterText.setColumns(40);
-		bottomPanel.add(filterText);
+			scan = new Scanner(file);
+			while ((line = scan.nextLine()) != null && !line.isEmpty()) {
+				Matcher regexMatcher = regex.matcher(line);
 
-		runFilter = new JButton();
-		runFilter.setText("Filter");
-		runFilter.addActionListener(new ActionListener() {
+				if (line.startsWith("~")) {
+					notesModel.addElement(line);
+					continue;
+				}
+
+				boolean matched = !line.startsWith("~") && regexMatcher.find();
+				String date = regexMatcher.group("date");
+				String time = regexMatcher.group("time");
+				String pass = regexMatcher.group("pass");
+				String cls = regexMatcher.group("class");
+				String method = regexMatcher.group("method");
+				String branch = regexMatcher.group("branch");
+				String input = regexMatcher.group("input");
+				String output = regexMatcher.group("output");
+				String notes = regexMatcher.group("notes");
+
+				if (!matched
+						|| (date + time + pass + cls + method + branch + input
+								+ output + notes).isEmpty())
+					continue;
+
+				model.addData(date, time, pass, cls, method, branch, input,
+						output, notes);
+			}
+		} catch (FileNotFoundException ex) {
+			System.out.println("File not Found");
+		} catch (NoSuchElementException ex) {
+		} catch (NullPointerException ex) {
+		} catch (IllegalStateException ex) {
+		} catch (IllegalArgumentException ex) {
+		} finally {
+			if (!(scan == null)) {
+				scan.close();
+			}
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private JComboBox<String> createShowFilter() {
+		JComboBox comboBox = new JComboBox(new String[] { "Show:All",
+				"Show:Passed", "Show:Failed" });
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JComboBox<?> cb = (JComboBox<?>) e.getSource();
+				String showValue = (String) cb.getSelectedItem();
+				try {
+					RowFilter<ReportTableModel, Object> rf = null;
+					String textFilter = (showValue.equals("Show:Passed") ? "true"
+							: showValue.equals("Show:Failed") ? "false" : "");
+					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+
+					filters.add(RowFilter.regexFilter(textFilter, 2));
+					try {
+						rf = RowFilter.orFilter(filters);
+					} catch (java.util.regex.PatternSyntaxException e1) {
+						return;
+					}
+					sorter.setRowFilter(rf);
+				} catch (Exception ex) {
+
+				}
+			}
+		});
+		return comboBox;
+	}
+
+	private JButton createRunFilter() {
+		JButton runFilt = new JButton();
+
+		runFilt.setText("Filter");
+		runFilt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					RowFilter<ReportTableModel, Object> rf = null;
 					String textFilter = filterText.getText();
 					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+
 					filters.add(RowFilter.regexFilter(textFilter, 0));
 					filters.add(RowFilter.regexFilter(textFilter, 1));
 					filters.add(RowFilter.regexFilter(textFilter, 2));
@@ -144,68 +306,19 @@ public class LogViewer {
 				}
 			}
 		});
-		bottomPanel.add(runFilter);
 		frame.getRootPane().setDefaultButton(runFilter);
+		return runFilt;
 	}
 
-	/*
-	 * TODO: 1. Add expressions for class, method, branches, input, and output.
-	 * 2. Add green/red background for pass/fail. 3. Add Upper/lowercase
-	 * filtering fix on logviewer. 4. Add clear button for the log 5. Clean up.
-	 */
-	private void addRecords(File file) {
-
-		String line = "";
-		Scanner scan = null;
-		try {
-			Pattern regex = Pattern.compile(
-					"(?:\\[(?<date>\\d{0,2}/\\d{0,2}/\\d{2,4})\\])?\n" + // date (##/##/####)
-					"(?:\\[(?<time>\\d{0,2}:\\d{0,2}:\\d{0,2})\\])?\n" + // time (##:##:##)
-					"(?:\\[(?<pass>true|false|t|f|passed|Passed|failed|Failed|pass|Pass|fail|Fail)\\])?\n" +
-					"(?:\\[[cC]:(?<class>[\\w.\\ \\\\/]*)\\])?\n" + 
-					"(?:\\[[mM]:(?<method>[\\w.\\ \\\\/]*)\\])?\n" +
-					"(?:\\[[bB]:(?<branch>[\\w.\\ \\\\/]*)\\])?\n" +
-					"(?:\\[[iI]:(?<input>.*?)])?" +
-					"(?:\\[[oO]:(?<output>.*?)])?"+
-					"(?:\\[[nN]:(?<notes>.*?)])?", 
-					Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.COMMENTS);
-
-			scan = new Scanner(file);
-			while ((line = scan.nextLine()) != null && !line.isEmpty()) {
-				Matcher regexMatcher = regex.matcher(line);
-
-				boolean matched = !line.startsWith("~") && regexMatcher.find();
-				String date = regexMatcher.group("date");
-				String time = regexMatcher.group("time");
-				String pass = regexMatcher.group("pass");
-				String cls = regexMatcher.group("class");
-				String method = regexMatcher.group("method");
-				String branch = regexMatcher.group("branch");
-				String input = regexMatcher.group("input");
-				String output = regexMatcher.group("output");
-				String notes = regexMatcher.group("notes");
-				System.out.println(output);
-				System.out.println(line);
-				
-					
-				if (!matched
-						|| (date + time + pass + cls + method + branch + input
-								+ output + notes).isEmpty())
-					continue;
-
-				model.addData(date, time, pass, cls, method, branch, input,
-						output, notes);
+	private JButton createResetFilter() {
+		JButton btnResetFilter = new JButton();
+		btnResetFilter.setText("Reset Filter");
+		btnResetFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				filterText.setText("");
+				runFilter.doClick();
 			}
-		} catch (FileNotFoundException ex) {
-			System.out.println("File not Found");
-		} catch (NoSuchElementException ex) {
-		} catch (NullPointerException ex) {
-		} catch (IllegalStateException ex) {
-		} catch (IllegalArgumentException ex) {
-		} finally {
-			if (!(scan == null)) {
-				scan.close();
-			}
-		}
+		});
+		return btnResetFilter;
 	}
 }
