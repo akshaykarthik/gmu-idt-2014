@@ -20,7 +20,7 @@ public class IntArrayEquals implements Predicate {
 		// System.out.println(Arrays.toString((int[])initial));
 		// System.out.println(Arrays.toString((int[])inputs[0]));
 		boolean value = Arrays.equals((int[]) initial, (int[]) inputs[0]);
-		// System.out.println(value);
+//		 System.out.println(value);
 		return value;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.predicates.IntArrayEquals;
+import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
 /*
 Adapted from:
@@ -17,6 +18,32 @@ version that uses multiple threads.
 public class MergeSort {
 	
 	public int[] parallelMergeSort(int threadCount, int[] a) {
+		int[] testAryA1 = {1,2,4,3,5};
+		int[] testAryA2 = {1,2,3,4,5};
+		
+		int[] testAryB1 = {20,15,10,5,1};
+		int[] testAryB2 = {1,5,10,15,20};
+		
+		int[] testAryC1 = {2,1};
+		int[] testAryC2 = {1,2};
+		
+		int[] testAryD1 = null;
+		int[] testAryD2 = null;
+		
+		int[] testAryE1 = {56,5,7,789,89,43,2,4,56,89,97,5,45,32,32123,32,56,7,867,54,78,9986,55445,3424,234,65,657,7876989,5,5,5634,523,22,2,5342,2,2211,21,11256};
+		int[] testAryE2 = {2,2,2,4,5,5,5,5,7,7,21,22,32,32,43,45,54,56,56,56,65,78,89,89,97,234,523,657,789,867,2211,3424,5342,5634,9986,11256,32123,55445,7876989};
+		GMUT.addTest()
+			.branches(1)
+//			.test(new IntArrayEquals(testAryA1), new IntArrayEquals(testAryA2))
+			.test(new MultiEquals(testAryA1), new MultiEquals(testAryA2))
+			.test(new IntArrayEquals(testAryB1), new IntArrayEquals(testAryB2))
+			.test(new IntArrayEquals(testAryC1), new IntArrayEquals(testAryC2))
+			.test(new IntArrayEquals(testAryD1), new IntArrayEquals(testAryD2))
+			.test(new IntArrayEquals(testAryE1), new IntArrayEquals(testAryE2))
+			.build();
+		int[] originalA = Arrays.copyOf(a, a.length);
+		int originalThreadCount = threadCount;
+		
 		if (threadCount <= 1) {
 			mergeSort(a);
 		} else if (a.length >= 2) {
@@ -40,12 +67,41 @@ public class MergeSort {
 			// merge them back together
 			merge(left, right, a);
 		}
-
+		
+//		GMUT.test(a, 1, originalA);
+		GMUT.test(a, 1, originalThreadCount,originalA);
 		return a;
 	}
 	
 	
 	public int[] broken_parallelMergeSort(int threadCount, int[] a) {
+		
+		int[] testAryA1 = {1,2,4,3,5};
+		int[] testAryA2 = {1,2,3,4,5};
+		
+		int[] testAryB1 = {20,15,10,5,1};
+		int[] testAryB2 = {1,5,10,15,20};
+		
+		int[] testAryC1 = {2,1};
+		int[] testAryC2 = {1,2};
+		
+		int[] testAryD1 = null;
+		int[] testAryD2 = null;
+		
+		int[] testAryE1 = {56,5,7,789,89,43,2,4,56,89,97,5,45,32,32123,32,56,7,867,54,78,9986,55445,3424,234,65,657,7876989,5,5,5634,523,22,2,5342,2,2211,21,11256};
+		int[] testAryE2 = {2,2,2,4,5,5,5,5,7,7,21,22,32,32,43,45,54,56,56,56,65,78,89,89,97,234,523,657,789,867,2211,3424,5342,5634,9986,11256,32123,55445,7876989};
+		GMUT.addTest()
+			.branches(1)
+//			.test(new IntArrayEquals(testAryA1), new IntArrayEquals(testAryA2))
+			.test(new MultiEquals(threadCount,testAryA1), new MultiEquals(testAryA2))
+			.test(new IntArrayEquals(testAryB1), new IntArrayEquals(testAryB2))
+			.test(new IntArrayEquals(testAryC1), new IntArrayEquals(testAryC2))
+			.test(new IntArrayEquals(testAryD1), new IntArrayEquals(testAryD2))
+			.test(new IntArrayEquals(testAryE1), new IntArrayEquals(testAryE2))
+			.build();
+		int[] originalA = Arrays.copyOf(a, a.length);
+		int originalThreadCount = threadCount;
+		
 		if (threadCount <= 1) {
 			broken_mergeSort(a);
 		} else if (a.length >= 2) {
@@ -70,6 +126,8 @@ public class MergeSort {
 			broken_merge(left, right, a);
 		}
 
+//		GMUT.test(a, 1, originalA);
+		GMUT.test(a, 1, originalThreadCount,originalA);
 		return a;
 	}
 	
@@ -79,12 +137,24 @@ public class MergeSort {
 	// It is O(N log N) for all inputs.
 	public int[] mergeSort(int[] a) {
 		
-		int[] ary1 = {1,2,4,3,5};
-		int[] ary2 = {1,2,3,4,5};
+		int[] testAryA1 = {1,2,4,3,5};
+		int[] testAryA2 = {1,2,3,4,5};
+		
+		int[] testAryB1 = {20,15,10,5,1};
+		int[] testAryB2 = {1,5,10,15,20};
+		
+		int[] testAryC1 = {2,1};
+		int[] testAryC2 = {1,2};
+		
+		int[] testAryD1 = null;
+		int[] testAryD2 = null;
 		
 		GMUT.addTest()
 			.branches(1)
-			.test(new IntArrayEquals(ary1), new IntArrayEquals(ary2))
+			.test(new IntArrayEquals(testAryA1), new IntArrayEquals(testAryA2))
+			.test(new IntArrayEquals(testAryB1), new IntArrayEquals(testAryB2))
+			.test(new IntArrayEquals(testAryC1), new IntArrayEquals(testAryC2))
+			.test(new IntArrayEquals(testAryD1), new IntArrayEquals(testAryD2))
 			.build();
 		int[] originalA = Arrays.copyOf(a, a.length);
 		
@@ -124,6 +194,28 @@ public class MergeSort {
 		//
 		//
 		//
+		
+		int[] testAryA1 = {1,2,4,3,5};
+		int[] testAryA2 = {1,2,3,4,5};
+		
+		int[] testAryB1 = {20,15,10,5,1};
+		int[] testAryB2 = {1,5,10,15,20};
+		
+		int[] testAryC1 = {2,1};
+		int[] testAryC2 = {1,2};
+		
+		int[] testAryD1 = null;
+		int[] testAryD2 = null;
+		
+		GMUT.addTest()
+			.branches(1)
+			.test(new IntArrayEquals(testAryA1), new IntArrayEquals(testAryA2))
+			.test(new IntArrayEquals(testAryB1), new IntArrayEquals(testAryB2))
+			.test(new IntArrayEquals(testAryC1), new IntArrayEquals(testAryC2))
+			.test(new IntArrayEquals(testAryD1), new IntArrayEquals(testAryD2))
+			.build();
+		int[] originalA = Arrays.copyOf(a, a.length);
+		
 		if (a.length > 2) {
 			// split array in half
 			int[] left  = Arrays.copyOfRange(a, 0, a.length / 2);
@@ -137,6 +229,7 @@ public class MergeSort {
 			merge(left, right, a);
 		}
 		
+		GMUT.test(a, 1, originalA);
 		return a;
 	}
 	
