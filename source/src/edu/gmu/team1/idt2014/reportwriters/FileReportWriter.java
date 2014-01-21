@@ -84,7 +84,7 @@ public class FileReportWriter extends AbstractReportWriter {
 			if (oFile.canWrite()) {
 				BufferedWriter oWriter = new BufferedWriter(new FileWriter(
 						FILENAME, true));
-				oWriter.write(message + "\r\n");
+				oWriter.write("~ "+message + "\r\n");
 				oWriter.close();
 			}
 		}catch (IOException oException) {

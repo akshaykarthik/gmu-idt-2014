@@ -25,6 +25,9 @@ public class MathUtility {
 	public boolean isEven(int numToCheck) {
 		GMUT.addTest()
 			.branches(2)
+			.testNote("test evens", new Equals(2), new Equals(true))
+			.testNote("test odds", new Equals(3), new Equals(false))
+			.test(new Equals(4), new Equals(true))
 			.testNote("test evens", new Equals(10), new Equals(true))
 			.testNote("test odds", new Equals(11), new Equals(false))
 			.build();

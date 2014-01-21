@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="build_all" name="Create Runnable Jars for Project com.idt.contest.college.winter2014">
+<project default="build_nodocs" name="Create Runnable Jars for Project com.idt.contest.college.winter2014">
 	<target name="build_all">
 		<jar destfile="../gmu_main.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
@@ -23,6 +23,30 @@
 			<fileset dir="./bin" />
 		</jar>
 		<javadoc packagenames="edu.*" sourcepath="./src" destdir="../documentation/javadoc" access="package" Encoding="UTF-8" />
+		<copy file="batchscript.txt" tofile="../batchscript.txt" overwrite="true" />
+	</target>
+	<target name="build_nodocs">
+		<jar destfile="../gmu_main.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="com.idt.contest.college.winter2014.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./bin" />
+		</jar>
+		<jar destfile="../gmu_logviewer.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="edu.gmu.team1.idt2014.logviewer.LogViewer" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./bin" />
+		</jar>
+		<jar destfile="../gmu_tests.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="edu.gmu.team1.idt2014.test.InternalTestRunner" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./bin" />
+		</jar>
 		<copy file="batchscript.txt" tofile="../batchscript.txt" overwrite="true" />
 	</target>
 </project>

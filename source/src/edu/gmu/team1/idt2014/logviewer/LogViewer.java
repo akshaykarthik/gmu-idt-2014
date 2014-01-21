@@ -165,15 +165,16 @@ public class LogViewer {
 					"(?:\\[[cC]:(?<class>[\\w.\\ \\\\/]*)\\])?\n" + 
 					"(?:\\[[mM]:(?<method>[\\w.\\ \\\\/]*)\\])?\n" +
 					"(?:\\[[bB]:(?<branch>[\\w.\\ \\\\/]*)\\])?\n" +
-					"(?:\\[[iI]:(?<input>[\\w.\\ \\\\/]*)\\])?\n" +
-					"(?:\\[[oO]:(?<output>[\\w.\\ \\\\/]*)\\])?\n" +
-					"(?:\\[[nN]:(?<notes>[\\w\\s.\\\\/]*)\\])?", 
+					"(?:\\[[iI]:(?<input>.*?)])?" +
+					"(?:\\[[oO]:(?<output>.*?)])?"+
+					"(?:\\[[nN]:(?<notes>.*?)])?", 
 					Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.COMMENTS);
-			
+
 			scan = new Scanner(file);
 			while ((line = scan.nextLine()) != null && !line.isEmpty()) {
 				Matcher regexMatcher = regex.matcher(line);
-				boolean matched = regexMatcher.find();
+
+				boolean matched = !line.startsWith("~") && regexMatcher.find();
 				String date = regexMatcher.group("date");
 				String time = regexMatcher.group("time");
 				String pass = regexMatcher.group("pass");
@@ -183,6 +184,8 @@ public class LogViewer {
 				String input = regexMatcher.group("input");
 				String output = regexMatcher.group("output");
 				String notes = regexMatcher.group("notes");
+				System.out.println(output);
+				System.out.println(line);
 				
 					
 				if (!matched
@@ -197,6 +200,8 @@ public class LogViewer {
 			System.out.println("File not Found");
 		} catch (NoSuchElementException ex) {
 		} catch (NullPointerException ex) {
+		} catch (IllegalStateException ex) {
+		} catch (IllegalArgumentException ex) {
 		} finally {
 			if (!(scan == null)) {
 				scan.close();
