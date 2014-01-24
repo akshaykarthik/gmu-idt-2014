@@ -93,7 +93,7 @@ public class MergeSort {
 		GMUT.addTest()
 			.branches(1)
 			.test(new MultiEquals(5,testAryA1), new IntArrayEquals(testAryA2))
-			.testNote("calls mergeSort with one or fewer threads",new MultiEquals(0,testAryB1), new IntArrayEquals(testAryB2))
+			.testNote("calls mergeSort with one or no threads",new MultiEquals(0,testAryB1), new IntArrayEquals(testAryB2))
 			.test(new MultiEquals(20,testAryC1), new IntArrayEquals(testAryC2))
 			.testNote("1,000,000 as integer input",new MultiEquals(1000000,testAryD1), new IntArrayEquals(testAryD2))
 			.test(new MultiEquals(16,testAryE1), new IntArrayEquals(testAryE2))

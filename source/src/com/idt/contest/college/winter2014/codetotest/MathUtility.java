@@ -26,9 +26,10 @@ public class MathUtility {
 	public boolean isEven(int numToCheck) {
 		GMUT.addTest()
 			.branches(2)
+			.test(new Equals(0), new Equals(true))
 			.testNote("test evens", new Equals(2), new Equals(true))
 			.testNote("test odds", new Equals(3), new Equals(false))
-			.test(new Equals(4), new Equals(true))
+//			.test(new Equals(4), new Equals(true))
 			.testNote("test evens", new Equals(10), new Equals(true))
 			.testNote("test odds", new Equals(11), new Equals(false))
 			.build();
@@ -205,14 +206,17 @@ public class MathUtility {
 	public float convertCurrency(float amount, float rate) {
 		GMUT.addTest()
 			.branches(3)
+			.test(new MultiEquals(0.0f, 0.0f), new Equals(0.0f))
+			.test(new MultiEquals(0.0f, 1.5f), new Equals(0.0f))
+			.test(new MultiEquals(2.0f, 1.0f), new Equals(2.0f))
 			.test(new MultiEquals(1.0f, 0.61f), new Equals(0.61f))
 			.test(new MultiEquals(100.0f, 0.73f), new Equals(73f))
 			.build();
 		// if the amount is zero, the result will be zero
 		// if the rate is zero, the result will be zero
 		if (amount == 0 || rate == 0) {
-			GMUT.test(0, 1, amount, rate);
-			return 0;
+			GMUT.test(0f , 1, amount, rate);
+			return 0f;
 		// if the rate is one, the amount will not be transformed
 		} else if (rate == 1) {
 			GMUT.test(amount, 2, amount, rate);

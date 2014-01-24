@@ -24,6 +24,7 @@
 		</jar>
 		<javadoc packagenames="edu.*" sourcepath="./src" destdir="../documentation/javadoc" access="package" Encoding="UTF-8" />
 		<copy file="batchscript.txt" tofile="../batchscript.txt" overwrite="true" />
+		<copy file="fullbatchscript.txt" tofile="../fullbatchscript.txt" overwrite="true" />
 	</target>
 	<target name="build_nodocs">
 		<jar destfile="../gmu_main.jar" filesetmanifest="mergewithoutmain">
@@ -47,6 +48,5 @@
 			</manifest>
 			<fileset dir="./bin" />
 		</jar>
-		<copy file="batchscript.txt" tofile="../batchscript.txt" overwrite="true" />
 	</target>
 </project>

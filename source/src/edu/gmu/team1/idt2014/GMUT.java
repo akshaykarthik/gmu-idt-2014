@@ -116,7 +116,7 @@ public class GMUT extends Thread {
 						
 						// when the input is valid, evaluate the output predicate.
 						boolean passed = tests.testMap.get(p).evaluate(output);
-						//System.out.println(tests.name + " "	+ (passed ? "pass" : "fail"));
+//						System.out.println(tests.name + " " + branch +  " "	+ (passed ? "pass" : "fail"));
 						
 						// log the test case;
 						getReportWriter().logTest(tclass, tmethod, passed, branch,
