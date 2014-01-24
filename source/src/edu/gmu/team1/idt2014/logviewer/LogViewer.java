@@ -63,7 +63,7 @@ public class LogViewer {
 	// final String NOTES_PATTERN = "(?:\\[[nN]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
 	//
 	private JFrame frame;
-
+	public JPanel mainPanel;
 	private JButton runFilter;
 	private JTextField filterText;
 
@@ -109,6 +109,8 @@ public class LogViewer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
+		frame.add(mainPanel = new JPanel());
+		
 		createMidPanelTable();
 
 		notesModel = new DefaultListModel<String>();
@@ -138,12 +140,12 @@ public class LogViewer {
 				scrollPane, commentsAndCoverage);
 		// tableAndRight.setPreferredSize(new Dimension(900, 500));
 		tableAndRight.setResizeWeight(0.75);
-		frame.getContentPane().add(tableAndRight);
+		mainPanel.add(tableAndRight);
 		frame.pack();
 
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
+		mainPanel.add(toolBar, BorderLayout.SOUTH);
 
 		toolBar.add(createToolBarLoadLog());
 		toolBar.add(createToolBarShowFilter());
