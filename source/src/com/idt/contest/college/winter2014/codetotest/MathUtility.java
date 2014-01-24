@@ -9,6 +9,7 @@ import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.Equals;
 import edu.gmu.team1.idt2014.predicates.MultiEquals;
+import edu.gmu.team1.idt2014.reportwriters.FileReportWriter;
 
 
 /**
