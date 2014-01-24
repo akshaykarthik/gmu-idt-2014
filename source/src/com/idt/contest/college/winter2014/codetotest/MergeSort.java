@@ -14,11 +14,7 @@ CSE 373, Winter 2013
 The merge sort algorithm, in both a standard sequential version and a parallel
 version that uses multiple threads.
 */
-/*
- * TODO:
- * All methods have been tested except those that are void.
- * Determine whether these can be tested under current circumstances.
- */
+
 public class MergeSort {
 	
 	public int[] parallelMergeSort(int threadCount, int[] a) {
@@ -149,8 +145,9 @@ public class MergeSort {
 		int[] testAryC1 = {2,1};
 		int[] testAryC2 = {1,2};
 		
-		int[] testAryD1 = null;
-		int[] testAryD2 = null;
+		int[] testAryD1 = {56,5,7,789,89,43,2,4,56,89,97,5,45,32,32123,32,56,7,867,54,78,9986,55445,3424,234,65,657,7876989,5,5,5634,523,22,2,5342,2,2211,21,11256};
+		int[] testAryD2 = {2,2,2,4,5,5,5,5,7,7,21,22,32,32,43,45,54,56,56,56,65,78,89,89,97,234,523,657,789,867,2211,3424,5342,5634,9986,11256,32123,55445,7876989};
+		
 		
 		GMUT.addTest()
 			.branches(1)
@@ -207,8 +204,8 @@ public class MergeSort {
 		int[] testAryC1 = {2,1};
 		int[] testAryC2 = {1,2};
 		
-		int[] testAryD1 = null;
-		int[] testAryD2 = null;
+		int[] testAryD1 = {56,5,7,789,89,43,2,4,56,89,97,5,45,32,32123,32,56,7,867,54,78,9986,55445,3424,234,65,657,7876989,5,5,5634,523,22,2,5342,2,2211,21,11256};
+		int[] testAryD2 = {2,2,2,4,5,5,5,5,7,7,21,22,32,32,43,45,54,56,56,56,65,78,89,89,97,234,523,657,789,867,2211,3424,5342,5634,9986,11256,32123,55445,7876989};
 		
 		GMUT.addTest()
 			.branches(1)
