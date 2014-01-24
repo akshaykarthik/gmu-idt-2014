@@ -3,7 +3,6 @@ package com.idt.contest.college.winter2014.codetotest;
 import java.util.Arrays;
 
 import edu.gmu.team1.idt2014.GMUT;
-import edu.gmu.team1.idt2014.predicates.ArrayEquals;
 import edu.gmu.team1.idt2014.predicates.IntArrayEquals;
 import edu.gmu.team1.idt2014.predicates.MultiEquals;
 
