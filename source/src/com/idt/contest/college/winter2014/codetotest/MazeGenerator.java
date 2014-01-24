@@ -270,18 +270,21 @@ public class MazeGenerator {
 			.branches(4)
 			.testNote("invalid x, y", new MultiEquals(3, 3, 2, 2, 1), new Equals("Invalid X and Y dimensions"))
 			.testNote("invalid x", new MultiEquals(3, 1, 2, 2, 1), new Equals("Invalid X dimension"))
-			.testNote("invalid y", new MultiEquals(1,3,2,2,1), new Equals("Invalid Y dimension"))
+			.testNote("invalid y", new MultiEquals(1, 3, 2, 2, 1), new Equals("Invalid Y dimension"))
 			.testNote("is valid maze", new MultiEquals(1, 1, 20, 20, 1), new ValidMaze())
 			.test(new MultiEquals(1, 1, 5, 5, 1), new ValidMaze())
 			.build();
 		// simple error checking
 		if (initialX > xDimension && initialY > yDimension) {
+			GMUT.test("Invalid X and Y dimensions", 1, initialX, initialY, xDimension, yDimension, randomSeed);
 			return "Invalid X and Y dimensions";
 		}
 		else if (initialX > xDimension) {
+			GMUT.test("Invalid X dimension", 2, initialX, initialY, xDimension, yDimension, randomSeed);
 			return "Invalid X dimension";
 		}
 		else if (initialY > yDimension) {
+			GMUT.test("Invalid Y dimension", 3, initialX, initialY, xDimension, yDimension, randomSeed);
 			return "Invalid Y dimension";
 		}
 
