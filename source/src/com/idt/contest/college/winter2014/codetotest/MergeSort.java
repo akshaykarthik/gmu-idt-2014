@@ -33,17 +33,25 @@ public class MergeSort {
 		int[] testAryE1 = {56,5,7,789,89,43,2,4,56,89,97,5,45,32,32123,32,56,7,867,54,78,9986,55445,3424,234,65,657,7876989,5,5,5634,523,22,2,5342,2,2211,21,11256};
 		int[] testAryE2 = {2,2,2,4,5,5,5,5,7,7,21,22,32,32,43,45,54,56,56,56,65,78,89,89,97,234,523,657,789,867,2211,3424,5342,5634,9986,11256,32123,55445,7876989};
 		
+//		Delete
+//		int[] Null = null;
+//		int[] b = {1};
+//		
+//		if(Arrays.equals(a, b))
+//			a = Null;
+//		Delete
+		
 		GMUT.addTest()
 			.branches(1)
 			.test(new MultiEquals(5,testAryA1), new IntArrayEquals(testAryA2))
-			.testNote("calls mergeSort with one or fewer threads",new MultiEquals(0,testAryB1), new IntArrayEquals(testAryB2))
+			.testNote("calls mergeSort with one or no threads",new MultiEquals(0,testAryB1), new IntArrayEquals(testAryB2))
 			.test(new MultiEquals(20,testAryC1), new IntArrayEquals(testAryC2))
 			.testNote("1,000,000 as integer input",new MultiEquals(1000000,testAryD1), new IntArrayEquals(testAryD2))
 			.test(new MultiEquals(16,testAryE1), new IntArrayEquals(testAryE2))
 			.build();
 		
-		int[] originalA = Arrays.copyOf(a, a.length);
 		int originalThreadCount = threadCount;
+		int[] originalA = Arrays.copyOf(a, a.length);
 		
 		if (threadCount <= 1) {
 			mergeSort(a);

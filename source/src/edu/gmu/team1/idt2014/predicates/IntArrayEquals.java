@@ -17,10 +17,15 @@ public class IntArrayEquals implements Predicate {
 
 	@Override
 	public boolean evaluate(Object... inputs) {
-		// System.out.println(Arrays.toString((int[])initial));
-		// System.out.println(Arrays.toString((int[])inputs[0]));
+		
+		if(inputs == null && initial == null)
+			return true;
+		else if(inputs == null)
+			return false;
+		
 		boolean value = Arrays.equals((int[]) initial, (int[]) inputs[0]);
 //		 System.out.println(value);
+
 		return value;
 	}
 
