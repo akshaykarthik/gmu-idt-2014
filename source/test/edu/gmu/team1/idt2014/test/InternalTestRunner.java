@@ -2,6 +2,7 @@ package edu.gmu.team1.idt2014.test;
 
 import edu.gmu.team1.idt2014.GMUT;
 import edu.gmu.team1.idt2014.reportwriters.StringReportWriter;
+import edu.gmu.team1.idt2014.test.tests.APITest_Config;
 import edu.gmu.team1.idt2014.test.tests.APITest_Integration;
 import edu.gmu.team1.idt2014.test.tests.TypeTest_All;
 import edu.gmu.team1.idt2014.test.tests.TypeTest_Boolean;
@@ -32,7 +33,8 @@ public class InternalTestRunner {
 			new TypeTest_Boolean(),
 			new TypeTest_Char(),
 			new TypeTest_String(),
-			new TypeTest_IntArr()
+			new TypeTest_IntArr(),
+			new APITest_Config()
 		};
 		
 		for (InternalTest intt : tests) {

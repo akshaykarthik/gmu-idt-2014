@@ -8,7 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +42,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 import javax.swing.JTabbedPane;
+
+import java.awt.Font;
 
 public class LogViewer {
 	// final String IGNORE_LINE_PATTERN = "\\~";
@@ -91,18 +96,6 @@ public class LogViewer {
 		initialize();
 	}
 
-	public void loadFile() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		int returnVal = chooser.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			file = chooser.getSelectedFile();
-			addRecords(file);
-			performCoverage(model);
-		}
-	}
-
 	private void initialize() {
 		frame = new JFrame();
 		frame.pack();
@@ -111,23 +104,6 @@ public class LogViewer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		createMidPanel();
-		createToolBar();
-
-	}
-
-	private void createToolBar() {
-		JToolBar toolBar = new JToolBar();
-		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
-
-		toolBar.add(createToolBarLoadLog());
-		toolBar.add(createToolBarShowFilter());
-		toolBar.add(filterText = createToolBarFilterText());
-		toolBar.add(runFilter = createToolBarRunFilter());
-		toolBar.add(createToolBarResetFilter());
-	}
-
-	private void createMidPanel() {
 		createMidPanelTable();
 
 		notesModel = new DefaultListModel<String>();
@@ -139,14 +115,17 @@ public class LogViewer {
 		coverageModel = new DefaultTreeModel(defaultNode);
 		coverageTree = new JTree(coverageModel);
 		coverageTree.setEditable(false);
-		coverageTree.getSelectionModel().setSelectionMode(
-				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		coverageTree.setShowsRootHandles(false);
+
+		JPanel coveragePanel = new JPanel();
+		coveragePanel.setLayout(new BorderLayout(0, 0));
+		coveragePanel.add(coverageTree, BorderLayout.CENTER);
+		coveragePanel.add(createCoverageExportButton(), BorderLayout.NORTH);
 
 		JTabbedPane commentsAndCoverage = new JTabbedPane(JTabbedPane.TOP);
 		commentsAndCoverage.setPreferredSize(new Dimension(400, 500));
-		commentsAndCoverage.addTab("Comments", notesList);
-		commentsAndCoverage.addTab("Code Coverage", coverageTree);
+		commentsAndCoverage.addTab("Comments", new JScrollPane(notesList));
+		commentsAndCoverage.addTab("Code Coverage", coveragePanel);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(500, 500));
@@ -156,40 +135,91 @@ public class LogViewer {
 		tableAndRight.setResizeWeight(0.75);
 		frame.getContentPane().add(tableAndRight);
 		frame.pack();
+
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
+
+		toolBar.add(createToolBarLoadLog());
+		toolBar.add(createToolBarShowFilter());
+		toolBar.add(filterText = createToolBarFilterText());
+		toolBar.add(runFilter = createToolBarRunFilter());
+		toolBar.add(createToolBarResetFilter());
 	}
 
 	private void createMidPanelTable() {
 		model = new ReportTableModel();
-		{// create table;
-			table = new JTable() {
-				private static final long serialVersionUID = -3220594535640547297L;
+		// create table;
+		table = new JTable() {
+			private static final long serialVersionUID = -3220594535640547297L;
 
-				public Component prepareRenderer(TableCellRenderer renderer,
-						int row, int column) {
-					Component c = super.prepareRenderer(renderer, row, column);
-					if (c instanceof JComponent) {
+			public Component prepareRenderer(TableCellRenderer renderer,
+					int row, int column) {
+				Component c = super.prepareRenderer(renderer, row, column);
+				if (c instanceof JComponent) {
+					JComponent jc = (JComponent) c;
+					String toolTip = "<html><font face=\"monospace\"> "
+							+ getValueAt(row, column).toString()
+							+ "</font></html>";
 
-						JComponent jc = (JComponent) c;
-						String toolTip = "<html><font face=\"monospace\"> "
-								+ getValueAt(row, column).toString()
-								+ "</font></html>";
+					toolTip = toolTip.replace("{R}{N}", "<br>");
+					toolTip = toolTip.replace(";", "<br>");
+					toolTip = toolTip.replace(" ", "&nbsp;");
+					// toolTip = toolTip.replace("{N}", "\n");
+					jc.setToolTipText(toolTip);
 
-						toolTip = toolTip.replace("{R}{N}", "<br>");
-						toolTip = toolTip.replace(";", "<br>");
-						toolTip = toolTip.replace(" ", "&nbsp;");
-						// toolTip = toolTip.replace("{N}", "\n");
-						jc.setToolTipText(toolTip);
-
-					}
-					return c;
 				}
-			};
+				return c;
+			}
+		};
 
-			sorter = new TableRowSorter<ReportTableModel>(model);
-			table.setColumnSelectionAllowed(true);
-			table.setModel(model);
-			table.setRowSorter(sorter);
-		}
+		sorter = new TableRowSorter<ReportTableModel>(model);
+		table.setColumnSelectionAllowed(true);
+		table.setModel(model);
+		table.setRowSorter(sorter);
+	}
+
+	private JButton createCoverageExportButton() {
+		JButton exportButton = new JButton("Export Coverage");
+		exportButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("rawtypes")
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO: Export Coverage to File
+				String output = "";
+				Enumeration classes = defaultNode.children();
+				while (classes.hasMoreElements()) {
+					DefaultMutableTreeNode tclass = (DefaultMutableTreeNode) classes
+							.nextElement();
+					output += tclass.getUserObject().toString()
+							+ System.lineSeparator();
+					Enumeration methods = tclass.children();
+					while (methods.hasMoreElements()) {
+						DefaultMutableTreeNode tmethod = (DefaultMutableTreeNode) methods
+								.nextElement();
+						output += "\t" + tmethod.getUserObject().toString()
+								+ System.lineSeparator();
+					}
+				}
+				System.out.println(output);
+
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int returnVal = chooser.showOpenDialog(null);
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File savefile = chooser.getSelectedFile();
+					try {
+						FileWriter fw = new FileWriter(savefile);
+						fw.write(output);
+						fw.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
+		return exportButton;
 	}
 
 	private JButton createToolBarLoadLog() {
@@ -197,7 +227,15 @@ public class LogViewer {
 		clog.setText("Load Log");
 		clog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				loadFile();
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int returnVal = chooser.showOpenDialog(null);
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					file = chooser.getSelectedFile();
+					addRecords(file);
+					performCoverage(model);
+				}
 			}
 		});
 		return clog;
@@ -354,6 +392,9 @@ public class LogViewer {
 
 	private void performCoverage(ReportTableModel im) {
 		int records = im.getRowCount();
+
+		defaultNode.removeAllChildren();
+		coverageModel.reload();
 		HashMap<String, HashMap<String, HashSet<String>>> caseMap = new HashMap<String, HashMap<String, HashSet<String>>>();
 		for (int test = 0; test < records; test++) {
 			String tclass = (String) im.getValueAt(test, 3);
@@ -372,36 +413,47 @@ public class LogViewer {
 			// System.out.println(cls);
 			MutableTreeNode clsn = new DefaultMutableTreeNode(cls);
 			HashMap<String, HashSet<String>> clsmap = caseMap.get(cls);
+
+			float brmax_base = 0f;
+			float compare_base = 0f;
 			for (String mtd : clsmap.keySet()) {
 				// System.out.println("\t" + mtd);
-
+				boolean first = true;
 				HashSet<String> branc = clsmap.get(mtd);
 				float brmax = 0f;
 				float compare = 0f;
 				for (String string : branc) {
+					if (first) {
+						brmax_base += Float.parseFloat((string.split("/"))[1]);
+						first = false;
+					}
 					brmax = Float.parseFloat((string.split("/"))[1]);
 					compare++;
+					compare_base++;
 					// System.out.println("\t\t" + string);
 				}
 				MutableTreeNode mtdn = new DefaultMutableTreeNode(
-						String.format("[%.5g%n %%] %s", (compare / brmax * 100),
+						String.format("[%.4g %%] %s", (compare / brmax * 100),
 								mtd));
+
 				clsn.insert(mtdn, clsn.getChildCount());
 				// System.out.println("\t\t\t " +compare/brmax);
 			}
+			clsn.setUserObject(String.format("[%.4g %%] %s", (compare_base
+					/ brmax_base * 100), cls));
 			coverageModel.insertNodeInto(clsn, defaultNode,
 					coverageModel.getChildCount(defaultNode));
 		}
 		expandAllNodes(coverageTree, 0, coverageTree.getRowCount());
 	}
-	
-	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
-	    for(int i=startingIndex;i<rowCount;++i){
-	        tree.expandRow(i);
-	    }
 
-	    if(tree.getRowCount()!=rowCount){
-	        expandAllNodes(tree, rowCount, tree.getRowCount());
-	    }
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount) {
+		for (int i = startingIndex; i < rowCount; ++i) {
+			tree.expandRow(i);
+		}
+
+		if (tree.getRowCount() != rowCount) {
+			expandAllNodes(tree, rowCount, tree.getRowCount());
+		}
 	}
 }
