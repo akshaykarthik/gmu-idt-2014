@@ -43,8 +43,11 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SpringLayout;
+
 
 public class LogViewer {
 	// final String IGNORE_LINE_PATTERN = "\\~";

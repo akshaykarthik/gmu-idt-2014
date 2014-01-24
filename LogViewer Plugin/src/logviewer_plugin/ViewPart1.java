@@ -16,7 +16,7 @@ public class ViewPart1 extends ViewPart {
 		Composite c = new Composite(parent, SWT.EMBEDDED);
 		Frame window = SWT_AWT.new_Frame(c);
 		LogViewer lv = new LogViewer();
-		window.add(lv.frame.getContentPane());
+		window.add(lv.mainPanel);
 	}
 	
 	@Override
