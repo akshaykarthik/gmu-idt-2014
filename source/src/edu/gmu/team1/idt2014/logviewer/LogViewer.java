@@ -43,6 +43,8 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+import java.awt.FlowLayout;
+import javax.swing.SpringLayout;
 
 public class LogViewer {
 	// final String IGNORE_LINE_PATTERN = "\\~";
@@ -77,6 +79,8 @@ public class LogViewer {
 	private JTree coverageTree;
 	private DefaultTreeModel coverageModel;
 	private DefaultMutableTreeNode defaultNode;
+	private SpringLayout sl_toolBar;
+	private JPanel toolBar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -109,7 +113,7 @@ public class LogViewer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		frame.add(mainPanel = new JPanel());
+		frame.getContentPane().add(mainPanel = new JPanel());
 		
 		createMidPanelTable();
 
@@ -133,6 +137,7 @@ public class LogViewer {
 		commentsAndCoverage.setPreferredSize(new Dimension(400, 500));
 		commentsAndCoverage.addTab("Comments", new JScrollPane(notesList));
 		commentsAndCoverage.addTab("Code Coverage", coveragePanel);
+		mainPanel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(500, 500));
@@ -140,12 +145,14 @@ public class LogViewer {
 				scrollPane, commentsAndCoverage);
 		// tableAndRight.setPreferredSize(new Dimension(900, 500));
 		tableAndRight.setResizeWeight(0.75);
-		mainPanel.add(tableAndRight);
+		mainPanel.add(tableAndRight, BorderLayout.CENTER);
 		frame.pack();
 
-		JToolBar toolBar = new JToolBar();
-		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		toolBar = new JPanel();
 		mainPanel.add(toolBar, BorderLayout.SOUTH);
+
+		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		toolBar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		toolBar.add(createToolBarLoadLog());
 		toolBar.add(createToolBarShowFilter());
@@ -278,6 +285,9 @@ public class LogViewer {
 
 	private JTextField createToolBarFilterText() {
 		JTextField ifil = new JTextField();
+		ifil.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		ifil.setPreferredSize(new Dimension(400, 20));
+		ifil.setMinimumSize(new Dimension(400, 20));
 		ifil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				runFilter.doClick();
