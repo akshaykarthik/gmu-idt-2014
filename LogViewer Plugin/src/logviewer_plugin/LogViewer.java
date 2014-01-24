@@ -1,4 +1,4 @@
-package edu.gmu.team1.idt2014.logviewer;
+package logviewer_plugin;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -62,9 +62,8 @@ public class LogViewer {
 	// final String OUTPUT_PATTERN = "(?:\\[[oO]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
 	// final String NOTES_PATTERN = "(?:\\[[nN]\\:)([a-zA-Z0-9_\\.]*)(?:\\])";
 	//
+	public JFrame frame;
 
-	private JFrame frame;
-	public JPanel mainPanel;
 	private JButton runFilter;
 	private JTextField filterText;
 
@@ -78,7 +77,7 @@ public class LogViewer {
 	private JTree coverageTree;
 	private DefaultTreeModel coverageModel;
 	private DefaultMutableTreeNode defaultNode;
-
+/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,7 +89,7 @@ public class LogViewer {
 				}
 			}
 		});
-	}
+	}*/
 
 	public LogViewer() {
 		initialize();
@@ -110,8 +109,6 @@ public class LogViewer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		frame.add(mainPanel = new JPanel());
-		
 		createMidPanelTable();
 
 		notesModel = new DefaultListModel<String>();
@@ -141,12 +138,12 @@ public class LogViewer {
 				scrollPane, commentsAndCoverage);
 		// tableAndRight.setPreferredSize(new Dimension(900, 500));
 		tableAndRight.setResizeWeight(0.75);
-		mainPanel.add(tableAndRight);
+		frame.getContentPane().add(tableAndRight);
 		frame.pack();
 
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		mainPanel.add(toolBar, BorderLayout.SOUTH);
+		frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
 
 		toolBar.add(createToolBarLoadLog());
 		toolBar.add(createToolBarShowFilter());
