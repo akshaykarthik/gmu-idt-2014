@@ -21,7 +21,6 @@ public class LOr implements Predicate {
 
 	@Override
 	public boolean evaluate(Object... inputs) {
-		// TODO Auto-generated method stub
 		return a.evaluate(inputs) || b.evaluate(inputs);
 	}
 
