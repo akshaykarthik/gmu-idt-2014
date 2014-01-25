@@ -19,18 +19,28 @@ com.idt.contest.college.winter2014.codetotest.MathUtility,convertCurrency,2.00,1
 com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels,bcd fgh jkl mnp qrs tvw xyz
 com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels,programming
 com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels,This is a test of the emergency broadcast system
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, aeiou
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, AEIOU
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, 1234567890
 com.idt.contest.college.winter2014.codetotest.StringUtility,formatBinaryByteString,0101
 com.idt.contest.college.winter2014.codetotest.StringUtility,formatBinaryByteString,000000000000000101
 com.idt.contest.college.winter2014.codetotest.StringUtility,formatBinaryByteString,1
+com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfFirstSpecificChar,12345,5
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfFirstSpecificChar,hello,l
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfFirstSpecificChar,hello,h
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfFirstSpecificChar,hello,z
+com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfLastSpecificChar,12345,5
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfLastSpecificChar,hello,l
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfLastSpecificChar,hello,h
 com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfLastSpecificChar,hello,z
 com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,00110011
 com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,00000000
 com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,01111111
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,1
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,1111
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0200
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0101 anything else 010101
 com.idt.contest.college.winter2014.codetotest.ByteUtility,byteToBinytaryString,57
 com.idt.contest.college.winter2014.codetotest.ByteUtility,byteToBinytaryString,0
 com.idt.contest.college.winter2014.codetotest.ByteUtility,byteToBinytaryString,-57
