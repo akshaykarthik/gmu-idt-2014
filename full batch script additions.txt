@@ -31,6 +31,10 @@ Time Utility
 com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,0.0
 com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,A:15:25
 
+com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/AB/02
+
+
+
 
 
 

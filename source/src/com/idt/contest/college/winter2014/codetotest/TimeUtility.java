@@ -98,6 +98,7 @@ public class TimeUtility {
 		.test(new Equals("2013/12/16"),new Equals(1387152000.0))
 		.test(new Equals("1970/01/01"),new Equals(0.0))
 		.test(new Equals("1970/02/02"),new Equals(2764800.0))
+		.test(new Equals("1970/AB/02"), new Equals(-1.0))
 		.build();
 		
 		try {

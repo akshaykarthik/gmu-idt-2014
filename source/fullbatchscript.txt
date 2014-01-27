@@ -49,6 +49,7 @@ com.idt.contest.college.winter2014.codetotest.ByteUtility,shiftByte,5,1,true
 com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,2013/12/16
 com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/01/01
 com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/02/02
+com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/AB/02
 com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,5:15:25
 com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,0:00:01.1
 com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,23:59:59.999
