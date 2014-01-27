@@ -1,0 +1,40 @@
+TODO:   Find out how (if possible) to input null and an empty string to method though batch script	
+
+Added to fullbatchscript.txt:
+
+MathUtility
+com.idt.contest.college.winter2014.codetotest.MathUtility,convertCurrency,0.00,0.00
+com.idt.contest.college.winter2014.codetotest.MathUtility,convertCurrency,0.00,1.50
+com.idt.contest.college.winter2014.codetotest.MathUtility,convertCurrency,2.00,1.00
+
+MazeGenerator
+com.idt.contest.college.winter2014.codetotest.MazeGenerator,generateMaze,3,3,2,2,1
+com.idt.contest.college.winter2014.codetotest.MazeGenerator,generateMaze,3,1,2,2,1
+com.idt.contest.college.winter2014.codetotest.MazeGenerator,generateMaze,1,3,2,2,1
+
+StringUtility (Note: Figure out how to pass a null and empty String into method through batchscript)
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, aeiou
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, AEIOU
+com.idt.contest.college.winter2014.codetotest.StringUtility,countVowels, 1234567890
+
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,1
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,1111
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0200
+com.idt.contest.college.winter2014.codetotest.StringUtility,binaryByteTwosCompliment,0101 anything else 010101
+
+com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfFirstSpecificChar,12345,5
+
+com.idt.contest.college.winter2014.codetotest.StringUtility,indexOfLastSpecificChar,12345,5
+
+Time Utility
+com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,0.0
+com.idt.contest.college.winter2014.codetotest.TimeUtility,HMSStringTimeToPosix,A:15:25
+
+
+
+
+
+
+
+

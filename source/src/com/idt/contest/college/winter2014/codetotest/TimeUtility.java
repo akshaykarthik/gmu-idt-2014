@@ -38,6 +38,7 @@ public class TimeUtility {
 		.branches(3)
 		.testNote("null case", new Equals(null), new Equals(0.0))
 		.testNote("zero case", new Equals("0.0"), new Equals(0.0))
+		.testNote("Number format exception", new Equals("A:15:25"), new Equals(FrameworkConstants.INVALID_VALUE))
 		.test(new Equals("5:15:25"),new Equals(18925000.0))
 		.test(new Equals("0:00:01.1"),new EstimateEquals(1100,0))
 		.test(new Equals("23:59:59.999"),new EstimateEquals(86399999,2))
@@ -91,14 +92,9 @@ public class TimeUtility {
 		int    year, month, day;
 		int    total_days, num_leap_year;
 		double seconds = 0;
-		/*
-		 * com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,2013/12/16
-com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/01/01
-com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/02/02
-		 */
 		
 		GMUT.addTest()
-		.branches(2)
+		.branches(1)
 		.test(new Equals("2013/12/16"),new Equals(1387152000.0))
 		.test(new Equals("1970/01/01"),new Equals(0.0))
 		.test(new Equals("1970/02/02"),new Equals(2764800.0))
@@ -159,13 +155,13 @@ com.idt.contest.college.winter2014.codetotest.TimeUtility,dateToPosix,1970/02/02
 			num_leap_year = (year - 1969)/4;
 			total_days = total_days - 1 + (year -1970)*365 + num_leap_year;
 			seconds = ((double)(total_days)) * posixDay;
-			GMUT.test(seconds, 2, input_date);
+//			GMUT.test(seconds, 2, input_date);
 		} catch (NumberFormatException e) {
 			// instead of throwing an error, this method will return -1 for any non valid date
 			seconds = -1.0;
-			GMUT.test(-1, 2, input_date);
 		}
-
+		
+		GMUT.test(seconds, 1, input_date);
 		return seconds;
 	}
 
