@@ -15,8 +15,11 @@ reference is included below.
 
 ## Running The system
 gmu_main.jar is the idt application.  
+
 `java -jar gmu_main.jar batchscript.txt` runs the testing application with the
 batchscript.
+
+`java -jar gmu_main.jar` runs the idt application in menu  mode
 
 gmu_logviewer.jar is the log viewer application.
 

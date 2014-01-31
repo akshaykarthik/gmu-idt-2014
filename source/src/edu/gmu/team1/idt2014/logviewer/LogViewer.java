@@ -83,7 +83,6 @@ public class LogViewer {
 	private JTree coverageTree;
 	private DefaultTreeModel coverageModel;
 	private DefaultMutableTreeNode defaultNode;
-	private SpringLayout sl_toolBar;
 	private JPanel toolBar;
 
 	public static void main(String[] args) {
