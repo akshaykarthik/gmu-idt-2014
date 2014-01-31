@@ -3,6 +3,35 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Used to track the state of an object.
+ * 
+ *<br>Example:<br>
+ *<pre>
+ * {@code
+ * Race condition can occur in these lines of code
+ * int x = 0;
+ * public int getX(){return X;}
+ * public void setX(int y){X=y;}
+ *</pre>
+ *<pre>
+ * {@code
+ * Testing Race Condition
+ * int x = 0
+ * ThreadTester.getInstance().createStateTester("x");
+ * 
+ * public int getX(){
+ * int threadState = ThreadTester.getInstance().getState("x");
+ * ThreadTester.getInstance().compareWithGlobalState("x",threadState,"");
+ * return X;
+ * }
+ * 
+ * public void setX(int y){
+ * int threadState = ThreadTester.getInstance().getState("x");
+ * X=y;
+ * ThreadTester.getInstance().incrementState("x");
+ * ThreadTester.getInstance().compareWithGlobalState("x",threadState,"");
+ * }
+ * </pre>
+ *  
  * */
 public class ThreadTester {
 	private ConcurrentHashMap<String, Integer> states;
@@ -79,7 +108,7 @@ public class ThreadTester {
 	}
 
 	/**
-	 * Compares the two states.
+	 * Compares the two states and then logs.
 	 * 
 	 * @param state- a state
 	 * @param state2- a state
