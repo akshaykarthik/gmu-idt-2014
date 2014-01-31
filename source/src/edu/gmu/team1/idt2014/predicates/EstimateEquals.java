@@ -25,6 +25,5 @@ public class EstimateEquals implements Predicate {
 		double factor = Math.pow(10, rounding);
 		double result = Math.round(input * factor) / factor;
 		return result == initial;
-
 	}
 }

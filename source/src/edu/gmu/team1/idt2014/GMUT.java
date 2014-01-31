@@ -9,9 +9,10 @@ import edu.gmu.team1.idt2014.reportwriters.FileReportWriter;
 /**
  * GMUT is the primary access point to the testing API. <br>
  * It is a thread-safe singleton class that is instantiated when the api is
- * first called. <br>
- * Key access to GMUT is through two methods. <code>addTest()</code> and
- * <code>test()</code> <br><br>
+ * first called. <br><br>
+ * Key access to GMUT is through two methods. 
+ * <UL><li>{@link GMUT#addTest()}</li>
+ * <li>{@link GMUT#test(Object, int, Object...)}</li></ul>
  */
 public class GMUT extends Thread {
 	// Private Constructor Prevents Initialization
@@ -29,7 +30,7 @@ public class GMUT extends Thread {
 
 	/**
 	 * Returns the actual instance of GMUT, should be unnecessary as methods are static.
-	 * @return GMUT Instance
+	 * @return {@link GMUT} Instance
 	 */
 	public static GMUT getInstance() {
 		return GMUTHolder.INSTANCE;
@@ -65,14 +66,14 @@ public class GMUT extends Thread {
 	
 	/**
 	 * Enables or disables the testing system.
-	 * @param enabled
+	 * @param enabled Set if the testing system is enabled or not.
 	 */
 	public static void setEnabled(boolean enabled) {
 		GMUT.enabled = enabled;
 	}
 
 	/**
-	 * This method returns an ITestBuilder that creates a test structure.
+	 * This method returns an ITestBuilder which creates a test structure.
 	 * @see edu.gmu.team1.idt2014.ITestBuilder
 	 * @return ITestBuilder
 	 */
@@ -93,9 +94,9 @@ public class GMUT extends Thread {
 	 * This method performs the actual testing. It evaluates a given method for its input predicate.
 	 * Then, if the input predicate returns true, it evaluates the output predicate for testing whether
 	 * or not the test passed or failed.
-	 * @param output
-	 * @param branch
-	 * @param inputs
+	 * @param output The output of the method tested.
+	 * @param branch The branch of the return statement
+	 * @param inputs The sequence of inputs passed into the function.
 	 */
 	public static void test(Object output, int branch, Object... inputs) {
 		if(GMUT.enabled){
@@ -110,17 +111,17 @@ public class GMUT extends Thread {
 				// aquire the tests strucure
 				TestStructure tests = getInstance()._test.get(testName); 
 				 // for individual test in that test structure
-				for (Predicate p : tests.testMap.keySet()) {
+				for (Predicate p : tests.getTestMap().keySet()) {
 					// evaluate the input
 					if (p.evaluate(inputs)) {
 						
 						// when the input is valid, evaluate the output predicate.
-						boolean passed = tests.testMap.get(p).evaluate(output);
+						boolean passed = tests.getTestMap().get(p).evaluate(output);
 //						System.out.println(tests.name + " " + branch +  " "	+ (passed ? "pass" : "fail"));
 						
 						// log the test case;
 						getReportWriter().logTest(tclass, tmethod, passed, branch,
-								tests.branches, output, inputs, tests.notesMap.get(p));
+								tests.getBranches(), output, inputs, tests.getNotesMap().get(p));
 					}
 				}
 			}
@@ -128,10 +129,10 @@ public class GMUT extends Thread {
 	}
 
 	/**
-	 * This method builds and actual testcase for a given class+method and testStructure.
+	 * This method builds and actual test-case for a given class+method and testStructure.
 	 * Ideally this is not accessed as TestBuilder builds these test for you.
-	 * @param tName
-	 * @param tStructure
+	 * @param tName Test name.
+	 * @param tStructure Test structure.
 	 */
 	public static void buildTest(String tName, TestStructure tStructure) {
 		getInstance()._test.put(tName, tStructure);
@@ -139,7 +140,7 @@ public class GMUT extends Thread {
 
 	/**
 	 * This returns the current IReportWriter that GMUT is using.
-	 * @return
+	 * @return the report writer that GMUT is currently using.
 	 */
 	public static AbstractReportWriter getReportWriter() {
 		return getInstance()._report;
@@ -147,7 +148,7 @@ public class GMUT extends Thread {
 
 	/**
 	 * This sets the current IReportWriter that GMUT is using.
-	 * @param _report
+	 * @param _report The new reportwriter that GMUT will use.
 	 */
 	public static void setReportWriter(AbstractReportWriter _report) {
 		getInstance()._report = _report;

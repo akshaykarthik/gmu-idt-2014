@@ -6,7 +6,8 @@ import edu.gmu.team1.idt2014.TestUtils;
 
 /**
  * This Predicate evaluates if Arrays.DeepEquals evaluates true for a given
- * array.
+ * array. This is different frfom multiequals as it evaluates two arrays instead of
+ * two sets of objects.
  */
 public class ArrayEquals implements Predicate {
 

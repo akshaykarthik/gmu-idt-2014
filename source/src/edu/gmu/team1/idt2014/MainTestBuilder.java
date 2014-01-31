@@ -38,7 +38,7 @@ public class MainTestBuilder implements ITestBuilder {
 	 */
 	@Override
 	public ITestBuilder branches(int br){
-		tStructure.branches = br;
+		tStructure.setBranches(br);
 		return this;
 	}
 
@@ -47,7 +47,7 @@ public class MainTestBuilder implements ITestBuilder {
 	 */
 	@Override
 	public ITestBuilder test(Predicate b, Predicate c) {
-		tStructure.testMap.put(b,  c);
+		tStructure.getTestMap().put(b,  c);
 		return this;
 	}
 	
@@ -56,7 +56,7 @@ public class MainTestBuilder implements ITestBuilder {
 	 */
 	@Override
 	public ITestBuilder testNote(String note, Predicate b, Predicate c) {
-		tStructure.notesMap.put(b, note);
+		tStructure.getNotesMap().put(b, note);
 		test(b, c);
 		return this;
 	}

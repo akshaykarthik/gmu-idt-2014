@@ -13,7 +13,16 @@ import edu.gmu.team1.idt2014.predicates.Predicate;
  * 
  */
 public class TestStructure {
-	public String name;
+	private String name;
+	private int branches = 1;
+	private HashMap<Predicate, Predicate> testMap;
+	private HashMap<Predicate, String> notesMap;
+	public TestStructure(String tName){
+		this.name = tName;
+		this.testMap = new HashMap<Predicate, Predicate>();
+		this.notesMap = new HashMap<Predicate, String>();
+	}
+
 	/**
 	 * @return the name
 	 */
@@ -28,8 +37,6 @@ public class TestStructure {
 		this.name = name;
 	}
 
-
-	public int branches = 1;
 	/**
 	 * @return the branches
 	 */
@@ -44,8 +51,6 @@ public class TestStructure {
 		this.branches = branches;
 	}
 
-
-	public HashMap<Predicate, Predicate> testMap;
 	/**
 	 * @return the testMap
 	 */
@@ -61,9 +66,6 @@ public class TestStructure {
 	}
 
 
-	public HashMap<Predicate, String> notesMap;
-	
-	
 	/**
 	 * @return the notesMap
 	 */
@@ -76,12 +78,5 @@ public class TestStructure {
 	 */
 	public void setNotesMap(HashMap<Predicate, String> notesMap) {
 		this.notesMap = notesMap;
-	}
-
-	
-	public TestStructure(String tName){
-		this.name = tName;
-		this.testMap = new HashMap<Predicate, Predicate>();
-		this.notesMap = new HashMap<Predicate, String>();
 	}
 }

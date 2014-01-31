@@ -13,10 +13,11 @@ import edu.gmu.team1.idt2014.predicates.Predicate;
  * <br>
  * <code>
  * TestBuilder<br>
- * .test(...)<br>
- * .test(...)<br>
- * .test(...)<br>
- * .build();<br>
+ * &ensp;&ensp;.branches()<br>
+ * &ensp;&ensp;.test(...)<br>
+ * &ensp;&ensp;.test(...)<br>
+ * &ensp;&ensp;.test(...)<br>
+ * &ensp;&ensp;.build();<br>
  * </code>
  * 
  * @see MainTestBuilder
@@ -30,7 +31,7 @@ public interface ITestBuilder {
 	 * only really be called once.
 	 * 
 	 * @param branches
-	 * @return
+	 * @return This TestBuilder to allow method chaining.
 	 */
 	public ITestBuilder branches(int br);
 
@@ -46,7 +47,7 @@ public interface ITestBuilder {
 	 * 
 	 * @param b
 	 * @param c
-	 * @return
+	 * @return This TestBuilder to allow method chaining.
 	 */
 	public ITestBuilder test(Predicate b, Predicate c);
 
@@ -57,7 +58,7 @@ public interface ITestBuilder {
 	 * @param note
 	 * @param b
 	 * @param c
-	 * @return
+	 * @return This TestBuilder to allow method chaining.
 	 */
 	public ITestBuilder testNote(String note, Predicate b, Predicate c);
 
@@ -68,6 +69,10 @@ public interface ITestBuilder {
 	 */
 	public void build();
 
+	/**
+	 * The name of the current class/method being defined.
+	 * @return the name.
+	 */
 	public String getName();
 
 }

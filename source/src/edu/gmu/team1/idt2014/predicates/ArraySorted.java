@@ -6,9 +6,13 @@ import edu.gmu.team1.idt2014.TestUtils;
 
 /**
  * This predicate returns whether or not a given array is sorted. It relies on
- * Arrays.sort.
+ * Arrays.sort. This is an example of a unary predicate, wherein only the object
+ * evaluated matters.
+ * 
+ * As a result, this can be used as a singleton.
  */
 public class ArraySorted implements Predicate {
+	public static ArraySorted INSTANCE = new ArraySorted();
 	@Override
 	public boolean evaluate(Object... inputs) {
 		Object o = inputs[0];

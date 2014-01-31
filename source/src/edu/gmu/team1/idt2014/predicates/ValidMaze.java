@@ -21,7 +21,6 @@ public class ValidMaze implements Predicate {
 	public static final int ERROR_CELL = 1 << 6;
 
 	public boolean evaluate(Object... inputs) {
-//		System.out.println("valid maze running");
 		try {
 			String strMaze = (String) inputs[0];
 			String[] mazeArray = strMaze.split(System
@@ -159,49 +158,49 @@ public class ValidMaze implements Predicate {
 		if (top) {
 			if (bot) {
 				if (left && right)
-					ret = "╋";
+					ret = "â•‹";
 				else if (left)
-					ret = "┫";
+					ret = "â”«";
 				else if (right)
-					ret = "┣";
+					ret = "â”£";
 				else
-					ret = "┃";
+					ret = "â”ƒ";
 			} else {
 				if (left && right)
-					ret = "┻";
+					ret = "â”»";
 				else if (left)
-					ret = "┛";
+					ret = "â”›";
 				else if (right)
-					ret = "┗";
+					ret = "â”—";
 				else
-					ret = "╹";
+					ret = "â•¹";
 			}
 		} else {
 			if (bot) {
 				if (left && right)
-					ret = "┰";
+					ret = "â”°";
 				else if (left)
-					ret = "┓";
+					ret = "â”“";
 				else if (right)
-					ret = "┏";
+					ret = "â”�";
 				else
-					ret = "╻";
+					ret = "â•»";
 			} else {
 				if (left && right)
-					ret = "━";
+					ret = "â”�";
 				else if (left)
-					ret = "╸";
+					ret = "â•¸";
 				else if (right)
-					ret = "╺";
+					ret = "â•º";
 				else
-					ret = "·";
+					ret = "Â·";
 			}
 		}
 
 		if ((q & STARTING_CELL) == STARTING_CELL)
-			ret = "╬";
+			ret = "â•¬";
 		if ((q & ENDING_CELL) == ENDING_CELL)
-			ret = "╬";
+			ret = "â•¬";
 
 		return ret + " ";
 	}

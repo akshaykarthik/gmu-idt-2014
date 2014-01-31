@@ -16,8 +16,11 @@ public class Equals implements Predicate {
 	public boolean evaluate(Object... inputs) {
 		if (inputs == null && initial == null)
 			return true;
-		return (initial != null) ? initial.equals(inputs[0])
-				: inputs[0] == null;
+		
+		if (inputs == null || initial == null)
+			return false;
+		
+		return initial.equals(inputs[0]);
 	}
 
 }

@@ -71,7 +71,7 @@ public class TimeUtility {
 				String dec = "0." + HMS.substring(su.indexOfFirstSpecificChar(HMS, '.')+1);
 				fraction   = Float.parseFloat(dec);
 			}
-			//Sriram-TODO: is this right?
+			
 			GMUT.test((((hours * 3600.0) + (minutes * 60.0) + seconds + fraction) * 1000), 2, HMS);
 			// convert to posix time, which is total milliseconds of this time
 			return (((hours * 3600.0) + (minutes * 60.0) + seconds + fraction) * 1000);
