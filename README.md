@@ -3,7 +3,9 @@ gmu_winter2014 : GMU Team 1
 
 ## Contact Details
 Akshay Karthik (akshay.karthik@gmail.com)
+
 Brannon Crymes (bwinter2@gmu.edu)
+
 Sriram Rajaraman (s.rajaraman89@gmail.com)
 
 ## Readme
